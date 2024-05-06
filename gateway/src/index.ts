@@ -1,21 +1,35 @@
 import cookieParser from "cookie-parser";
-import express, { Application, Request, Response, json, urlencoded } from "express";
+import express, {
+  Application,
+  Request,
+  Response,
+  json,
+  urlencoded,
+} from "express";
 import morgan from "morgan";
 import cors from "cors";
 import services from "./util/services";
 import proxy from "express-http-proxy";
-
+import { config } from "dotenv";
+config();
 const app: Application = express();
-const PORT:number=Number(process.env.PORT)||5555
+const PORT: number = Number(process.env.PORT) || 5555;
+
+const allowedOrigins = [String(process.env.CLIENT_URL)];
+const corsOptions = {
+  origin: allowedOrigins,
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true,
+};
 //middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
 app.use(morgan("tiny"));
-app.get('/',(req:Request,res:Response)=>{
-    res.status(200).json({message:`Hello welocome to ChatMe gateway`})
-})
+app.get("/", (req: Request, res: Response) => {
+  res.status(200).json({ message: `Hello welocome to ChatMe gateway` });
+});
 const routes = [
   {
     context: "/api/auth",
@@ -39,19 +53,17 @@ const routes = [
   },
 ];
 
-
 //proxy setup
-routes.forEach((route)=>{
-    if(typeof route.target==="string"){
-        app.use(route.context,proxy(route.target))
-    }else{
-        console.warn(`Proxy target for ${route.context} is undefined.`);
-    }
-})
-
+routes.forEach((route) => {
+  if (typeof route.target === "string") {
+    app.use(route.context, proxy(route.target));
+  } else {
+    console.warn(`Proxy target for ${route.context} is undefined.`);
+  }
+});
 
 app.listen(PORT, () => {
-    console.log(`
+  console.log(`
   ______  __    __       ___   .___________.   .___  ___.  _______ 
  /      ||  |  |  |     /   \\  |           |   |   \\/   | |   ____|
 |  ,----'|  |__|  |    /  ^  \\ \`---|  |----\`   |  \\  /  | |  |__   
@@ -61,8 +73,7 @@ app.listen(PORT, () => {
                                                                     
 `);
 
-  
-    console.log(
-      `[ SERVICE :: API GATEWAY ] API Gateway is listening on http://localhost:${PORT}`
-    );
-  });
+  console.log(
+    `[ SERVICE :: API GATEWAY ] API Gateway is listening on http://localhost:${PORT}`
+  );
+});
