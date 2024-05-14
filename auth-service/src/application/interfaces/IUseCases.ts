@@ -1,12 +1,15 @@
-import {IRegisterUserUseCase,ILoginUserUseCase} from "@/domain/useCases"; 
+import {IRegisterUserUseCase,ILoginUserUseCase, IFindUserByIdUseCase, IVerifyOtpUseCase, IUpdateUserPasswordUseCase, IAddRegisterDetailsUseCase} from "@/domain/useCases"; 
 import { IFindUserByEmailUseCase } from "@/domain/useCases/IFindUserByEmailUseCase";
 import { IDependencies } from "./IDependencies";
-import { ICreateOTP } from "@/domain/useCases/ICreateOTP";
+
 
 
 export interface IUseCases {
     registerUserUseCase: (dependencies: IDependencies) => IRegisterUserUseCase;
-    // loginUserUseCase: (dependencies: any) => ILoginUserUseCase;
+    loginUserUseCase: (dependencies: any) => ILoginUserUseCase;
     findUserByEmailUseCase: (dependencies: IDependencies) => IFindUserByEmailUseCase;
-    createOTP:(dependencies:IDependencies)=>ICreateOTP;
+    findUserByIdUseCase: (dependencies: any) => IFindUserByIdUseCase;
+    verifyOtpUseCase:(dependencies:any)=> IVerifyOtpUseCase;
+    updateUserPasswordUseCase: (dependencies: any) => IUpdateUserPasswordUseCase;
+    addRegisterDetailsUseCase:(dependencies:IDependencies)=> IAddRegisterDetailsUseCase;
 }

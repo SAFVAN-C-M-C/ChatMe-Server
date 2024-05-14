@@ -4,7 +4,7 @@ enum Role{
     admin="admin",
     user="user"
 }
-enum AccountType{
+export enum AccountType{
     personal="personal",
     company="company",
     recruiter="recruiter"

@@ -1,77 +1,39 @@
 import { Request, Response, NextFunction } from "express";
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { registerValidation } from "@/_lib/validation";
+import { registerDetailsValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
 import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { ErrorResponse } from "@/_lib/common/error";
 import { LoginCredential } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
 import { userCreatedOtpProducer } from "@/infrastructure/kafka/producer";
+import { RegisterDetails } from "@/domain/entities/RegisterDetails";
 
-export const registerController = (dependencies: IDependencies) => {
+export const addRegisterDetailsController = (dependencies: IDependencies) => {
   const {
-    useCases: { registerUserUseCase },
+    useCases: { addRegisterDetailsUseCase },
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    const registerCredentials: LoginCredential = req.body;
+    const registerCredentials: RegisterDetails = req.body;
     console.log(
       "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
       registerCredentials
     );
 
-    //To check whether the user email is taken or not
     if (registerCredentials) {
       try {
-        const userExist: any = await findUserByEmailUseCase(
-          dependencies
-        ).execute(registerCredentials.email);
-        console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist);
-        if (userExist) {
-          return next(
-            ErrorResponse.conflict(
-              "Email is already resgitered, try another email"
-            )
-          );
-        }
-      } catch (error: any) {
-        console.log(error, "Something went Wrong");
-        next(error);
-      }
-    }
-
-    // sent otp to user using nodemailer
-    if (registerCredentials) {
-      try {
-        
-
-  
-        await userCreatedOtpProducer(registerCredentials.email, "notification-service-topic");
-        return res.status(200).json({
-          success: true,
-          message: "otp sent successfully",
-        });
-      } catch (error: any) {
-        console.log(error, "Something Went Wrong in OTP section");
-        return res.json({
-          success: false,
-          message: "Something went wrong in otp",
-        });
-      }
-    }
-
-    if (registerCredentials) {
-      try {
-        const { error, value } = registerValidation.validate(req.body);
+        const { error, value } = registerDetailsValidation.validate(registerCredentials);
         if (error) {
           throw new Error(error.message);
         }
-        value.password = await hashPassword(value.password);
-
-        const userData = await registerUserUseCase(dependencies).execute(
-          value.email,
-          value.password
-        );
+        let token=req.cookies.access_token
+        let data={
+          userId:token?._id,
+          email:token?.email,
+          ...registerCredentials
+        }
+        const userData = await addRegisterDetailsUseCase(dependencies).execute(data);
 
         if (!userData) {
           return res.json({
@@ -87,7 +49,7 @@ export const registerController = (dependencies: IDependencies) => {
           email: userData?.email!,
           role: userData?.role!,
           type: userData?.accountType!,
-          loggined: false,
+          loggined: true,
         });
 
         const refreshToken = generateRefreshToken({
@@ -95,7 +57,7 @@ export const registerController = (dependencies: IDependencies) => {
           email: userData?.email!,
           role: userData?.role!,
           type: userData?.accountType!,
-          loggined: false,
+          loggined: true,
         });
 
         res.cookie("access_token", accessToken, {

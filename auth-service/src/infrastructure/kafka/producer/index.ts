@@ -1,6 +1,7 @@
-import userCreatedOtpProducer from "./userCreatedOtpProducer";
-// import requestForgotPassword from "./requestForgotPassword"
+import userCreatedOtpProducer from "./requestOTP";
+import requestForgotPassword from "./requestForgotPassword"
 
 export {
     userCreatedOtpProducer,
+    requestForgotPassword
 }
