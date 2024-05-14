@@ -1,5 +1,5 @@
-import server from "./presentation/server"
-import {runConsumer,stopConsumer} from "@/__boot/consumer"
+import server from "./presentation"
+import {runConsumer,stopConsumer} from "@/_boot/consumer"
 
 
 (async () => {
