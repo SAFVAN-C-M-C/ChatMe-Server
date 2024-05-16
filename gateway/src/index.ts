@@ -1,4 +1,3 @@
-import cookieParser from "cookie-parser";
 import express, {
   Application,
   Request,
@@ -6,25 +5,24 @@ import express, {
   json,
   urlencoded,
 } from "express";
+import cookieParser from "cookie-parser";
 import morgan from "morgan";
 import cors from "cors";
-import services from "./util/services";
 import proxy from "express-http-proxy";
+import { corsOptions, routes } from "./util";
 import { config } from "dotenv";
 config();
+
+
+//application
 const app: Application = express();
 const PORT: number = Number(process.env.PORT) || 5555;
 
-const allowedOrigins = [String(process.env.CLIENT_URL)];
-console.log(allowedOrigins);
 
-const corsOptions = {
-  origin: allowedOrigins,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: true,
-};
+
+
 //middlewares
-app.use(cors());
+app.use(cors(corsOptions));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
@@ -32,28 +30,7 @@ app.use(morgan("tiny"));
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: `Hello welocome to ChatMe gateway` });
 });
-const routes = [
-  {
-    context: "/api/auth",
-    target: services.auth,
-    changeOrigin: true,
-  },
-  {
-    context: "/api/profile",
-    target: services.profile,
-    changeOrigin: true,
-  },
-  {
-    context: "/api/notification",
-    target: services.notification,
-    changeOrigin: true,
-  },
-  {
-    context: "/api/admin",
-    target: services.admin,
-    changeOrigin: true,
-  },
-];
+
 
 //proxy setup
 routes.forEach((route) => {
