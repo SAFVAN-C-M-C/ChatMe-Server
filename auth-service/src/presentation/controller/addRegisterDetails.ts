@@ -24,10 +24,10 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
     if (registerCredentials) {
       try {
         const { error, value } = registerDetailsValidation.validate(registerCredentials);
-        if (error) {
-          throw new Error(error.message);
-        }
-        let token=req.cookies.access_token
+        // if (error) {
+        //   throw new Error(error.message);
+        // }
+        let token=req.user
         let data={
           userId:token?._id,
           email:token?.email,

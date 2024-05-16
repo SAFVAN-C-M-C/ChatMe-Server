@@ -16,13 +16,15 @@ const app: Application = express();
 const PORT: number = Number(process.env.PORT) || 5555;
 
 const allowedOrigins = [String(process.env.CLIENT_URL)];
+console.log(allowedOrigins);
+
 const corsOptions = {
   origin: allowedOrigins,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: true,
 };
 //middlewares
-app.use(cors(corsOptions));
+app.use(cors());
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());

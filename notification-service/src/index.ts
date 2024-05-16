@@ -1,11 +1,12 @@
-import server from "./presentation"
+import server from "./presentation/server"
 import {runConsumer,stopConsumer} from "@/_boot/consumer"
 
 
 (async () => {
     try {
+      
+      
       server;
-  
       await runConsumer()
         .then(() => console.log("kafka consumer is runnnig"))
         .catch((error:any) => {
@@ -15,7 +16,7 @@ import {runConsumer,stopConsumer} from "@/_boot/consumer"
         
     } catch (error: any) {
       console.error(`Error during initialization: ${error.message}`);
-      process.exit(1);
+      // process.exit();
     } finally {
       process.on("SIGINT", async () => {
         console.log("\n\nServer is shutting down....");

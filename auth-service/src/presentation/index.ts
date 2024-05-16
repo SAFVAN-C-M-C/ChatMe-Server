@@ -4,6 +4,7 @@ import cookieParser from "cookie-parser"
 import { dependencies } from "@/_boot/dependencies";
 import { routes } from "@/infrastructure/routes";
 import {errorHandler} from "@/_lib/common/error";
+import { jwtMiddleware } from "@/_lib/common/middleware/jwtMiddleware";
 dotenv.config();
 
 

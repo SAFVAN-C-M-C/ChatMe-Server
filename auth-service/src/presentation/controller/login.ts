@@ -12,6 +12,8 @@ export const loginController = (dependencies: IDependencies) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { value, error } = registerValidation.validate(req.body);
+      console.log(error);
+      
       if (error) {
         throw new Error(error.message);
       }
@@ -22,6 +24,7 @@ export const loginController = (dependencies: IDependencies) => {
       if (!result) {
         return next(ErrorResponse.unauthorized("We couldn't find an account with that email address"));
     }
+console.log("heeee");
 
     const match = await comparePassword(value.password, result.password!);
 
@@ -34,7 +37,9 @@ export const loginController = (dependencies: IDependencies) => {
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:true
+        loggined:true,
+        isDetailsComplete:result?.isDetailsComplete,
+        isEmailVerified:result?.isEmailVerified
     });
 
     const refreshToken = generateRefreshToken({
@@ -42,7 +47,9 @@ export const loginController = (dependencies: IDependencies) => {
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:true
+        loggined:true,
+        isDetailsComplete:result?.isDetailsComplete,
+        isEmailVerified:result?.isEmailVerified
     });
 
     res.cookie("access_token", accessToken, {

@@ -7,6 +7,8 @@ export const verifyOtpUseCase = (dependencies: IDependencies) => {
   return{
     execute: async (email: string, otp: string) => {
     try {
+      console.log("hii");
+      
       return await verifyOtp(email,otp);
     } catch (error) {
       console.log("<< Something went wrong in verifyOtp useCase >>");

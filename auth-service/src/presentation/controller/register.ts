@@ -4,7 +4,7 @@ import { registerValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
 import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { ErrorResponse } from "@/_lib/common/error";
-import { LoginCredential } from "@/domain/entities";
+import { LoginCredential, UserEntity } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
 import { userCreatedOtpProducer } from "@/infrastructure/kafka/producer";
 
@@ -14,6 +14,9 @@ export const registerController = (dependencies: IDependencies) => {
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
+    console.log("hello");
+    
+    let userData:UserEntity|null=null
     const registerCredentials: LoginCredential = req.body;
     console.log(
       "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
@@ -39,27 +42,6 @@ export const registerController = (dependencies: IDependencies) => {
         next(error);
       }
     }
-
-    // sent otp to user using nodemailer
-    if (registerCredentials) {
-      try {
-        
-
-  
-        await userCreatedOtpProducer(registerCredentials.email, "notification-service-topic");
-        return res.status(200).json({
-          success: true,
-          message: "otp sent successfully",
-        });
-      } catch (error: any) {
-        console.log(error, "Something Went Wrong in OTP section");
-        return res.json({
-          success: false,
-          message: "Something went wrong in otp",
-        });
-      }
-    }
-
     if (registerCredentials) {
       try {
         const { error, value } = registerValidation.validate(req.body);
@@ -68,7 +50,7 @@ export const registerController = (dependencies: IDependencies) => {
         }
         value.password = await hashPassword(value.password);
 
-        const userData = await registerUserUseCase(dependencies).execute(
+        userData = await registerUserUseCase(dependencies).execute(
           value.email,
           value.password
         );
@@ -79,15 +61,15 @@ export const registerController = (dependencies: IDependencies) => {
             message: "Something Went wrong try again in create user",
           });
         }
-        //produce-user-creation-message
-        // await userCreatedProducer(userData,'USER_SERVICE_TOPIC');
-
+        await userCreatedOtpProducer(registerCredentials.email, "notification-service-topic");
         const accessToken = generateAccessToken({
           _id: String(userData?._id),
           email: userData?.email!,
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: false,
+          isDetailsComplete:userData?.isDetailsComplete,
+          isEmailVerified:userData?.isEmailVerified
         });
 
         const refreshToken = generateRefreshToken({
@@ -96,8 +78,9 @@ export const registerController = (dependencies: IDependencies) => {
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: false,
+          isDetailsComplete:userData?.isDetailsComplete,
+          isEmailVerified:userData?.isEmailVerified
         });
-
         res.cookie("access_token", accessToken, {
           httpOnly: true,
         });
@@ -105,15 +88,14 @@ export const registerController = (dependencies: IDependencies) => {
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
         });
-
-        res.status(200).json({
+        return res.status(200).json({
           success: true,
-          data: userData,
-          message: "User created!",
+          message: "user creeated otp sent successfully",
+          data:userData
         });
       } catch (error: any) {
         console.log(error, "<<Something went wrong in user signup>>");
       }
-    }
+    }    
   };
 };

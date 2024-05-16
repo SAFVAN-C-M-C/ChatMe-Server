@@ -6,6 +6,8 @@ export const generateAccessToken = (payload: {
     role: string,
     type:string,
     loggined:boolean
+    isEmailVerified?:boolean;
+    isDetailsComplete?:boolean;
 }) => {
     const secret = process.env.ACCESS_TOKEN_SECRET;
     if (!secret) {

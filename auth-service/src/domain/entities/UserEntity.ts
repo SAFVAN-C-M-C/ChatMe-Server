@@ -27,4 +27,6 @@ export interface UserEntity{
     accountType?:AccountType;
     createdAt?:Date;
     updatedAt?:Date
+    isGoogle?:boolean;
+    isDetailsComplete:boolean
 }

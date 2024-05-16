@@ -21,7 +21,7 @@ app.get('/hello', (req: Request, res: Response) => {
 app.use('/', notificationRoutes(dependencies));
 
 app.listen(PORT, () => {
-    console.log(`connected to auth service at ${PORT}`);
+    console.log(`connected to notification service at ${PORT}`);
   });
 
 export default app;

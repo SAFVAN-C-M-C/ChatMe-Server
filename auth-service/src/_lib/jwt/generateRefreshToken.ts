@@ -7,6 +7,8 @@ export const generateRefreshToken = (
         role: string,
         type:string,
         loggined:boolean
+        isEmailVerified?:boolean;
+        isDetailsComplete?:boolean;
     }
 ) => {
     const secret = process.env.REFRESH_TOKEN_SECRET;

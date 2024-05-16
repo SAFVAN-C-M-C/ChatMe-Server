@@ -2,7 +2,7 @@ import crypto from "crypto";
 
 export const generateVerificationOTP = () => {
     const length = 6;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    const chars = '0123456789';
     const charsLength = chars.length;
     
     let otp = '';

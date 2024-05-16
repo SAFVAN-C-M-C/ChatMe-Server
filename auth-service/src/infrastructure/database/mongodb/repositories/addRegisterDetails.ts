@@ -20,6 +20,7 @@ export const addRegisterDetails = async (
       userData.location = data?.location;
       userData.phone = data?.phone;
     }
+    userData.isDetailsComplete=true
     userData.save();
     return userData;
   } catch (error: any) {

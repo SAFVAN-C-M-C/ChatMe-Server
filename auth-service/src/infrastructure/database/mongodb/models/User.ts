@@ -53,6 +53,14 @@ const userSchema=new Schema({
         enum:["personal","company","recruiter"],
         default:"personal"
     },
+    isGoogle:{
+        type:Boolean,
+        default:false
+    },
+    isDetailsComplete:{
+        type:Boolean,
+        default:false
+    }
     
 },{timestamps:true});
 
