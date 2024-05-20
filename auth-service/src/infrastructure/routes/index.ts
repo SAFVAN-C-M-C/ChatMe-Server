@@ -19,7 +19,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/").get(jwtMiddleware, getUser);
   router.route("/logout").delete(jwtMiddleware,logout);
   router.route("/google").post(googleAuth);
-  router.route("/forgotpassword").post(jwtMiddleware,forgotPassword);
+  router.route("/forgotpassword").post(forgotPassword);
   router.route("/reset-password").post(jwtMiddleware,updatePassword);
   router.route("/verify-otp").post(jwtMiddleware,verifyOTP);
 

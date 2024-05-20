@@ -32,23 +32,27 @@ export const googleAuthController = (dependencies: IDependencies) => {
 
       const { email } = payload;
 
-      const exist = await findUserByEmailUseCase(dependencies).execute(email);
+      const user = await findUserByEmailUseCase(dependencies).execute(email,true);
 
-      if (exist) {
+      if (user) {
         const accessToken = generateAccessToken({
-          _id: String(exist?._id),
-          email: exist?.email!,
-          role: exist?.role!,
-          type: exist?.accountType!,
-            loggined:true
+          _id: String(user?._id),
+          email: user?.email!,
+          role: user?.role!,
+          type: user?.accountType!,
+            loggined:true,
+            isDetailsComplete:user?.isDetailsComplete,
+          isEmailVerified:user?.isEmailVerified
         });
 
         const refreshToken = generateRefreshToken({
-          _id: String(exist?._id),
-          email: exist?.email!,
-          role: exist?.role!,
-          type: exist?.accountType!,
-        loggined:true
+          _id: String(user?._id),
+          email: user?.email!,
+          role: user?.role!,
+          type: user?.accountType!,
+          loggined:true,
+          isDetailsComplete:user?.isDetailsComplete,
+          isEmailVerified:user?.isEmailVerified
         });
 
         res.cookie("access_token", accessToken, {
@@ -58,15 +62,16 @@ export const googleAuthController = (dependencies: IDependencies) => {
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
         });
-
+        const { password, ...userData } = user;
         return res.status(200).json({
           success: true,
-          data: {},
+          data: userData,
           message: "User Google login!",
         });
       }
+console.log("hi therer==========");
 
-      const result = await registerUserUseCase(dependencies).execute(String(email));
+      const result = await registerUserUseCase(dependencies).execute(String(email),"",true);
 
       
       if (!result) {
@@ -81,7 +86,9 @@ export const googleAuthController = (dependencies: IDependencies) => {
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:false
+        loggined:false,
+        isDetailsComplete:result?.isDetailsComplete,
+        isEmailVerified:result?.isEmailVerified
       });
 
       const refreshToken = generateRefreshToken({
@@ -89,11 +96,11 @@ export const googleAuthController = (dependencies: IDependencies) => {
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:false
+        loggined:false,
+        isDetailsComplete:result?.isDetailsComplete,
+        isEmailVerified:result?.isEmailVerified
       });
 
-      //produce-user-creation-message
-      // await userCreatedProducer(result);
 
       res.cookie("access_token", accessToken, {
         httpOnly: true,
@@ -102,10 +109,10 @@ export const googleAuthController = (dependencies: IDependencies) => {
       res.cookie("refresh_token", refreshToken, {
         httpOnly: true,
       });
-
+      const {password,...userData}=result
       res.status(200).json({
         success: true,
-        data: {},
+        data: userData,
         message: "User Google signup!",
       });
     } catch (error: any) {

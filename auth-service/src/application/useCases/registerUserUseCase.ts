@@ -7,11 +7,14 @@ export const registerUserUseCase = (dependencies: IDependencies) => {
     } = dependencies;
 
     return {
-        execute: async (email: string,password:string) => {
+        execute: async (email: string,password:string,google:boolean=false) => {
             try {
+                
+                
                 const data:LoginCredential ={
                     email,
-                    password
+                    password,
+                    isGoogle:google
                 }
                 return await create(data);
                 

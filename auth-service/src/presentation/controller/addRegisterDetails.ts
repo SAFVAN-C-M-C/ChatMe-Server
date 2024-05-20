@@ -6,7 +6,7 @@ import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { ErrorResponse } from "@/_lib/common/error";
 import { LoginCredential } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
-import { userCreatedOtpProducer } from "@/infrastructure/kafka/producer";
+
 import { RegisterDetails } from "@/domain/entities/RegisterDetails";
 
 export const addRegisterDetailsController = (dependencies: IDependencies) => {
@@ -15,7 +15,7 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    const registerCredentials: RegisterDetails = req.body;
+    const registerCredentials: any = req.body;
     console.log(
       "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
       registerCredentials
@@ -28,11 +28,16 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
         //   throw new Error(error.message);
         // }
         let token=req.user
-        let data={
+        let data:RegisterDetails={
           userId:token?._id,
           email:token?.email,
-          ...registerCredentials
+          name:registerCredentials?.data?.name,
+          accountType:registerCredentials?.data?.accountType,
+          location:registerCredentials?.data?.location,
+          phone:registerCredentials?.data?.phone,
         }
+        console.log(data);
+        
         const userData = await addRegisterDetailsUseCase(dependencies).execute(data);
 
         if (!userData) {
@@ -50,6 +55,8 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: true,
+          isDetailsComplete:userData?.isDetailsComplete,
+        isEmailVerified:userData?.isEmailVerified
         });
 
         const refreshToken = generateRefreshToken({
@@ -58,6 +65,8 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: true,
+          isDetailsComplete:userData?.isDetailsComplete,
+        isEmailVerified:userData?.isEmailVerified
         });
 
         res.cookie("access_token", accessToken, {
@@ -67,10 +76,10 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
         });
-
+        const {password,...dataWithoutPassword}=userData
         res.status(200).json({
           success: true,
-          data: userData,
+          data: dataWithoutPassword,
           message: "User created!",
         });
       } catch (error: any) {

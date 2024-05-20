@@ -7,20 +7,20 @@ export const addRegisterDetails = async (
 ): Promise<UserEntity | null> => {
   try {
     const userData = await User.findOne({ email: data?.email });
+    console.log("here in repo ",userData);
+    
     if (!userData) {
       throw new Error("User creation failed!");
     }
-    if (data?.accountType !== "company") {
-      userData.name = data?.name;
-      userData.location = data?.location;
-      userData.dob = data?.dob;
-      userData.phone = data?.phone;
-    } else {
+    
       userData.name = data?.name;
       userData.location = data?.location;
       userData.phone = data?.phone;
-    }
-    userData.isDetailsComplete=true
+      userData.accountType=data?.accountType;
+      userData.isDetailsComplete=true
+   
+    
+    
     userData.save();
     return userData;
   } catch (error: any) {

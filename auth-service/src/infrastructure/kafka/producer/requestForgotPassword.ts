@@ -3,8 +3,7 @@ import { producer } from "..";
 
 export default async (
     data: {
-        email: string,
-        token: string
+        email: string
     }
 ) => {
     

@@ -9,14 +9,13 @@ export const updatePasswordController = (dependencies: IDependencies) => {
 
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { param, password } = req.body.data;  
+            const { password } = req.body;  
            
-            if (!param || !password) {
-                return next(ErrorResponse.badRequest("Token and password are required fields"));
+            if (!password) {
+                return next(ErrorResponse.badRequest("Tpassword is required"));
             }
 
-            const decoded = await verifyForgetPasswordToken(param);
-            const email = decoded.email; 
+            const email=req.user?.email!
 
             console.log("🚀 ~ file: updatePassword.ts ~ email:", email);
 
@@ -32,7 +31,7 @@ export const updatePasswordController = (dependencies: IDependencies) => {
 
             const updatePassword = await updateUserPasswordUseCase(dependencies).execute({ email, password: hashNewPassword });
             console.log("🚀 ~ file: updatePassword.ts ~ updatePassword:", updatePassword);
-
+            delete userExist.password
             if (updatePassword) {
                 return res.status(200).json({
                     success: true,

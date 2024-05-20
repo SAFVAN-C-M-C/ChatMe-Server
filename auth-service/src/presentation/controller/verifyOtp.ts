@@ -4,20 +4,20 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { ErrorResponse } from "@/_lib/common/error";
 import { User } from "@/infrastructure/database/mongodb/models";
 import { UserEntity } from "@/domain/entities";
-import { generateAccessToken } from "@/_lib/jwt";
-
+import { generateAccessToken, generateForgotPasswordToken } from "@/_lib/jwt";
 
 export const otpConroller = (dependencies: IDependencies) => {
   const {
-    useCases: { verifyOtpUseCase,updateUserFieldUseCase,findUserByEmailUseCase },
+    useCases: {
+      verifyOtpUseCase,
+      updateUserFieldUseCase,
+      findUserByEmailUseCase,
+    },
   } = dependencies;
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("jkhfjksdn");
-      
-      const { otp,type } = req.body;
+      const { otp, type } = req.body;
       let token = req.user;
-      console.log(token,"=============token===============");
 
       if (!otp) {
         throw new Error("Enter OTP");
@@ -26,23 +26,26 @@ export const otpConroller = (dependencies: IDependencies) => {
         token?.email!,
         otp
       );
-      console.log("hello");
-      
+
       if (!result) {
         return next(ErrorResponse.unauthorized("Wrong OTP please try again"));
       }
-      
+
       if (type && type === "register") {
-        const userData=await updateUserFieldUseCase(dependencies).execute(token?.email!,"isEmailVerified",true)
-        
+        const userData = await updateUserFieldUseCase(dependencies).execute(
+          token?.email!,
+          "isEmailVerified",
+          true
+        );
+
         const accessToken = generateAccessToken({
           _id: String(userData?._id),
           email: userData?.email!,
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: false,
-          isDetailsComplete:userData?.isDetailsComplete,
-          isEmailVerified:userData?.isEmailVerified
+          isDetailsComplete: userData?.isDetailsComplete,
+          isEmailVerified: userData?.isEmailVerified,
         });
         const refreshToken = generateAccessToken({
           _id: String(userData?._id),
@@ -50,8 +53,8 @@ export const otpConroller = (dependencies: IDependencies) => {
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: false,
-          isDetailsComplete:userData?.isDetailsComplete,
-          isEmailVerified:userData?.isEmailVerified
+          isDetailsComplete: userData?.isDetailsComplete,
+          isEmailVerified: userData?.isEmailVerified,
         });
 
         res.cookie("access_token", accessToken, {
@@ -62,31 +65,24 @@ export const otpConroller = (dependencies: IDependencies) => {
         });
         return res.status(200).json({
           success: true,
-          data: userData,
+          data: {email:token?.email!,otp:true,details:true,otpType:"register"},
           message: "Otp Verified",
         });
-      }else if(type && type==="login"){
-        const userData=findUserByEmailUseCase(dependencies).execute(token?.email!)
-        const accessToken = { ...token, loggined: true };
-        const refreshToken = { ...token, loggined: true };
-        res.cookie("access_token", accessToken, {
-          httpOnly: true,
+      } else if (type && type === "forgot") {
+        const accessToken = generateForgotPasswordToken({
+          email: token?.email!,
+          reset: true,
+          otp: true,
         });
-        res.cookie("refresh_token", refreshToken, {
+        res.cookie("access_token", accessToken, {
           httpOnly: true,
         });
         return res.status(200).json({
           success: true,
-          data: userData,
-          message: "Login successfull",
+          data: { email: token?.email!, reset: true, otp: true ,otpType:"forgot"},
+          message: "Otp verified",
         });
       }
-
-      res.status(200).json({
-        success: true,
-        data: result,
-        message: "Otp Verified",
-      });
     } catch (error: any) {
       next(error);
     }

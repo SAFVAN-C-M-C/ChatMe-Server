@@ -1,8 +1,10 @@
 import { User } from "@/infrastructure/database/mongodb/models";
 import { UserEntity } from "@/domain/entities";
 
+
 export const findByEmail = async (
-    email: string
+    email: string,
+    google?:boolean
 ): Promise<UserEntity | null> => {
     console.log("🚀 ~ file: findByEmail.ts:7 ~ email:", email)
     try {
@@ -10,6 +12,12 @@ export const findByEmail = async (
         const existingUser = await User.findOne({
             email: email
         });
+        
+        if(!existingUser && google){
+            console.log("jhdfkjkshdkj");
+
+            return null
+        }
         console.log("🚀 ~ file: findByEmail.ts:13 ~ existingUser:", existingUser)
 
         return existingUser;

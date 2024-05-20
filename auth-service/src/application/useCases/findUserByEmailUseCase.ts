@@ -6,8 +6,8 @@ export const findUserByEmailUseCase = (dependencies: IDependencies) => {
     } = dependencies;
 
     return {
-        execute: async (email: string) => {
-            return await findByEmail(email);
+        execute: async (email: string,google:boolean=false) => {
+            return await findByEmail(email,google);
         }
     }
 }

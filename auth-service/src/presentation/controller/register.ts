@@ -6,7 +6,7 @@ import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
 import { ErrorResponse } from "@/_lib/common/error";
 import { LoginCredential, UserEntity } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
-import { userCreatedOtpProducer } from "@/infrastructure/kafka/producer";
+import { requestOTP } from "@/infrastructure/kafka/producer";
 
 export const registerController = (dependencies: IDependencies) => {
   const {
@@ -61,7 +61,7 @@ export const registerController = (dependencies: IDependencies) => {
             message: "Something Went wrong try again in create user",
           });
         }
-        await userCreatedOtpProducer(registerCredentials.email, "notification-service-topic");
+        await requestOTP(registerCredentials.email, "notification-service-topic");
         const accessToken = generateAccessToken({
           _id: String(userData?._id),
           email: userData?.email!,
@@ -91,7 +91,7 @@ export const registerController = (dependencies: IDependencies) => {
         return res.status(200).json({
           success: true,
           message: "user creeated otp sent successfully",
-          data:userData
+          data:{email:userData?.email!,otp:true,details:false,otpType:"register"}
         });
       } catch (error: any) {
         console.log(error, "<<Something went wrong in user signup>>");
