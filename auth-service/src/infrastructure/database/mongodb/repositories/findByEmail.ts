@@ -3,7 +3,7 @@ import { UserEntity } from "@/domain/entities";
 
 
 export const findByEmail = async (
-    email: string,
+    email?: string,
     google?:boolean
 ): Promise<UserEntity | null> => {
     console.log("🚀 ~ file: findByEmail.ts:7 ~ email:", email)

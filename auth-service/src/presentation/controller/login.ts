@@ -37,7 +37,7 @@ console.log("heeee");
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:true,
+        loggined:result?.isDetailsComplete,
         isDetailsComplete:result?.isDetailsComplete,
         isEmailVerified:result?.isEmailVerified
     });
@@ -47,7 +47,7 @@ console.log("heeee");
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:true,
+        loggined:result?.isDetailsComplete,
         isDetailsComplete:result?.isDetailsComplete,
         isEmailVerified:result?.isEmailVerified
     });
@@ -63,7 +63,9 @@ console.log("heeee");
     res.status(200).json({
         success: true,
         data: result,
-        message: "Login successful!"
+        message: "Login successful!",
+        loggined:true,
+        detailsFilled:result?.isDetailsComplete,
     });
     } catch (error: any) {
         next(error);

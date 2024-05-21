@@ -3,8 +3,9 @@ import jwt from "jsonwebtoken";
 export const generateForgotPasswordToken = (
     payload: {
         email: string,
-        reset:boolean,
+        reset?:boolean,
         otp:boolean
+        details?:boolean
     }
 ) => {
     const secret = process.env.ACCESS_TOKEN_SECRET;

@@ -12,6 +12,7 @@ export const getUserController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
+
       const result = await findUserByIdUseCase(dependencies).execute(
         req.user._id
       );
@@ -24,6 +25,7 @@ export const getUserController = (dependencies: IDependencies) => {
         success: true,
         data: result,
         message: "User exist!",
+        loggined:result?.isDetailsComplete,
       });
     } catch (error) {
       next(error);

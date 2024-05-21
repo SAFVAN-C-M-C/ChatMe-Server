@@ -29,7 +29,6 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
         // }
         let token=req.user
         let data:RegisterDetails={
-          userId:token?._id,
           email:token?.email,
           name:registerCredentials?.data?.name,
           accountType:registerCredentials?.data?.accountType,
@@ -76,11 +75,17 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
         });
-        const {password,...dataWithoutPassword}=userData
+        
+        const user = await findUserByEmailUseCase(dependencies).execute(token?.email);
+        delete user?.password
+        console.log("data before going",user);
+        
         res.status(200).json({
           success: true,
-          data: dataWithoutPassword,
+          data: user,
           message: "User created!",
+          loggined:true,
+          detailsFilled:userData?.isDetailsComplete,
         });
       } catch (error: any) {
         console.log(error, "<<Something went wrong in user signup>>");

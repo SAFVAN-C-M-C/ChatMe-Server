@@ -40,8 +40,8 @@ export const googleAuthController = (dependencies: IDependencies) => {
           email: user?.email!,
           role: user?.role!,
           type: user?.accountType!,
-            loggined:true,
-            isDetailsComplete:user?.isDetailsComplete,
+          loggined:true,
+          isDetailsComplete:user?.isDetailsComplete,
           isEmailVerified:user?.isEmailVerified
         });
 
@@ -62,11 +62,13 @@ export const googleAuthController = (dependencies: IDependencies) => {
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
         });
-        const { password, ...userData } = user;
+        delete user.password
         return res.status(200).json({
           success: true,
-          data: userData,
+          data: user,
           message: "User Google login!",
+          loggined:true,
+          detailsFilled:user?.isDetailsComplete,
         });
       }
 console.log("hi therer==========");
@@ -112,7 +114,7 @@ console.log("hi therer==========");
       const {password,...userData}=result
       res.status(200).json({
         success: true,
-        data: userData,
+        data: {email:userData?.email,details:true},
         message: "User Google signup!",
       });
     } catch (error: any) {

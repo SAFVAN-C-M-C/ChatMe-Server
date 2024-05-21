@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { registerValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
-import { generateAccessToken, generateRefreshToken } from "@/_lib/jwt";
+import { generateAccessToken, generateForgotPasswordToken, generateRefreshToken } from "@/_lib/jwt";
 import { ErrorResponse } from "@/_lib/common/error";
 import { LoginCredential, UserEntity } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
@@ -62,30 +62,14 @@ export const registerController = (dependencies: IDependencies) => {
           });
         }
         await requestOTP(registerCredentials.email, "notification-service-topic");
-        const accessToken = generateAccessToken({
-          _id: String(userData?._id),
+        const accessToken = generateForgotPasswordToken({
           email: userData?.email!,
-          role: userData?.role!,
-          type: userData?.accountType!,
-          loggined: false,
-          isDetailsComplete:userData?.isDetailsComplete,
-          isEmailVerified:userData?.isEmailVerified
+          details: false,
+          otp: true,
         });
 
-        const refreshToken = generateRefreshToken({
-          _id: String(userData?._id),
-          email: userData?.email!,
-          role: userData?.role!,
-          type: userData?.accountType!,
-          loggined: false,
-          isDetailsComplete:userData?.isDetailsComplete,
-          isEmailVerified:userData?.isEmailVerified
-        });
+
         res.cookie("access_token", accessToken, {
-          httpOnly: true,
-        });
-
-        res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
         });
         return res.status(200).json({

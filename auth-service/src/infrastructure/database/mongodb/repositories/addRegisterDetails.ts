@@ -8,6 +8,7 @@ export const addRegisterDetails = async (
   try {
     const userData = await User.findOne({ email: data?.email });
     console.log("here in repo ",userData);
+    console.log("here in repo data",data);
     
     if (!userData) {
       throw new Error("User creation failed!");
@@ -18,10 +19,14 @@ export const addRegisterDetails = async (
       userData.phone = data?.phone;
       userData.accountType=data?.accountType;
       userData.isDetailsComplete=true
-   
+      if(userData.isGoogle){
+        userData.isEmailVerified=true
+      }
     
     
     userData.save();
+    console.log("afterUpdate",userData);
+    
     return userData;
   } catch (error: any) {
     throw new Error(error?.message);

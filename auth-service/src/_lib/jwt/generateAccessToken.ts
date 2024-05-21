@@ -9,6 +9,7 @@ export const generateAccessToken = (payload: {
     isEmailVerified?:boolean;
     isDetailsComplete?:boolean;
     
+    
 }) => {
     const secret = process.env.ACCESS_TOKEN_SECRET;
     if (!secret) {
