@@ -6,7 +6,7 @@ import { generateAccessToken, generateForgotPasswordToken, generateRefreshToken 
 import { ErrorResponse } from "@/_lib/common/error";
 import { LoginCredential, UserEntity } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
-import { requestOTP } from "@/infrastructure/kafka/producer";
+import { addUser, requestOTP } from "@/infrastructure/kafka/producer";
 
 export const registerController = (dependencies: IDependencies) => {
   const {
@@ -61,7 +61,17 @@ export const registerController = (dependencies: IDependencies) => {
             message: "Something Went wrong try again in create user",
           });
         }
+        
+
+
         await requestOTP(registerCredentials.email, "notification-service-topic");
+        const userDataToProfile={
+          userId:userData._id,
+          email:userData.email
+        }
+        console.log(userDataToProfile,"=====this in regiter controller");
+
+        await addUser(userDataToProfile, "profile-service-topic");
         const accessToken = generateForgotPasswordToken({
           email: userData?.email!,
           details: false,

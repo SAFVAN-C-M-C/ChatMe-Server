@@ -8,6 +8,7 @@ import { LoginCredential } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
 
 import { RegisterDetails } from "@/domain/entities/RegisterDetails";
+import { addUserDetails } from "@/infrastructure/kafka/producer";
 
 export const addRegisterDetailsController = (dependencies: IDependencies) => {
   const {
@@ -47,6 +48,18 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
         }
         //produce-user-creation-message
         // await userCreatedProducer(userData,'USER_SERVICE_TOPIC');
+        // const user = await findUserByEmailUseCase(dependencies).execute(token?.email);
+        console.log(userData,"=========this from add details file");
+        
+        const userDataToProfile={
+          userId:userData._id,
+          email:userData.email,
+          name:userData.name,
+          location : userData.location,
+          phone:userData.phone,
+          accountType:userData.accountType
+        }
+        await addUserDetails(userDataToProfile, "profile-service-topic");
 
         const accessToken = generateAccessToken({
           _id: String(userData?._id),
@@ -76,13 +89,11 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           httpOnly: true,
         });
         
-        const user = await findUserByEmailUseCase(dependencies).execute(token?.email);
-        delete user?.password
-        console.log("data before going",user);
-        
+        delete userData?.password
+        console.log("data before going",userData);
         res.status(200).json({
           success: true,
-          data: user,
+          data: userData,
           message: "User created!",
           loggined:true,
           detailsFilled:userData?.isDetailsComplete,
