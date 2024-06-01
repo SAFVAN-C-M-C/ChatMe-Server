@@ -4,6 +4,7 @@ import { generateRefreshToken, generateAccessToken } from "@/_lib/jwt";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { UserEntity } from "@/domain/entities";
 import { OAuth2Client } from "google-auth-library";
+import { addUser } from "@/infrastructure/kafka/producer";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuthController = (dependencies: IDependencies) => {
@@ -81,7 +82,13 @@ console.log("hi therer==========");
       }
 
      
+      const userDataToProfile={
+        userId:result._id,
+        email:result.email
+      }
+      console.log(userDataToProfile,"=====this in regiter controller");
 
+      await addUser(userDataToProfile, "profile-service-topic");
 
       const accessToken = generateAccessToken({
         _id: String(result?._id),
