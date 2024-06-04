@@ -1,4 +1,4 @@
-import { AccountType } from "@/domain/entity/UserProfile";
+import { AccountType } from "@/domain/entities/UserProfile";
 import { Schema, Document, model, ObjectId } from "mongoose";
 
 
@@ -27,6 +27,7 @@ interface IUserProfile extends Document {
     jobs?: ObjectId[] | null;
     recruiters?: ObjectId[] | null;
   };
+  isVerified:boolean
 }
 const userSchema = new Schema(
   {
@@ -75,6 +76,10 @@ const userSchema = new Schema(
       jobs: [{ type: Schema.Types.ObjectId }],
       recruiters: [{ type: Schema.Types.ObjectId }],
     },
+    isVerified:{
+      type:Boolean,
+      default:false
+    }
   },
   { timestamps: true }
 );

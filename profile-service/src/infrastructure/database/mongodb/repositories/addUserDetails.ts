@@ -1,7 +1,7 @@
 import mongoose, { Types } from "mongoose";
 import { UserProfile } from "../model/UserProfile";
 import { UserDetails } from "@/infrastructure/services/addUserDetailService";
-import { IUserProfile } from "@/domain/entity";
+import { IUserProfile } from "@/domain/entities";
 
 export const addUserDetails = async (data: IUserProfile) => {
     try {

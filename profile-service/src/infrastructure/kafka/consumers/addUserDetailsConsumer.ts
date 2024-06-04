@@ -1,6 +1,6 @@
 // import { sendVerificationMail } from "@/infrastructure/services";
 
-import { IUserProfile } from "@/domain/entity";
+import { IUserProfile } from "@/domain/entities";
 import { addUserDetailService } from "@/infrastructure/services";
 
 export default async (

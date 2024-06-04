@@ -1,7 +1,7 @@
 
 import { Types } from "mongoose";
 import { addUserDetails } from "../database/mongodb/repositories/addUserDetails";
-import { IUserProfile } from "@/domain/entity";
+import { IUserProfile } from "@/domain/entities";
 export interface UserDetails {
   userId?: Types.ObjectId|string;
   email: string;
