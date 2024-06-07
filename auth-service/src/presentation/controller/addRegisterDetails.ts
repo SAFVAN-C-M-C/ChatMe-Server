@@ -8,7 +8,7 @@ import { LoginCredential } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
 
 import { RegisterDetails } from "@/domain/entities/RegisterDetails";
-import { addUserDetails } from "@/infrastructure/kafka/producer";
+import { addUser, addUserDetails } from "@/infrastructure/kafka/producer";
 
 export const addRegisterDetailsController = (dependencies: IDependencies) => {
   const {
@@ -59,6 +59,13 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           phone:userData.phone,
           accountType:userData.accountType
         }
+        const userToAdmin={
+          userId:userData._id,
+          email:userData.email,
+          name:userData.name,
+          accountType:userData.accountType
+        }
+        await addUser(userToAdmin,"admin-service-topic");
         await addUserDetails(userDataToProfile, "profile-service-topic");
 
         const accessToken = generateAccessToken({

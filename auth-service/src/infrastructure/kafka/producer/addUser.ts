@@ -5,6 +5,8 @@ import { UserEntity } from "@/domain/entities";
 export default async (data: {
     userId?:ObjectId | string
     email?:string
+    name?:string
+    accountType?:string
 }, topic?: string) => {
   try {
     const targetTopic = topic || "default-topic";
@@ -23,8 +25,10 @@ export default async (data: {
     ];
 
     await producer.sendBatch({ topicMessages: messages });
+    console.log("message sented to the topic",targetTopic);
+    
   } catch (error: any) {
-    console.error("kafka produce error:", error?.message);
+    console.error("kafka produce error:===============", error?.message);
   } finally {
     await producer.disconnect();
   }

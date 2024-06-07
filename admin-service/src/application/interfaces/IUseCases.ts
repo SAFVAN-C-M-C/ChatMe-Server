@@ -1,4 +1,4 @@
-import { IGetUserUseCase } from "@/domain/useCases/IgetUserUseCase";
+import { IGetUserUseCase } from "@/domain/useCases";
 
 
 export interface IUseCases {

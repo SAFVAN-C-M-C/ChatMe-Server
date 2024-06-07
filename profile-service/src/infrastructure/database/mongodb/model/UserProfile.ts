@@ -28,6 +28,7 @@ interface IUserProfile extends Document {
   };
   isVerified:boolean
 }
+
 const userSchema = new Schema(
   {
     email: {
@@ -75,6 +76,7 @@ const userSchema = new Schema(
       jobs: [{ type: Schema.Types.ObjectId }],
       recruiters: [{ type: Schema.Types.ObjectId }],
     },
+    
     isVerified:{
       type:Boolean,
       default:false
