@@ -1,7 +1,6 @@
 import { AccountType } from "@/domain/entities/UserProfile";
 import { Schema, Document, model, ObjectId } from "mongoose";
 
-
 interface IUserProfile extends Document {
   _id: ObjectId;
   email: String;
