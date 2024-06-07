@@ -25,7 +25,7 @@ export const jwtMiddleware = async (req: Request, res: Response, next: NextFunct
     const token = req.cookies.access_token || (req.headers.authorization?.split(' ')[1] || '');
     console.log(req.cookies);
     
-    if (!token) {
+    if (!token) {       
         return res.sendStatus(401); 
     }
     try {

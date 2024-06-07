@@ -11,7 +11,6 @@ export const otpConroller = (dependencies: IDependencies) => {
     useCases: {
       verifyOtpUseCase,
       updateUserFieldUseCase,
-      findUserByEmailUseCase,
     },
   } = dependencies;
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -28,7 +27,7 @@ export const otpConroller = (dependencies: IDependencies) => {
       );
 
       if (!result) {
-        return next(ErrorResponse.unauthorized("Wrong OTP please try again"));
+        return next(ErrorResponse.conflict("Wrong OTP please try again"));
       }
 
       if (type && type === "register") {
