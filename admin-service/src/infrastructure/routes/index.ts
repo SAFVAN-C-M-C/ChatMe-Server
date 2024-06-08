@@ -14,6 +14,8 @@ export const routes = (dependencies: IDependencies) => {
   const router = Router();
 
   router.route("/").get((req,res,next)=>{
+    console.log("hello");
+    
     res.json({message:"hello there"})
   });
   router.route("/users").get(jwtMiddleware,getUsers);

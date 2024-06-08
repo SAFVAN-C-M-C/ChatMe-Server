@@ -2,12 +2,19 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const getUserController = (dependencies: IDependencies) => {
+  console.log("hi");
+  console.log("here ",dependencies);
   const {
     useCases: { getUsersUseCase },
   } = dependencies;
-
+  console.log("here ",getUsersUseCase);
+  if(!getUserController){
+    console.log("err",getUserController);    
+  }
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log("here ",getUsersUseCase);
+      
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }

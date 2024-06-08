@@ -17,11 +17,13 @@ app.use(urlencoded({extended:true}))
 app.use(cookieParser())
 app.use("/",routes(dependencies))
 app.use("*",(req: Request, res: Response) => {
-    res.status(404).json({ success: false, status: 404, message: "Api Not found" });
+  console.log("hello");
+  
+    res.status(404).json({ success: false, status: 404, message: "Apis Not found" });
   });  
 app.use(errorHandler);
 app.listen(PORT,()=>{
-    console.log(`connected to profile service defaultly at ${PORT}`);
+    console.log(`connected to admin service defaultly at ${PORT}`);
 })
 
 export default app

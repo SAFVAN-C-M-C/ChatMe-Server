@@ -24,7 +24,7 @@ const userSchema = new Schema(
         unique: true,
         index: true,
       },
-      numberOfReportActions: { type: Number },
+      numberOfReportActions: { type: Number,default:0 },
       isBlocked: { type: Boolean,default:false },
       name: {
         type: String,
