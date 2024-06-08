@@ -1,4 +1,5 @@
 import { ObjectId } from "mongoose";
+import { RecruiterApplication } from "./RecruiterApplication";
 export enum AccountType {
     personal = "personal",
     company = "company",
@@ -29,4 +30,5 @@ export interface IUserProfile{
       jobs?: ObjectId[] | null;
       recruiters?: ObjectId[] | null;
     };
+    recruiterApplication?:RecruiterApplication[]
 }

@@ -3,12 +3,12 @@ import { IUserProfile } from "@/domain/entities";
 import { Types } from "mongoose";
 
 
-export const findById = async (
-    id?: string
+export const findByEmail = async (
+    email?: string
 ): Promise<IUserProfile | null> => {
     try {
         
-        const existingUser = await UserProfile.findOne({userId:new Types.ObjectId(String(id))});
+        const existingUser = await UserProfile.findOne({email:email});
         if (!existingUser) {
             throw new Error("User does not exist!");
         }

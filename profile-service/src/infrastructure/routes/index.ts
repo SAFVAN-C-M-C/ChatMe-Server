@@ -8,12 +8,13 @@ import { jwtMiddleware } from "@/_lib/common/middleware/jwtMiddleware";
 
 
 export const routes = (dependencies: IDependencies) => {
-  const { getUserProfile } =
+  const { getUserProfile,applyRecruiter } =
     controllers(dependencies);
 
   const router = Router();
 
   router.route("/").get(jwtMiddleware,getUserProfile);
+  router.route("/apply-recruiter").get(jwtMiddleware,applyRecruiter);
 
   return router;
 };

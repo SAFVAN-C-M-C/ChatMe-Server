@@ -1,6 +1,11 @@
 import { AccountType } from "@/domain/entities/UserProfile";
 import { Schema, Document, model, ObjectId } from "mongoose";
-
+interface RecruiterApplication{
+  userId?:string |ObjectId;
+  userEmail?:string;
+  content?:string;
+  name?:string
+}
 interface IUserProfile extends Document {
   _id: ObjectId;
   email: String;
@@ -19,6 +24,7 @@ interface IUserProfile extends Document {
     phone?: String | null;
   };
   campanyId?: ObjectId | null;
+  companyName?:string;
   following?: ObjectId[] | null;
   followers?: ObjectId[] | null;
   theme?: String | null;
@@ -26,6 +32,7 @@ interface IUserProfile extends Document {
     jobs?: ObjectId[] | null;
     recruiters?: ObjectId[] | null;
   };
+  recruiterApplication?:RecruiterApplication[]
   isVerified:boolean
 }
 
