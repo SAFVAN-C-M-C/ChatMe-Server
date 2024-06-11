@@ -14,7 +14,7 @@ export const routes = (dependencies: IDependencies) => {
   const router = Router();
 
   router.route("/").get(jwtMiddleware,getUserProfile);
-  router.route("/apply-recruiter").get(jwtMiddleware,applyRecruiter);
+  router.route("/apply-recruiter").post(jwtMiddleware,applyRecruiter);
 
   return router;
 };

@@ -4,8 +4,6 @@ import {runConsumer,stopConsumer} from "@/_boot/consumer"
 
 (async () => {
     try {
-      
-      
       server;
       await runConsumer()
         .then(() => console.log("kafka consumer is runnnig"))
@@ -13,14 +11,17 @@ import {runConsumer,stopConsumer} from "@/_boot/consumer"
           console.error(`Error while initializing Kafka consumer: ${error}`);
           process.exit(0);
         });
-        
+        process.on("SIGTERM", async () => {
+          console.info("SIGTERM received");
+          stopConsumer();
+        });
     } catch (error: any) {
       console.error(`Error during initialization: ${error.message}`);
       // process.exit();
     } finally {
       process.on("SIGINT", async () => {
-        console.log("\n\nServer is shutting down....");
-        stopConsumer();
+        console.log("\n Server is shutting down...");
+        process.exit();
       });
     }
   })();

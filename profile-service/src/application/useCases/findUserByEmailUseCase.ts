@@ -8,8 +8,6 @@ export const findUserByEmailUseCase = (dependencies: IDependencies) => {
 
     return {
         execute: async (email?: string) => {
-            
-            
             return await findByEmail(email);
         }
     }

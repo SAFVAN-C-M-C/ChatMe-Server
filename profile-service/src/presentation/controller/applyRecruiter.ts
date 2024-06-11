@@ -8,6 +8,8 @@ export const applyRecruiterController = (dependencies: IDependencies) => {
   } = dependencies;
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
+      console.log(req.body);
+      
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
@@ -20,14 +22,19 @@ export const applyRecruiterController = (dependencies: IDependencies) => {
       }
       
       const existingUser=await findUserByEmailUseCase(dependencies).execute(String(dataFromClient.companyEmail))
+      console.log(existingUser);
       
-
+      if(existingUser?.accountType!=="company"){
+        throw new Error("User not found!");
+      }
       const result = await applyRecruiterUseCase(dependencies).execute(
         dataFromClient
       );
+      console.log(result);
+      
 
       if (!result) {
-        throw new Error("User not found!");
+        throw new Error("something wrong");
       }
 
       res.status(200).json({
@@ -36,6 +43,8 @@ export const applyRecruiterController = (dependencies: IDependencies) => {
         message: "User Profile Fetched",
       });
     } catch (error) {
+      console.log(error);
+      
       next(error);
     }
   };
