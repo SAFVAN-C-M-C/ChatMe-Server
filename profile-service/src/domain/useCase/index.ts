@@ -1,3 +1,6 @@
 export * from "./IFindUserByIdUseCase"
 export * from "./IAapplyRecruiterUseCase"
 export * from "./IFindUserByEmailUseCase"
+export * from "./IUpdateAvatarUseCase"
+export * from "./IUpdateBioUseCase"
+export * from "./IUpdateAboutUseCase"

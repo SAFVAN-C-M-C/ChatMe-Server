@@ -1,3 +1,7 @@
 export * from "./findById"
 export * from "./findByEmail"
 export * from "./recruiterApplication"
+export * from "./updateAvatar"
+export * from "./updateBio"
+export * from "./updateAbout"
+export * from "./addEducation"

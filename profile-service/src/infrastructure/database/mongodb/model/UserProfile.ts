@@ -1,40 +1,88 @@
 import { AccountType } from "@/domain/entities/UserProfile";
 import { Schema, Document, model, ObjectId } from "mongoose";
-interface RecruiterApplication {
-  userId?: string | ObjectId;
-  userEmail?: string;
-  content?: string;
-  name?: string;
-}
+
 interface IUserProfile extends Document {
   _id: ObjectId;
-  email: String;
-  name?: String;
+  email: string;
+  name?: string;
   userId: ObjectId;
   accountType?: AccountType | null;
-  preferedJobs?: String[] | null;
-  title?: String | null;
+  preferedJobs?: string[] | null;
+  title?: string | null;
   bio: {
-    about?: String | null;
-    avatar?: String | null;
+    about?: string | null;
+    avatar?: string | null;
     dob?: Date | null;
-    gender?: String | null;
-    resume?: String | null;
-    location?: String | null;
-    phone?: String | null;
+    gender?: string | null;
+    resume?: string | null;
+    location?: string | null;
+    phone?: string | null;
   };
-  campanyId?: ObjectId | null;
+  companyId?: ObjectId | null;
   companyName?: string;
   following?: ObjectId[] | null;
   followers?: ObjectId[] | null;
-  theme?: String | null;
+  theme?: string | null;
   companyDetails?: {
     jobs?: ObjectId[] | null;
     recruiters?: ObjectId[] | null;
   };
   recruiterApplication?: RecruiterApplication[];
+  education?: Education[];
+  experience?: Experience[];
   isVerified: boolean;
 }
+
+interface Education {
+  _id?: ObjectId;
+  nameOfinstitue?: string;
+  course?: string;
+  startYear?: string;
+  endYear?: string;
+}
+
+interface Experience {
+  _id?: ObjectId;
+  nameOfinstitue?: string;
+  position?: string;
+  startYear?: string;
+  endYear?: string;
+}
+
+interface RecruiterApplication {
+  _id?: ObjectId;
+  userId?: string | ObjectId;
+  userEmail?: string;
+  content?: string;
+  name?: string;
+}
+
+const educationSchema = new Schema({
+  nameOfinstitue: { type: String },
+  course: { type: String },
+  startYear: { type: String },
+  endYear: { type: String }
+});
+
+const EducationModel = model<Education>("Education", educationSchema);
+
+const experienceSchema = new Schema({
+  nameOfinstitue: { type: String },
+  position: { type: String },
+  startYear: { type: String },
+  endYear: { type: String }
+});
+
+const ExperienceModel = model<Experience>("Experience", experienceSchema);
+
+const recruiterApplicationSchema = new Schema({
+  userId: { type: Schema.Types.ObjectId },
+  userEmail: { type: String },
+  content: { type: String },
+  name: { type: String }
+});
+
+const RecruiterApplicationModel = model<RecruiterApplication>("RecruiterApplication", recruiterApplicationSchema);
 
 const userSchema = new Schema(
   {
@@ -64,44 +112,28 @@ const userSchema = new Schema(
       about: { type: String },
       avatar: { type: String },
       dob: { type: Date },
-      gender: { type: String, enum: ["male", " female"] },
+      gender: { type: String, enum: ["male", "female"] },
       resume: { type: String },
-      location: {
-        type: String,
-      },
-      phone: {
-        type: String,
-      },
+      location: { type: String },
+      phone: { type: String },
     },
     companyId: {
       type: Schema.Types.ObjectId,
     },
     following: [{ type: Schema.Types.ObjectId }],
     followers: [{ type: Schema.Types.ObjectId }],
-    theme: { type: String, enum: ["dark", " light"] },
+    theme: { type: String, enum: ["dark", "light"] },
     companyDetails: {
       jobs: [{ type: Schema.Types.ObjectId }],
       recruiters: [{ type: Schema.Types.ObjectId }],
     },
-
     isVerified: {
       type: Boolean,
       default: false,
     },
-    recruiterApplication: [
-      {
-        userId: { type: Schema.Types.ObjectId },
-        userEmail: {
-          type: String,
-        },
-        content: {
-          type: String,
-        },
-        name: {
-          type: String,
-        },
-      },
-    ],
+    recruiterApplication: [recruiterApplicationSchema],
+    education: [educationSchema],
+    experience: [experienceSchema],
   },
   { timestamps: true }
 );

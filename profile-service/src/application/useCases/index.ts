@@ -1,3 +1,6 @@
 export * from "./findUserByIdUseCase"
 export * from "./findUserByEmailUseCase"
 export * from "./applyRecruiterUseCase"
+export * from "./updateAvatarUseCase"
+export * from "./updateBioUseCase"
+export * from "./updateAboutUseCase"
