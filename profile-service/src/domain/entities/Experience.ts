@@ -1,12 +1,12 @@
 import { ObjectId } from "mongoose";
 
-export interface Education {
+export interface Experience {
     userId?: string | ObjectId;
     email?:string
-    education:{
+    experience:{
         _id?:string | ObjectId;
         nameOfinstitue?: string;
-        course?: string;
+        position?: string;
         startYear?: string;
         endYear?: string;
     }

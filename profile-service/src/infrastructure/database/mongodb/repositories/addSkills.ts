@@ -1,10 +1,10 @@
-import { Education } from "@/domain/entities";
+import { Education, Experience } from "@/domain/entities";
 import { UserProfile } from "../model/UserProfile";
 import { Types } from "mongoose";
 
-export const addEducation = async (data: Education) => {
+export const addSkills = async (data: {email?:string,skills?:string[]}) => {
   try {
-    let { email, education } = data;
+    let { email, skills } = data;
     if (!data.email) {
       throw new Error("email not provided");
     }
@@ -13,7 +13,7 @@ export const addEducation = async (data: Education) => {
 
     const userProfileData = await UserProfile.findOneAndUpdate(
       {email:email},
-      { $push: { education: education } },
+      { $set: { skills: skills } },
       { new: true }
     );
     if (!userProfileData) {

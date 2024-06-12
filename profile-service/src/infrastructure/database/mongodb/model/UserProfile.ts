@@ -6,7 +6,7 @@ interface IUserProfile extends Document {
   email: string;
   name?: string;
   userId: ObjectId;
-  accountType?: AccountType | null;
+  accountType?: string | "recruiter" | "company" | "personal" | null;
   preferedJobs?: string[] | null;
   title?: string | null;
   bio: {
@@ -18,14 +18,16 @@ interface IUserProfile extends Document {
     location?: string | null;
     phone?: string | null;
   };
-  companyId?: ObjectId | null;
-  companyName?: string;
+  skills?: string[];
+
   following?: ObjectId[] | null;
   followers?: ObjectId[] | null;
   theme?: string | null;
   companyDetails?: {
+    companyId?: ObjectId | null;
+    companyName?: string;
     jobs?: ObjectId[] | null;
-    recruiters?: ObjectId[] | null;
+    recruiters?: Recruiters[] | null;
   };
   recruiterApplication?: RecruiterApplication[];
   education?: Education[];
@@ -55,13 +57,20 @@ interface RecruiterApplication {
   userEmail?: string;
   content?: string;
   name?: string;
+  avatar?: string;
+}
+interface Recruiters {
+  userId?: string | ObjectId;
+  email?: string;
+  name?: string;
+  avatar?: string | null;
 }
 
 const educationSchema = new Schema({
   nameOfinstitue: { type: String },
   course: { type: String },
   startYear: { type: String },
-  endYear: { type: String }
+  endYear: { type: String },
 });
 
 const EducationModel = model<Education>("Education", educationSchema);
@@ -70,7 +79,7 @@ const experienceSchema = new Schema({
   nameOfinstitue: { type: String },
   position: { type: String },
   startYear: { type: String },
-  endYear: { type: String }
+  endYear: { type: String },
 });
 
 const ExperienceModel = model<Experience>("Experience", experienceSchema);
@@ -79,10 +88,14 @@ const recruiterApplicationSchema = new Schema({
   userId: { type: Schema.Types.ObjectId },
   userEmail: { type: String },
   content: { type: String },
-  name: { type: String }
+  name: { type: String },
+  avatar: { type: String },
 });
 
-const RecruiterApplicationModel = model<RecruiterApplication>("RecruiterApplication", recruiterApplicationSchema);
+const RecruiterApplicationModel = model<RecruiterApplication>(
+  "RecruiterApplication",
+  recruiterApplicationSchema
+);
 
 const userSchema = new Schema(
   {
@@ -117,15 +130,24 @@ const userSchema = new Schema(
       location: { type: String },
       phone: { type: String },
     },
-    companyId: {
-      type: Schema.Types.ObjectId,
-    },
+    skills: [{ type: String }],
     following: [{ type: Schema.Types.ObjectId }],
     followers: [{ type: Schema.Types.ObjectId }],
     theme: { type: String, enum: ["dark", "light"] },
     companyDetails: {
+      companyId: {
+        type: Schema.Types.ObjectId,
+      },
+      companyName: { type: String },
       jobs: [{ type: Schema.Types.ObjectId }],
-      recruiters: [{ type: Schema.Types.ObjectId }],
+      recruiters: [
+        {
+          userId: { type: Schema.Types.ObjectId },
+          email: { type: String },
+          name: { type: String },
+          avatar: { type: String },
+        },
+      ],
     },
     isVerified: {
       type: Boolean,

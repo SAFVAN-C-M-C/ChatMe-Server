@@ -2,7 +2,7 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { RecruiterApplication } from "@/domain/entities/RecruiterApplication";
 import { findByEmail } from "@/infrastructure/database/mongodb/repositories/findByEmail";
 
-export const applyRecruiterUseCase = (dependencies: IDependencies) => {
+export const recruiterApplicationUseCase = (dependencies: IDependencies) => {
     const {
         repositories: { recruiterApplication }
     } = dependencies;

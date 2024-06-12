@@ -3,26 +3,59 @@ import { IUserProfile } from "@/domain/entities";
 import { Types } from "mongoose";
 import { RecruiterApplication } from "@/domain/entities/RecruiterApplication";
 
-
 export const recruiterApplication = async (
-    data:RecruiterApplication
+  data: RecruiterApplication
 ): Promise<IUserProfile | null> => {
-    try {
-        
-        const existingUser = await UserProfile.findOne({email:data.companyEmail});
-        if (!existingUser) {
-            throw new Error("User does not exist!");
-        }
-        const dataToPush={
-            name:data.name,
-            userEmail:data.userEmail,
-            content:data.content,
-            userId:data.userId
-        }   
-        existingUser.recruiterApplication?.push(dataToPush)
-        return existingUser;
-
-    } catch (error: any) {
-        throw new Error(error?.message);
+  try {
+    const { companyEmail, name, content, userEmail, userId } = data;
+   
+    const user=await UserProfile.findOne({email:userEmail});
+    if(!user){
+        throw new Error("User not found")
     }
-}
+    const documentToPush = {
+        name: name,
+        content: content,
+        userEmail: userEmail,
+        userId: userId,
+        avatar:user.bio.avatar || ""
+      };
+    let userProfileData = await UserProfile.findOneAndUpdate(
+        {
+          email: companyEmail,
+          accountType: "company",
+          "recruiterApplication.userEmail": userEmail // Find the document with the same userEmail
+        },
+        {
+          $set: { "recruiterApplication.$": documentToPush } // Update the matched document
+        },
+        {
+          new: true
+        }
+      );
+    
+      // If no existing document was updated, push a new one
+      if (!userProfileData) {
+        userProfileData = await UserProfile.findOneAndUpdate(
+          {
+            email: companyEmail,
+            accountType: "company"
+          },
+          {
+            $push: { recruiterApplication: documentToPush }
+          },
+          {
+            new: true
+          }
+        );
+      }
+
+    if (!userProfileData) {
+      throw new Error("Company does not exist!");
+    }
+
+    return userProfileData;
+  } catch (error: any) {
+    throw new Error(error?.message);
+  }
+};

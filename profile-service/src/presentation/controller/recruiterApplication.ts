@@ -4,12 +4,10 @@ import { NextFunction, Request, Response } from "express";
 
 export const applyRecruiterController = (dependencies: IDependencies) => {
   const {
-    useCases: {applyRecruiterUseCase, findUserByEmailUseCase},
+    useCases: {recruiterApplicationUseCase},
   } = dependencies;
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log(req.body);
-      
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
@@ -21,13 +19,7 @@ export const applyRecruiterController = (dependencies: IDependencies) => {
         userId:req.user._id
       }
       
-      const existingUser=await findUserByEmailUseCase(dependencies).execute(String(dataFromClient.companyEmail))
-      console.log(existingUser);
-      
-      if(existingUser?.accountType!=="company"){
-        throw new Error("User not found!");
-      }
-      const result = await applyRecruiterUseCase(dependencies).execute(
+      const result = await recruiterApplicationUseCase(dependencies).execute(
         dataFromClient
       );
       console.log(result);
@@ -36,11 +28,10 @@ export const applyRecruiterController = (dependencies: IDependencies) => {
       if (!result) {
         throw new Error("something wrong");
       }
-
       res.status(200).json({
         success: true,
         data: result,
-        message: "User Profile Fetched",
+        message: "Request Sended",
       });
     } catch (error) {
       console.log(error);

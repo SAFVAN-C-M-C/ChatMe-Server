@@ -1,34 +1,74 @@
 import { ObjectId } from "mongoose";
-import { RecruiterApplication } from "./RecruiterApplication";
+// import { RecruiterApplication } from "./RecruiterApplication";
 export enum AccountType {
     personal = "personal",
     company = "company",
     recruiter = "recruiter",
   }
+  export interface ICompnayAndRecruiter{
+    company:IUserProfile;
+    recruiter:IUserProfile;
+  }
 export interface IUserProfile{
-    _id?: ObjectId;
-    email?: String;
-    name?: String;
-    userId?: ObjectId | String | null;
-    accountType?: AccountType | null;
-    preferedJobs?: String[] | null;
-    title?: String | null;
-    bio?: {
-      about?: String | null;
-      avatar?: String | null;
-      dob?: Date | null;
-      gender?: String | null;
-      resume?: String | null;
-      location?: String | null;
-      phone?: String | null;
-    };
-    campanyId?: ObjectId | null;
-    following?: ObjectId[] | null;
-    followers?: ObjectId[] | null;
-    theme?: String | null;
-    companyDetails?: {
-      jobs?: ObjectId[] | null;
-      recruiters?: ObjectId[] | null;
-    };
-    recruiterApplication?:RecruiterApplication[]
+  _id?: ObjectId;
+  email?: string;
+  name?: string;
+  userId?: ObjectId;
+  accountType?: string | "recruiter" | "company" | "personal" | null;
+  preferedJobs?: string[] | null;
+  title?: string | null;
+  bio: {
+    about?: string | null;
+    avatar?: string | null;
+    dob?: Date | null;
+    gender?: string | null;
+    resume?: string | null;
+    location?: string | null;
+    phone?: string | null;
+  };
+  skills?: string[];
+
+  following?: ObjectId[] | null;
+  followers?: ObjectId[] | null;
+  theme?: string | null;
+  companyDetails?: {
+    companyId?: ObjectId | null;
+    companyName?: string;
+    jobs?: ObjectId[] | null;
+    recruiters?: Recruiters[] | null;
+  };
+  recruiterApplication?: RecruiterApplication[];
+  education?: Education[];
+  experience?: Experience[];
+  isVerified?: boolean;
+}
+interface Education {
+  _id?: ObjectId;
+  nameOfinstitue?: string;
+  course?: string;
+  startYear?: string;
+  endYear?: string;
+}
+
+interface Experience {
+  _id?: ObjectId;
+  nameOfinstitue?: string;
+  position?: string;
+  startYear?: string;
+  endYear?: string;
+}
+
+interface RecruiterApplication {
+  _id?: ObjectId;
+  userId?: string | ObjectId;
+  userEmail?: string;
+  content?: string;
+  name?: string;
+  avatar?: string | null;
+}
+interface Recruiters {
+  userId?: string | ObjectId;
+  email?: string;
+  name?: string;
+  avatar?: string |null;
 }

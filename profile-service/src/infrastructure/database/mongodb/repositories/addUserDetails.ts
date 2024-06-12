@@ -19,7 +19,6 @@ export const addUserDetails = async (data: IUserProfile) => {
       if (data.accountType) update.accountType = data.accountType;
       if (data.preferedJobs) update.preferedJobs = data.preferedJobs;
       if (data.title) update.title = data.title;
-      if (data.campanyId) update.companyId = new Types.ObjectId(String(data.campanyId));
       if (data.following) update.following = data.following.map(id => new Types.ObjectId(String(id)));
       if (data.followers) update.followers = data.followers.map(id => new Types.ObjectId(String(id)));
       if (data.theme) update.theme = data.theme;
