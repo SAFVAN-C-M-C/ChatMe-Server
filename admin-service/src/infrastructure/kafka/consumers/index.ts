@@ -1,4 +1,5 @@
 import addUserConsumer from "./addUserConsumer";
+import recruiterRequestConsumer from "./recruiterRequestConsumer";
 
 
-export { addUserConsumer };
+export { addUserConsumer,recruiterRequestConsumer };

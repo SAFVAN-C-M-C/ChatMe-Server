@@ -1,24 +1,19 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
-export const getUserController = (dependencies: IDependencies) => {
-  console.log("hi");
-  console.log("here ",dependencies);
+export const getCompaniesController = (dependencies: IDependencies) => {
   const {
-    useCases: { getUsersUseCase },
+    useCases: { getCompaniesUseCase },
   } = dependencies;
-  console.log("here ",getUsersUseCase);
 
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("here ",getUsersUseCase);
+      
       
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-
-      console.log("requested user",req.user);
-      const result = await getUsersUseCase(dependencies).execute();
+      const result = await getCompaniesUseCase(dependencies).execute();
 
       if (!result) {
         console.log("no users");
@@ -27,7 +22,7 @@ export const getUserController = (dependencies: IDependencies) => {
       res.status(200).json({
         success: true,
         data: result,
-        message: "User Profile Fetched",
+        message: "Companies Fetched",
       });
     } catch (error) {
       next(error);

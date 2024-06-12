@@ -6,7 +6,7 @@ interface IUsers extends Document {
     name?: string;
     userId?:ObjectId
     numberOfReportActions?: Number | null;
-    IsBlocked?: boolean | null;
+    isBlocked?: boolean | null;
     CreatedAt?: Date | null;
     isVerified?:boolean;
 }

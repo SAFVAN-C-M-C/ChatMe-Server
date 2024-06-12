@@ -1,1 +1,7 @@
 export * from "./getUsersUseCase"
+export * from "./getCompaniesUseCase"
+export * from "./getCompanyRequestUseCase"
+export * from "./getRecruiterRequestUseCase"
+export * from "./unBlockUserUseCase"
+export * from "./blockUserUseCase"
+export * from "./verifyRequestUseCase"

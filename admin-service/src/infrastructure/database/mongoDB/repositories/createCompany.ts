@@ -1,5 +1,6 @@
 import mongoose, { ObjectId, Types } from "mongoose";
 import { Company } from "../model";
+import { CompanyReqest } from "../model/ComapanyRequest";
 interface IData {
     name: string;
     email: string;
@@ -15,6 +16,7 @@ export const createCompany = async (data:IData ) => {
         console.log("Data to be inserted:", data);
 
         const newUser = await Company.create({email:data.email,userId:data.userId,name:data.name});
+        const newRequest=await CompanyReqest.create({email:data.email,name:data.name})
         console.log("New user:", newUser);
         return newUser;
     } catch (error: any) {

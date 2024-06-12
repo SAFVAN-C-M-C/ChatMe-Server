@@ -1,8 +1,21 @@
 import { IDependencies } from "@/application/interfaces/IDependencies"
 import { getUserController } from "./getUserController"
+import { getCompaniesController } from "./getCompanies"
+import { getCompanyRequestController } from "./getCompanyRequest"
+import { getRecruiterRequestController } from "./getRecruiterRequest"
+import { verifyRequestController } from "./verifyRequest"
+import { blockUserController } from "./blockUser"
+import { unBlockUserController } from "./unBlockUser"
 
 export const controllers = (dependencies: IDependencies) => {
     return{
-        getUsers:getUserController(dependencies)
+        getUsers:getUserController(dependencies),
+        getCompanies:getCompaniesController(dependencies),
+        getCompanyRequest:getCompanyRequestController(dependencies),
+        getRecruiterRequest:getRecruiterRequestController(dependencies),
+        verifyRequest:verifyRequestController(dependencies),
+        blockUser:blockUserController(dependencies),
+        unBlockUser:unBlockUserController(dependencies),
+        
     }
 }
