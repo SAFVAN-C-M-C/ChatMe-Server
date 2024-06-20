@@ -7,6 +7,8 @@ const errorHandler = (
  res: Response,
  next: NextFunction
 ) => {
+    console.log(err);
+    
  return res.status(err.status || 404).json({
   success: false,
   status: err.status,

@@ -31,6 +31,8 @@ export const jwtMiddleware = async (req: Request, res: Response, next: NextFunct
         
         
         req.user = decoded;
+        console.log(req.body);
+        
         next();
     } catch (err) {
         res.sendStatus(403); 
