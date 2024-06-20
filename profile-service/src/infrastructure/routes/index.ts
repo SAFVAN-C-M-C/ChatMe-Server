@@ -25,7 +25,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/apply-recruiter").post(jwtMiddleware, applyRecruiter);
   router.route("/apply-recruiter/accept").post(jwtMiddleware, acceptRecruiter);
   router.route("/apply-recruiter/ignore").post(jwtMiddleware, ignoreRecruiter);
-  router.route("/avatar/upload").put(jwtMiddleware, upload.single("blob"), updateAvatar);
+  router.route("/avatar/upload").put(jwtMiddleware, updateAvatar);
   router.route("/bio/update").post(jwtMiddleware, updateBio);
   router.route("/update/about").post(jwtMiddleware, updateAbout);
   router.route("/update/education/add").post(jwtMiddleware, addEducation);

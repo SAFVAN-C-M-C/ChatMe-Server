@@ -12,25 +12,14 @@ export const updateAvatarController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      if (!req.file) {
-        throw new Error("Image not found");
-      }
-
-      console.log("File received:", req.file);
+    
+     
       console.log("Body received:", req.body);
 
-      const uploadedImage = await cloudinary.uploader.upload(req.file.path, {
-        folder: 'profile_pics',
-        use_filename: true,
-      });
-
-      if (!uploadedImage) {
-        throw new Error("Something went wrong in upload");
-      }
 
       const data = {
         email: req.user.email,
-        avatar: uploadedImage.secure_url
+        avatar: req.body.avatar
       };
 
       const result = await updateAvatarUseCase(dependencies).execute(data);
@@ -38,7 +27,8 @@ export const updateAvatarController = (dependencies: IDependencies) => {
       if (!result) {
         throw new Error("User not found!");
       }
-
+      console.log(data.avatar);
+      
       res.status(200).json({
         success: true,
         data: result,
