@@ -10,10 +10,9 @@ export const getSignedUrlController = (dependencies: IDependencies) => {
       }
       console.log(req.query);
       if (req.query && req.query.type && req.query.content) {
-        const filePath = `upload/${req.user.email}/${req.query.type}/${
-          req.user._id
-        }${Date.now()}.jpg`;
-        const contentType = req.query.content==="jpeg"?"image/jpg":"video/mp4";
+        const filePath = `upload/${req.user.email}/${req.query.type}/${Date.now()}.jpg`;
+        const contentType = req.query.content === "jpeg" ? "image/jpeg" : "video/mp4";
+
         console.log(filePath);
 
         const result = await getPutSignedUrl(filePath, contentType);
@@ -27,7 +26,7 @@ export const getSignedUrlController = (dependencies: IDependencies) => {
         const filePath = `upload/${req.user.email}/avatar/${
           req.user._id
         }${Date.now()}.jpg`;
-        const contentType = "image/jpg";
+        const contentType = "image/jpeg";
         console.log(filePath);
 
         const result = await getPutSignedUrl(filePath, contentType);
