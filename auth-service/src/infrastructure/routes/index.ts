@@ -8,7 +8,7 @@ import { jwtMiddleware } from "@/_lib/common/middleware/jwtMiddleware";
 
 
 export const routes = (dependencies: IDependencies) => {
-  const { register,addRegisterDetails,login,logout ,googleAuth,forgotPassword,updatePassword,verifyOTP,getUser } =
+  const { register,addRegisterDetails,login,logout ,googleAuth,forgotPassword,updatePassword,verifyOTP,getUser,getSignedUrl } =
     controllers(dependencies);
 
   const router = Router();
@@ -22,6 +22,6 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/forgotpassword").post(forgotPassword);
   router.route("/reset-password").post(jwtMiddleware,updatePassword);
   router.route("/verify-otp").post(jwtMiddleware,verifyOTP);
-
+  router.route("/aws/s3/signedUrl").get(jwtMiddleware,getSignedUrl);
   return router;
 };

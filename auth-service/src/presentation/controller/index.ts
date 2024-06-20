@@ -9,6 +9,7 @@ import { updatePasswordController } from "./updatePassword"
 import { verify } from "jsonwebtoken"
 import { otpConroller } from "./verifyOtp"
 import { getUserController } from "./getUser"
+import { getSignedUrlController } from "./getSignedUrl"
 
 export const controllers = (dependencies: IDependencies) => {
     return{
@@ -20,6 +21,7 @@ export const controllers = (dependencies: IDependencies) => {
         googleAuth: googleAuthController(dependencies),
         forgotPassword: forgotPasswordController(dependencies),
         updatePassword: updatePasswordController(dependencies),
-        verifyOTP:otpConroller(dependencies)
+        verifyOTP:otpConroller(dependencies),
+        getSignedUrl:getSignedUrlController(dependencies)
     }
 }
