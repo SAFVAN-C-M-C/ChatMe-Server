@@ -145,7 +145,7 @@ const userSchema = new Schema(
           userId: { type: Schema.Types.ObjectId },
           email: { type: String },
           name: { type: String },
-          avatar: { type: String },
+          avatar: { type: String,default:"/general/ChatMe-profile.png" },
         },
       ],
     },
