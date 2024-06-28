@@ -5,6 +5,7 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { UserEntity } from "@/domain/entities";
 import { OAuth2Client } from "google-auth-library";
 import { addUser } from "@/infrastructure/kafka/producer";
+import { ErrorResponse } from "@/_lib/common/error";
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 export const googleAuthController = (dependencies: IDependencies) => {
@@ -36,6 +37,13 @@ export const googleAuthController = (dependencies: IDependencies) => {
       const user = await findUserByEmailUseCase(dependencies).execute(email,true);
 
       if (user) {
+        if(user.isBlocked){
+          return next(
+            ErrorResponse.unauthorized(
+              "User is Blocked"
+            )
+          );
+        }
         const accessToken = generateAccessToken({
           _id: String(user?._id),
           email: user?.email!,

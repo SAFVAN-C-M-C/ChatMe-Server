@@ -21,4 +21,9 @@ export const routes = [
       target: services.admin,
       changeOrigin: true,
     },
+    {
+      context: "/api/post",
+      target: services.post,
+      changeOrigin: true,
+    },
   ];

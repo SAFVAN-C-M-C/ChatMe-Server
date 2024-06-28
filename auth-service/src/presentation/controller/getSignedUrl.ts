@@ -10,7 +10,7 @@ export const getSignedUrlController = (dependencies: IDependencies) => {
       }
       console.log(req.query);
       if (req.query && req.query.type && req.query.content) {
-        const filePath = `upload/${req.user.email}/${req.query.type}/${Date.now()}.jpg`;
+        const filePath = `upload/${req.user.email}/${req.query.type}/${Date.now()}.${req.query.content?req.query.content:"jpg"}`;
         const contentType = req.query.content === "jpeg" ? "image/jpeg" : "video/mp4";
 
         console.log(filePath);
