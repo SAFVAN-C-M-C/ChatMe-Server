@@ -26,3 +26,7 @@ export interface CreatePostCredentials{
     content?: string;
     userAvatar?:string
 }
+export interface EditPostCredentials{
+  _id?:string;
+  content?: string;
+}

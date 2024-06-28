@@ -1,3 +1,5 @@
 export * from "./createPost"
 export * from "./getPostsByUserId"
 export * from "./getPosts"
+export * from "./editPost"
+export * from "./deletePost"

@@ -1,3 +1,5 @@
 export * from "./createPostuseCase"
 export * from "./getPostsByUserIdUseCase"
 export * from "./getPostsUseCase"
+export * from "./editPostUseCase"
+export * from "./deletePostUseCase"

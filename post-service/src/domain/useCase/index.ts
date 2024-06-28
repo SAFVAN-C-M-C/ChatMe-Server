@@ -1,3 +1,5 @@
 export * from "./ICreatePostuseCase"
 export * from "./IGetPostsByUserIdUseCase"
 export * from "./IGetPostsUseCase"
+export * from "./IEditPostUseCase"
+export * from "./IDeletePostUseCase"

@@ -7,8 +7,10 @@ export const getPostsByUserId = async (userId: string) => {
     if (!userId) {
       throw new Error("userId not provided");
     }
-
+    
     const posts = await Posts.find({userId:new Types.ObjectId(userId)})
+    console.log("user postss:======",posts);
+    
     if (!posts) {
       throw new Error("Posts not found");
     }

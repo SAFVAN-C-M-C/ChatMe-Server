@@ -48,7 +48,7 @@ export const createPostController = (dependencies: IDependencies) => {
       res.status(200).json({
         success: true,
         data: result,
-        message: "Recruiter accepted",
+        message: "Post Created",
       });
     } catch (error) {
       next(error);
