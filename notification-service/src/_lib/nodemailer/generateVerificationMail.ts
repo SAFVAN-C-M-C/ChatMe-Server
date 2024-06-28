@@ -1,5 +1,6 @@
 import nodemailer from "nodemailer";
-
+import {config} from "dotenv"
+config()
 export const generateVerificationMail = async (
   email: string,
   title: string,
