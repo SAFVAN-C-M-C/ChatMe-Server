@@ -26,4 +26,9 @@ export const routes = [
       target: services.post,
       changeOrigin: true,
     },
+    {
+      context: "/api/chat",
+      target: services.chat,
+      changeOrigin: true,
+    },
   ];
