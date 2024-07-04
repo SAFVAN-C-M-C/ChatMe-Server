@@ -15,7 +15,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/myposts").get(jwtMiddleware, getMyPosts);
   router.route("/create").post(jwtMiddleware, createPost);
   router.route("/edit").put(jwtMiddleware, editPost);
-  router.route("/delete").put(jwtMiddleware, deletePost);
+  router.route("/delete/:id").put(jwtMiddleware, deletePost);
   router.route("/like/:postId").put(jwtMiddleware,likePost)
   router.route("/unlike/:postId").put(jwtMiddleware,unLikePost)
   router.route("/save/:postId").put(jwtMiddleware,savePost)

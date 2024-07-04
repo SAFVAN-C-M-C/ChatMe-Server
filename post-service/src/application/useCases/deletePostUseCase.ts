@@ -8,8 +8,8 @@ export const deletePostUseCase = (dependencies: IDependencies) => {
     } = dependencies;
 
     return {
-        execute: async (_id: string) => {
-            return await deletePost(_id);
+        execute: async (data:{_id:string,isAdmin?:boolean,userId:string}) => {
+            return await deletePost(data);
         }
     }
 }

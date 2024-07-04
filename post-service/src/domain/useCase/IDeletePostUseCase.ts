@@ -1,5 +1,5 @@
 import {  EditPostCredentials, IPosts } from "../entities";
 
 export interface IDeletePostUseCase {
-    execute(_id:string): Promise<any | null>;
+    execute(data:{_id:string,isAdmin?:boolean,userId:string}): Promise<any | null>;
 }

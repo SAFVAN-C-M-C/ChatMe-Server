@@ -8,7 +8,7 @@ export interface IRepositories {
   //post managment
   createPost:(data:CreatePostCredentials)=>Promise<IPosts|null>;
   editPost:(data:EditPostCredentials)=>Promise<IPosts|null>;
-  deletePost:(_id:string)=>Promise<any|null>
+  deletePost:(data:{_id:string,isAdmin?:boolean,userId:string})=>Promise<any|null>
   //post interaction
   likePost:(data:ILikePost)=>Promise<IPosts|null>
   unLikePost:(data:ILikePost)=>Promise<IPosts|null>;

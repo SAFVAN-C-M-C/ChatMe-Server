@@ -15,17 +15,15 @@ export const deltedPostController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      if(!req.body._id){
+      if(!req.params.id){
         throw new Error("Post not found");
       }
-      
+      const isAdmin=req.user.role==="admin"
       const deletedPost = await deletePostUseCase(dependencies).execute(
-        String(req.body._id)
+        {_id:String(req.params.id),isAdmin:isAdmin,userId:String(req.user._id)}
       );
 
-      if (!deletedPost) {
-        throw new Error("post deletion failed");
-      }
+      
       const result=await getPostsByUserIdUseCase(dependencies).execute(String(req.user._id))
       res.status(200).json({
         success: true,
