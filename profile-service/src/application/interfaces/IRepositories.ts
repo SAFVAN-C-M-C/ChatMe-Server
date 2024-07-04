@@ -24,4 +24,8 @@ export interface IRepositories {
 
 
   getSearchedUser:(data:{searchKey:string})=>Promise<IUserProfile[] | null>;
+
+
+  followUser:(data:{myId:string,userId:string})=>Promise<IUserProfile | null>;
+  unfollowUser:(data:{myId:string,userId:string})=>Promise<IUserProfile | null>;
 }

@@ -12,6 +12,8 @@ import { acceptRecruiterController } from "./acceptRecruiter"
 import { ignoreRecruiterController } from "./ignoreRecruiter"
 import { getSearchedUserController } from "./getSearchedUser"
 import { getUserProfileByIdController } from "./getUserProfileById"
+import { followUserController } from "./followUser"
+import { unFollowUserController } from "./unFollowUser"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -29,5 +31,8 @@ export const controllers = (dependencies: IDependencies) => {
         ignoreRecruiter:ignoreRecruiterController(dependencies),
         getSearchedUser:getSearchedUserController(dependencies),
         getUserProfileById:getUserProfileByIdController(dependencies),
+        followUser:followUserController(dependencies),
+        unFollowUser:unFollowUserController(dependencies),
+
     }
 }
