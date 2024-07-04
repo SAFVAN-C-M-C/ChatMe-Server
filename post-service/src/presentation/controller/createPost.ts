@@ -15,17 +15,17 @@ export const createPostController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
       if(!req.body.content){
-        console.log("Content not provided");
+
         
         throw new Error("Content not provided");
       }
       if(!req.body.media){
-        console.log("media not provided");
+
         
         throw new Error("media not provided");
       }
       if(!req.body.name){
-        console.log("name not provided");
+  
         
         throw new Error("name not provided");
       }

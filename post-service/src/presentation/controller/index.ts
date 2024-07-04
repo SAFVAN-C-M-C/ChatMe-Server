@@ -4,6 +4,13 @@ import { getUserPostsController } from "./getUserPosts"
 import { getPostsController } from "./getPosts"
 import { editPostController } from "./editPost"
 import { deltedPostController } from "./deletePost"
+import { likePostController } from "./likePost"
+import { unLikePostController } from "./unLikePost"
+import { savePostController } from "./savePost"
+import { unSavePostController } from "./unSavePost"
+import { getSavedPostController } from "./getSavedPost"
+import { addCommentController } from "./addComment"
+import { deleteCommentController } from "./deleteComment"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -13,5 +20,12 @@ export const controllers = (dependencies: IDependencies) => {
         getPosts:getPostsController(dependencies),
         editPost:editPostController(dependencies),
         deletePost:deltedPostController(dependencies),
+        likePost:likePostController(dependencies),
+        unLikePost:unLikePostController(dependencies),
+        savePost:savePostController(dependencies),
+        unSavePost:unSavePostController(dependencies),
+        getSavedPosts:getSavedPostController(dependencies),
+        addComment:addCommentController(dependencies),
+        deleteComment:deleteCommentController(dependencies)
     }
 }

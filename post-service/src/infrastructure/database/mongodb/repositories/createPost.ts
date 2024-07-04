@@ -20,7 +20,7 @@ export const createPost = async (data: CreatePostCredentials) => {
     if (!CreatedPost) {
       throw new Error("User not found");
     }
-    console.log("post created",CreatedPost);
+
     return CreatedPost;
   } catch (error: any) {
     throw new Error(error?.message);

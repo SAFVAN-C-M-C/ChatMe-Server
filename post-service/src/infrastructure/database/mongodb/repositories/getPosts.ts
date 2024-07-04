@@ -8,7 +8,7 @@ export const getPosts = async () => {
     if (!posts) {
       throw new Error("Posts not found");
     }
-    console.log("post fetched",posts);
+
     return posts;
   } catch (error: any) {
     throw new Error(error?.message);

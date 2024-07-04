@@ -14,7 +14,7 @@ export const deletePost = async (_id: string) => {
     if (!deltedPost) {
       throw new Error("post not found");
     }
-    console.log("post deleted", deltedPost);
+
     return deltedPost;
   } catch (error: any) {
     throw new Error(error?.message);

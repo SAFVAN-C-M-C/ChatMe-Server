@@ -27,8 +27,8 @@ interface IComments {
 const commentSchema = new Schema({
   comment: { type: String },
   name: { type: String },
-  email: { type: String },
   userId: { type: String },
+  userAvatar:{ type: String },
   like:[{type: Schema.Types.ObjectId}]
 });
 

@@ -1,23 +1,27 @@
-import { CreatePostCredentials, EditPostCredentials } from "@/domain/entities";
+import {
+  CreatePostCredentials,
+  EditPostCredentials,
+  ILikePost,
+} from "@/domain/entities";
 import { Posts } from "../models";
 import { Types } from "mongoose";
 
-export const editPost = async (data: EditPostCredentials) => {
+export const likePost = async (data: ILikePost) => {
   try {
-    let { content,_id } = data
-    if (!_id) {
+    let { userId, postId } = data;
+    if (!userId || !postId) {
       throw new Error("post not found");
     }
 
     const editedPost = await Posts.findOneAndUpdate(
-        {_id:new Types.ObjectId(_id)},
-        { $set: { content: content } },
-        { new: true }
-    )
+      { _id: new Types.ObjectId(postId) },
+      { $push: { likes: userId } },
+      { new: true }
+    );
     if (!editedPost) {
       throw new Error("post not found");
     }
-
+    
     return editedPost;
   } catch (error: any) {
     throw new Error(error?.message);

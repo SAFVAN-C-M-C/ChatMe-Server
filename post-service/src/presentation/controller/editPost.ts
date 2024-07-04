@@ -15,7 +15,6 @@ export const editPostController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
       if(!req.body.content){
-        console.log("Content not provided");
         throw new Error("Content not provided");
       }
 
