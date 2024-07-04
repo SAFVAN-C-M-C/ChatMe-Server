@@ -11,6 +11,8 @@ import { unSavePostController } from "./unSavePost"
 import { getSavedPostController } from "./getSavedPost"
 import { addCommentController } from "./addComment"
 import { deleteCommentController } from "./deleteComment"
+import { getUserPostByIdController } from "./getUserPostById"
+import { getPostByIdController } from "./getPostById"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -26,6 +28,8 @@ export const controllers = (dependencies: IDependencies) => {
         unSavePost:unSavePostController(dependencies),
         getSavedPosts:getSavedPostController(dependencies),
         addComment:addCommentController(dependencies),
-        deleteComment:deleteCommentController(dependencies)
+        deleteComment:deleteCommentController(dependencies),
+        getUserPostById:getUserPostByIdController(dependencies),
+        getPostById:getPostByIdController(dependencies),
     }
 }

@@ -19,5 +19,7 @@ export interface IRepositories {
 
 
   addComment:(data:AddCommentCredentials)=>Promise<{post:IPosts,id:string}|null>;
-  deleteComment:(data:DeleteComment)=>Promise<IPosts|null>
+  deleteComment:(data:DeleteComment)=>Promise<IPosts|null>;
+
+  getPostById:(postId:string)=>Promise<IPosts|null>;
 }

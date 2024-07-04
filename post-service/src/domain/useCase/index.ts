@@ -11,4 +11,5 @@ export * from "./ISavePostUseCase"
 export * from "./IUnSavePostUseCase"
 export * from "./IGetSavedPostUseCase"
 export * from "./IAddCommentUseCase"
+export * from "./IGetPostByIdUseCase"
 

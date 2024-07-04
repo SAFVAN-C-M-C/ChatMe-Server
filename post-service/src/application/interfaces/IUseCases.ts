@@ -1,4 +1,4 @@
-import { IAddCommentUseCase, ICreatePostuseCase, IDeletePostUseCase, IEditPostUseCase, IGetPostsByUserIdUseCase, IGetPostsUseCase, IGetSavedPostUseCase, ILikePostUseCase, ISavePostUseCase, IUnLikePostUseCase, IUnSavePostUseCase } from "@/domain/useCase";
+import { IAddCommentUseCase, ICreatePostuseCase, IDeletePostUseCase, IEditPostUseCase, IGetPostByIdUseCase, IGetPostsByUserIdUseCase, IGetPostsUseCase, IGetSavedPostUseCase, ILikePostUseCase, ISavePostUseCase, IUnLikePostUseCase, IUnSavePostUseCase } from "@/domain/useCase";
 import { IDependencies } from "./IDependencies";
 import { IDeleteCommentUseCase } from "@/domain/useCase/IDeleteCommentUseCase";
 
@@ -16,4 +16,5 @@ export interface IUseCases {
     getSavedPostUseCase:(dependencies:IDependencies)=>IGetSavedPostUseCase;
     addCommentUseCase:(dependencies:IDependencies)=>IAddCommentUseCase;
     deleteCommentUseCase:(dependencies:IDependencies)=>IDeleteCommentUseCase;
+    getPostByIdUseCase:(dependencies:IDependencies)=>IGetPostByIdUseCase;
 }
