@@ -1,5 +1,6 @@
-import { IBlockUserUseCase, IGetCompaniesUseCase, IGetCompanyRequestUseCase, IGetRecruiterRequestUseCase, IGetUserUseCase, IUnBlockUserUseCase, IVerifyRequestUseCase } from "@/domain/useCases";
+import { IAddReportUseCase, IBlockUserUseCase, IDeleteReportUseCase, IGetCompaniesUseCase, IGetCompanyRequestUseCase, IGetRecruiterRequestUseCase, IGetReportsUseCase, IGetUserUseCase, IReportActionUseCase, IUnBlockUserUseCase, IVerifyRequestUseCase } from "@/domain/useCases";
 import { IDependencies } from "./IDependencies";
+
 
 
 export interface IUseCases {
@@ -10,4 +11,8 @@ export interface IUseCases {
   verifyRequestUseCase:(dependencies: IDependencies)=>IVerifyRequestUseCase;
   blockUserUseCase:(dependencies: IDependencies)=>IBlockUserUseCase;
   unBlockUserUseCase:(dependencies: IDependencies)=>IUnBlockUserUseCase;
+  addReportUseCase:(dependencies: IDependencies)=>IAddReportUseCase;
+  getReportsUseCase:(dependencies: IDependencies)=>IGetReportsUseCase;
+  reportActionUseCase:(dependencies: IDependencies)=>IReportActionUseCase;
+  deleteReportUseCase:(dependencies: IDependencies)=>IDeleteReportUseCase;
 }

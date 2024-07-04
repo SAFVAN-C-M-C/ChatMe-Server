@@ -6,9 +6,10 @@ import {
   IComapanyRequest,
   IRecruiterRequest,
 } from "@/domain/entities/Requests";
+import { Types } from "mongoose";
 
 export const unBlockUser = async (data: {
-  email?: string;
+  userId?: string;
   isBlocked?:boolean;
   type?: string;
 }): Promise<IRecruiterRequest[] | IComapanyRequest[] | null> => {
@@ -17,7 +18,7 @@ export const unBlockUser = async (data: {
     if (data.type === "company") {
         const users = await Company.findOneAndUpdate(
         {
-          email: data.email,
+          userId: new Types.ObjectId(String(data.userId)),
         },
         {
           $set: { isBlocked: data.isBlocked }, // Update the matched document
@@ -30,7 +31,7 @@ export const unBlockUser = async (data: {
     } else if (data.type === "user") {
       const users = await Users.findOneAndUpdate(
         {
-          email: data.email,
+          userId: new Types.ObjectId(String(data.userId)),
         },
         {
           $set: { isBlocked: false }, // Update the matched document

@@ -6,7 +6,7 @@ export const blockUserUseCase = (dependencies: IDependencies) => {
     } = dependencies;
 
     return {
-        execute: async (data:{email?:string,isBlocked?:boolean,type?:string}) => {
+        execute: async (data:{userId?:string,isBlocked?:boolean,type?:string}) => {
             return await blockUser(data);
         }
     }

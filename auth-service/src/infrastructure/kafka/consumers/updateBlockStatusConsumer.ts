@@ -10,7 +10,7 @@ export default async (
         console.log(data);
         console.log("==========");
         const newData={
-            email:data.email,
+            userId:data.email,
             isBlocked:data.isBlocked
         }
         await updateBlockStatusService(newData)

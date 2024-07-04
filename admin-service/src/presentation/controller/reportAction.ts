@@ -1,10 +1,10 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { updateBlockStatus, updateVerificationStatus } from "@/infrastructure/kafka/producers";
+import { updateVerificationStatus } from "@/infrastructure/kafka/producers";
 import { Request, Response, NextFunction } from "express";
 
-export const blockUserController = (dependencies: IDependencies) => {
+export const reportActionController = (dependencies: IDependencies) => {
   const {
-    useCases: { blockUserUseCase },
+    useCases: { reportActionUseCase },
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -14,25 +14,18 @@ export const blockUserController = (dependencies: IDependencies) => {
       }
       const data={
         userId:req.body.userId,
-        isBlocked:req.body.isBlocked,
-        type:req.body.type
+        reportId:req.body.reportId,
       }
-      console.log(data);
       
-      const result = await blockUserUseCase(dependencies).execute(data);
+      const result = await reportActionUseCase(dependencies).execute(data);
 
       if (!result) {
         console.log("no users");
-      }
-      const updatedData={
-        userId:data.userId,
-        isBlocked:data.isBlocked
-      }
-      await updateBlockStatus(updatedData,"auth-service-topic")
+      }      
       res.status(200).json({
         success: true,
         data: result,
-        message: "User Profile Fetched",
+        message: "Report action took",
       });
     } catch (error) {
       next(error);

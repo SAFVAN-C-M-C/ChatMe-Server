@@ -13,7 +13,7 @@ export const unBlockUserController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
       const data={
-        email:req.body.email,
+        userId:req.body.userId,
         isBlocked:req.body.isBlocked,
         type:req.body.type
       }
@@ -25,7 +25,7 @@ export const unBlockUserController = (dependencies: IDependencies) => {
         console.log("no users");
       }
       const updatedData={
-        email:data.email,
+        userId:data.userId,
         isBlocked:data.isBlocked
       }
       await updateBlockStatus(updatedData,"auth-service-topic")

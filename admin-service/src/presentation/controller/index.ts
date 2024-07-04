@@ -6,6 +6,10 @@ import { getRecruiterRequestController } from "./getRecruiterRequest"
 import { verifyRequestController } from "./verifyRequest"
 import { blockUserController } from "./blockUser"
 import { unBlockUserController } from "./unBlockUser"
+import { addReportController } from "./addReport"
+import { getReportsController } from "./getReports"
+import { reportActionController } from "./reportAction"
+import { deleteReportController } from "./deleteReport"
 
 export const controllers = (dependencies: IDependencies) => {
     return{
@@ -16,6 +20,9 @@ export const controllers = (dependencies: IDependencies) => {
         verifyRequest:verifyRequestController(dependencies),
         blockUser:blockUserController(dependencies),
         unBlockUser:unBlockUserController(dependencies),
-        
+        addReport:addReportController(dependencies),
+        getReports:getReportsController(dependencies),
+        reportAction:reportActionController(dependencies),
+        deleteReport:deleteReportController(dependencies),
     }
 }
