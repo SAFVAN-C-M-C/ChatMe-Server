@@ -1,4 +1,4 @@
-import { IAcceptRecruiterUseCase, IAddEducationUseCase, IAddExperienceUsecase, IAddPreferedJobsUseCase, IAddSkillsUseCase, IFindUserByEmailUseCase, IFindUserByIdUseCase, IIgnoreRecruiterUseCase, IRecruiterApplicationUseCase, IUpdateAboutUseCase, IUpdateAvatarUseCase, IUpdateBioUseCase } from "@/domain/useCase";
+import { IAcceptRecruiterUseCase, IAddEducationUseCase, IAddExperienceUsecase, IAddPreferedJobsUseCase, IAddSkillsUseCase, IFindUserByEmailUseCase, IFindUserByIdUseCase, IGetSearchedUserUseCase, IIgnoreRecruiterUseCase, IRecruiterApplicationUseCase, IUpdateAboutUseCase, IUpdateAvatarUseCase, IUpdateBioUseCase } from "@/domain/useCase";
 import { IDependencies } from "./IDependencies";
 
 export interface IUseCases {
@@ -14,4 +14,5 @@ export interface IUseCases {
   addExperienceUsecase:(dependencies:IDependencies)=>IAddExperienceUsecase;
   addSkillsUseCase:(dependencies:IDependencies)=>IAddSkillsUseCase;
   addPreferedJobsUseCase:(dependencies:IDependencies)=>IAddPreferedJobsUseCase;
+  getSearchedUserUseCase:(dependencies:IDependencies)=>IGetSearchedUserUseCase;
 }

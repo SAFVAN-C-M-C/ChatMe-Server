@@ -21,4 +21,7 @@ export interface IRepositories {
   addExperience:(data:Experience)=>Promise<IUserProfile | null>
   addSkills:(data:{email?:string,skills?:string[]})=>Promise<IUserProfile | null>; 
   addPreferedJobs:(data:{email?:string,preferedJobs?:string[]})=>Promise<IUserProfile | null>; 
+
+
+  getSearchedUser:(data:{searchKey:string})=>Promise<IUserProfile[] | null>;
 }

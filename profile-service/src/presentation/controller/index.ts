@@ -10,6 +10,8 @@ import { addSkillsController } from "./addSkills"
 import { addPreferedJobsController } from "./addPreferedJobs"
 import { acceptRecruiterController } from "./acceptRecruiter"
 import { ignoreRecruiterController } from "./ignoreRecruiter"
+import { getSearchedUserController } from "./getSearchedUser"
+import { getUserProfileByIdController } from "./getUserProfileById"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -25,5 +27,7 @@ export const controllers = (dependencies: IDependencies) => {
         addPreferedJobs:addPreferedJobsController(dependencies),
         acceptRecruiter:acceptRecruiterController(dependencies),
         ignoreRecruiter:ignoreRecruiterController(dependencies),
+        getSearchedUser:getSearchedUserController(dependencies),
+        getUserProfileById:getUserProfileByIdController(dependencies),
     }
 }

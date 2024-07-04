@@ -16,7 +16,9 @@ export const routes = (dependencies: IDependencies) => {
     addSkills,
     addPreferedJobs,
     acceptRecruiter,
-    ignoreRecruiter
+    ignoreRecruiter,
+    getSearchedUser,
+    getUserProfileById
   } = controllers(dependencies);
 
   const router = Router();
@@ -32,6 +34,8 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/update/experience/add").post(jwtMiddleware, addExperience);
   router.route("/update/skills/add").post(jwtMiddleware, addSkills);
   router.route("/update/preferedJobs/add").post(jwtMiddleware, addPreferedJobs);
+  router.route("/users/search").get(jwtMiddleware, getSearchedUser);
+  router.route("/users/:userId").get(jwtMiddleware, getUserProfileById);
 
   return router;
 };
