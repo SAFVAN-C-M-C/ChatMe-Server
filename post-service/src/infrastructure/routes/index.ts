@@ -24,7 +24,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/comment").post(jwtMiddleware,addComment)
   router.route("/comment/delete").put(jwtMiddleware,deleteComment)
   router.route("/user/:userId").get(jwtMiddleware,getUserPostById)
-  router.route("/post/:postId").get(jwtMiddleware,getPostById)
+  router.route("/posts/:postId").get(jwtMiddleware,getPostById)
 
 
 
