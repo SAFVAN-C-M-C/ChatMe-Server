@@ -1,6 +1,9 @@
 import express,{ Application, Request, Response, json, urlencoded } from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser"
+import { dependencies } from "@/_boot/dependencies";
+import { routes } from "@/infrastructure/routes";
+import { errorHandler } from "@/_lib/common/error";
 
 dotenv.config()
 
@@ -19,7 +22,7 @@ app.use("*",(req: Request, res: Response) => {
   });  
 app.use(errorHandler);
 app.listen(PORT,()=>{
-    console.log(`connected to post service defaultly at ${PORT}`);
+    console.log(`connected to chat service defaultly at ${PORT}`);
 })
 
-export default app
+export default app  

@@ -1,4 +1,6 @@
-
+import server from "@/presentation/server";
+import database from "@/_boot/config";
+import { runConsumer, stopConsumer } from "./_boot/consumer";
 (async () => {
   try {
     server;
