@@ -1,6 +1,6 @@
-import { IChat } from "../entities/Chat";
+import { CreateChat, IChat } from "../entities/Chat";
 
 
 export interface ICreateChatUseCase{
-    execute(data:IChat):Promise<IChat | null>;
+    execute(data:CreateChat):Promise<IChat | null>;
 }

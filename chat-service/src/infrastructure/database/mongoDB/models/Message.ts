@@ -1,25 +1,24 @@
-import { Schema, model } from "mongoose";
+import { ObjectId, Schema, model } from "mongoose";
 
+
+interface IMessage extends Document {
+    _id: ObjectId;
+    senderId:ObjectId;
+    receiverId:ObjectId;
+    messages:string;
+    recieverSeen?:boolean
+  }
 const messageSchema = new Schema({
-    chat: {
-        type: Schema.Types.ObjectId,
-        ref: 'chat',
-        required: true
-    },
-    sender: {
+    senderId: {
         type: Schema.Types.ObjectId,
         required: true
     },
-    receiver: {
+    receiverId: {
         type: Schema.Types.ObjectId,
     },
-    content: {
+    message: {
         type: String,
         required: true
-    },
-    contentType: {
-        type: String,
-        default: 'text'
     },
     recieverSeen: {
         type: Boolean,
@@ -29,4 +28,4 @@ const messageSchema = new Schema({
     timestamps: true
 });
 
-export const Message = model('message', messageSchema);
+export const Message = model<IMessage>('message', messageSchema);

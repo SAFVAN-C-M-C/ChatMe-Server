@@ -4,13 +4,7 @@ import { Document, Schema, model } from "mongoose";
 interface IChat extends Document {
   _id: ObjectId;
   participants: ObjectId[];
-  type: string;
-  lastSeen: LastSeen[];
-  messages:ObjectId[];
-}
-interface LastSeen {
-  participant: ObjectId;
-  seenAt: Date;
+  messages?:ObjectId[];
 }
 const chatSchema = new Schema(
   {
@@ -20,20 +14,10 @@ const chatSchema = new Schema(
         required: true,
       },
     ],
-    type: {
-      type: String,
-      enum: ["individual"],
-      default: "individual",
-    },
-    lastSeen: [
-      {
-        participant: { type: Schema.Types.ObjectId },
-        seenAt: { type: Date, default: Date.now },
-      },
-    ],
     messages: [
       {
         type: Schema.Types.ObjectId,
+        default:[],
         ref: "message",
       },
     ],
