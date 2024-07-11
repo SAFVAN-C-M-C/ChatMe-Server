@@ -1,4 +1,4 @@
-import { Education, IUserProfile } from "@/domain/entities";
+import { Education, IUserProfile, UserShocaseDeatials } from "@/domain/entities";
 import { BioDetails } from "@/domain/entities/BioDetails";
 import { Experience } from "@/domain/entities/Experience";
 import { AcceptRequest, RecruiterApplication } from "@/domain/entities/RecruiterApplication";
@@ -28,4 +28,9 @@ export interface IRepositories {
 
   followUser:(data:{myId:string,userId:string})=>Promise<IUserProfile | null>;
   unfollowUser:(data:{myId:string,userId:string})=>Promise<IUserProfile | null>;
+
+
+
+
+  getUserDetailsByUserId:(id:string)=>Promise<UserShocaseDeatials|null>
 }

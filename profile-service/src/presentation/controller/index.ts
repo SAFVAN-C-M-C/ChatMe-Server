@@ -14,6 +14,7 @@ import { getSearchedUserController } from "./getSearchedUser"
 import { getUserProfileByIdController } from "./getUserProfileById"
 import { followUserController } from "./followUser"
 import { unFollowUserController } from "./unFollowUser"
+import { getUserDetailsByUserIdController } from "./getUserDetailsByUserId"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -33,6 +34,6 @@ export const controllers = (dependencies: IDependencies) => {
         getUserProfileById:getUserProfileByIdController(dependencies),
         followUser:followUserController(dependencies),
         unFollowUser:unFollowUserController(dependencies),
-
+        getUserDetailsByUserId:getUserDetailsByUserIdController(dependencies),
     }
 }

@@ -20,7 +20,8 @@ export const routes = (dependencies: IDependencies) => {
     getSearchedUser,
     getUserProfileById,
     followUser,
-    unFollowUser
+    unFollowUser,
+    getUserDetailsByUserId
   } = controllers(dependencies);
 
   const router = Router();
@@ -40,6 +41,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/users/:userId").get(jwtMiddleware, getUserProfileById);
   router.route("/users/follow/:userId").put(jwtMiddleware, followUser);
   router.route("/users/unfollow/:userId").put(jwtMiddleware, unFollowUser);
+  router.route("/get/user/:userId").get(jwtMiddleware, getUserDetailsByUserId);
 
 
   return router;
