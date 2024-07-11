@@ -1,31 +1,35 @@
-import { ObjectId, Schema, model } from "mongoose";
-
+import { ObjectId, Schema, model, Document } from "mongoose";
 
 interface IMessage extends Document {
-    _id: ObjectId;
-    senderId:ObjectId;
-    receiverId:ObjectId;
-    messages:string;
-    recieverSeen?:boolean
-  }
-const messageSchema = new Schema({
+  _id: ObjectId;
+  senderId: ObjectId;
+  receiverId: ObjectId;
+  message: string;
+  recieverSeen?: boolean;
+}
+
+const messageSchema = new Schema(
+  {
     senderId: {
-        type: Schema.Types.ObjectId,
-        required: true
+      type: Schema.Types.ObjectId,
+      required: true,
     },
     receiverId: {
-        type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
+      required: true,
     },
     message: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     recieverSeen: {
-        type: Boolean,
-        default: false
-    }
-}, {
-    timestamps: true
-});
+      type: Boolean,
+      default: false,
+    },
+  },
+  {
+    timestamps: true,
+  }
+);
 
-export const Message = model<IMessage>('message', messageSchema);
+export const Message = model<IMessage>("message", messageSchema);

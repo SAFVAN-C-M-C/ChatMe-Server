@@ -3,10 +3,10 @@ import { ObjectId } from "mongoose";
 export interface IChat {
     _id: ObjectId;
     participants: ObjectId[];
-    messages?:IMessage[];
+    messages:IMessage[];
   }
-  interface IMessage{
-    _id?:ObjectId;
+  export interface IMessage{
+    _id:ObjectId;
     senderId?:ObjectId;
     receiverId?:ObjectId;
     recieverSeen?:boolean;
@@ -25,3 +25,11 @@ export interface IChat {
     senderId:string;
     receiverId:string;
   }
+
+
+export interface CreateMessageData{
+  chatId:string
+  senderId:string;
+  receiverId:string;
+  message:string
+}

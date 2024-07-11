@@ -2,21 +2,19 @@ import { GetChatByUserId, IChat } from "@/domain/entities/Chat";
 import { Types } from "mongoose";
 import { Chat } from "../models";
 
-export const getMyChats:(id:string)=>Promise<IChat[] | null> = async (id) => {
-  try {
-    
-    if (!id ) {
-      console.error("id not provided");
+export const getMyChats = async (id: string): Promise<IChat[] | null> => {
+    try {
+        if (!id) {
+            console.error("ID not provided");
+            throw new Error("Invalid ID provided");
+        }
 
-      throw new Error("Something went wrong");
+        const chats = await Chat.find({
+            participants: new Types.ObjectId(id),
+        }).sort({ updatedAt: -1 });
+
+        return chats as unknown as IChat[]; // Type assertion to IChat[]
+    } catch (error: any) {
+        throw new Error(error?.message);
     }
-
-    const chats = await Chat.find({
-        participants: new Types.ObjectId(String(id)),
-      });
-
-    return chats as IChat[];
-  } catch (error: any) {
-    throw new Error(error?.message);
-  }
 };
