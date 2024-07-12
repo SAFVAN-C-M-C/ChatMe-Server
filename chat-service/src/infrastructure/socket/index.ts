@@ -2,6 +2,8 @@
 import { IMessage } from "@/domain/entities/Chat";
 import { Server } from "http";
 import { Server as IOServer ,Socket} from "socket.io";
+import { setMessageSeen } from "../database/mongoDB/repositories/setMessageSeen";
+
 
 const connectSocketIo = (server: Server) => {
   const io = new IOServer(server, {
@@ -34,11 +36,25 @@ const connectSocketIo = (server: Server) => {
         const receiverSocketId = getReceiverSocketId(newMessage.obj.receiverId);
         if (receiverSocketId) {
           io.to(receiverSocketId).emit("newMessage", newMessage);
-        //   setLastSeen(newMessage.obj.sender, new Date(Date.now()));
         } else {
           console.log("Receiver is offline");
         }
       });
+      socket.on("messageSeen",async ({  messageId,chatId,receiverId })=>{
+        console.log(messageId,chatId,receiverId);
+        try {
+        const message=await setMessageSeen(String(messageId))
+        // console.log(message);
+        
+        const receiverSocketId = getReceiverSocketId(String(receiverId));
+        if (receiverSocketId) {
+          io.to(receiverSocketId).emit("messageSeen", { messageId,chatId });
+        }
+      }catch(error:any){
+        console.log("Error marking message as:",error.message);
+      }
+        
+      })
 
     socket.on("disconnect",()=>{
         console.log("User is disconnectd",socket.id);
