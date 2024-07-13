@@ -1,5 +1,6 @@
 
 import { IDependencies } from "@/application/interfaces/IDependencies";
+import { io } from "@/infrastructure/socket";
 
 import { Request, Response, NextFunction } from "express";
 
@@ -27,7 +28,7 @@ export const createNewNotificationController = (
       if (!result) {
         throw new Error("Something went wrong");
       }
-
+      io.emit("newAdminNotification",result)
       res.status(200).json({
         success: true,
         data: result,
