@@ -26,8 +26,8 @@ export const followUserController = (dependencies: IDependencies) => {
         throw new Error("User not found!");
       }
       const dataForNotification={
-        recipientId:String(req.user._id),
-        fromUserId:String(userId)
+        recipientId:String(userId),
+        fromUserId:String(req.user._id)
       }
       await createFollowNotification(dataForNotification,"notification-service-topic")
       res.status(200).json({
