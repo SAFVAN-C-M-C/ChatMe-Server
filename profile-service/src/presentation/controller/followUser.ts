@@ -1,4 +1,5 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
+import { createFollowNotification } from "@/infrastructure/kafka/producers";
 import { Request, Response, NextFunction } from "express";
 
 export const followUserController = (dependencies: IDependencies) => {
@@ -24,7 +25,11 @@ export const followUserController = (dependencies: IDependencies) => {
       if (!result) {
         throw new Error("User not found!");
       }
-
+      const dataForNotification={
+        recipientId:String(req.user._id),
+        fromUserId:String(userId)
+      }
+      await createFollowNotification(dataForNotification,"notification-service-topic")
       res.status(200).json({
         success: true,
         data: result,
