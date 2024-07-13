@@ -1,11 +1,11 @@
 import server from "./presentation/server"
 import {runConsumer,stopConsumer} from "@/_boot/consumer"
-
+import database from "@/_boot/config";
 
 (async () => {
     try {
       server;
-      await runConsumer()
+      await  Promise.all([database(),runConsumer()])
         .then(() => console.log("kafka consumer is runnnig"))
         .catch((error:any) => {
           console.error(`Error while initializing Kafka consumer: ${error}`);
