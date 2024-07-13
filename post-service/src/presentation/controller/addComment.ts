@@ -1,6 +1,7 @@
 
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { AddCommentCredentials, CreatePostCredentials, EditPostCredentials } from "@/domain/entities";
+import { createCommentNotification } from "@/infrastructure/kafka/producers";
 import { Request, Response, NextFunction } from "express";
 
 
@@ -43,7 +44,13 @@ export const addCommentController = (dependencies: IDependencies) => {
       if (!createdPost) {
         throw new Error("post creatin failed");
       }
-      
+      const dataForCommentNotification={
+        recipientId:String(createdPost.post.userId),
+        fromUserId:String(data.userId),
+        content:String(data.comment),
+        postId:String(data.postId),
+      }
+      await createCommentNotification(dataForCommentNotification,"notification-service-topic")
       res.status(200).json({
         success: true,
         data: createdPost.id,
