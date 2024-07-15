@@ -6,6 +6,7 @@ const services = {
   notification: process.env.NOTIFICATION_SERVICE,
   admin: process.env.ADMIN_SERVICE,
   post:process.env.POST_SERVICE,
-  chat:process.env.CHAT_SERVICE
+  chat:process.env.CHAT_SERVICE,
+  job:process.env.JOB_SERVICE
 };
 export default services;

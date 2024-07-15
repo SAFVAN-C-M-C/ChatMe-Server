@@ -31,4 +31,9 @@ export const routes = [
       target: services.chat,
       changeOrigin: true,
     },
+    {
+      context: "/api/job",
+      target: services.job,
+      changeOrigin: true,
+    },
   ];
