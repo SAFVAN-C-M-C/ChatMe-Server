@@ -2,7 +2,7 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Education } from "@/domain/entities";
 import { AcceptRequest } from "@/domain/entities/RecruiterApplication";
-import { recruiterRequest } from "@/infrastructure/kafka/producers";
+import { recruiterRequest, updateAccountType } from "@/infrastructure/kafka/producers";
 import { Request, Response, NextFunction } from "express";
 
 export const acceptRecruiterController = (dependencies: IDependencies) => {
@@ -35,6 +35,11 @@ export const acceptRecruiterController = (dependencies: IDependencies) => {
         companyId:result._id,
         companyName:result.name,
       }
+      const dataForChangeAccountType={
+        userId:String(data.userId),
+        accountType:"recruiter"
+      }
+      await updateAccountType(dataForChangeAccountType,"auth-service-topic")
       await recruiterRequest(dataToAdmin,"admin-service-topic")
       res.status(200).json({
         success: true,
