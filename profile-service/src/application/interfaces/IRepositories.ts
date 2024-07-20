@@ -33,4 +33,5 @@ export interface IRepositories {
 
 
   getUserDetailsByUserId:(id:string)=>Promise<UserShocaseDeatials|null>
+  changeTheam:(data:{id:string,theam:string})=>Promise<IUserProfile | null>
 }

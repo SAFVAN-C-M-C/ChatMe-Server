@@ -15,6 +15,7 @@ import { getUserProfileByIdController } from "./getUserProfileById"
 import { followUserController } from "./followUser"
 import { unFollowUserController } from "./unFollowUser"
 import { getUserDetailsByUserIdController } from "./getUserDetailsByUserId"
+import { changeTheamController } from "./changeTheam"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -35,5 +36,6 @@ export const controllers = (dependencies: IDependencies) => {
         followUser:followUserController(dependencies),
         unFollowUser:unFollowUserController(dependencies),
         getUserDetailsByUserId:getUserDetailsByUserIdController(dependencies),
+        changeTheam:changeTheamController(dependencies)
     }
 }

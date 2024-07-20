@@ -133,7 +133,7 @@ const userSchema = new Schema(
     skills: [{ type: String }],
     following: [{ type: Schema.Types.ObjectId }],
     followers: [{ type: Schema.Types.ObjectId }],
-    theme: { type: String, enum: ["dark", "light"] },
+    theme: { type: String, enum: ["dark", "light"],default:"light" },
     companyDetails: {
       companyId: {
         type: Schema.Types.ObjectId,

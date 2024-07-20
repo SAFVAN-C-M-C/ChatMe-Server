@@ -26,8 +26,8 @@ export const acceptRecruiter = async (data: AcceptRequest) => {
         throw new Error("user Not found")
     }
     if(userProfile?.accountType) userProfile.accountType="recruiter"
-    if(userProfile?.companyDetails?.companyId) userProfile.companyDetails.companyId=companyProfile.userId
-    if(userProfile?.companyDetails?.companyName) userProfile.companyDetails.companyName=companyProfile.name
+    if(userProfile?.companyDetails) userProfile.companyDetails.companyId=companyProfile.userId
+    if(userProfile?.companyDetails) userProfile.companyDetails.companyName=companyProfile.name
     userProfile.save();
 
     const newRecruiter={
