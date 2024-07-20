@@ -16,9 +16,7 @@ export const getChatByUserId = async (data: GetChatByUserId) => {
             },
         }).populate('messages');
 
-        if (!result) {
-            throw new Error("Chat not found");
-        }
+
 
         return result as unknown as IChat; // Type assertion to IChat
     } catch (error: any) {
