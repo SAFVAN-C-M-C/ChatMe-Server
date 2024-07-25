@@ -3,10 +3,12 @@ import { Notification } from "../model";
 
 export const createNewNotification = async (data: CreatNewNotification): Promise<INotification | null> => {
     try {
-        const { content } = data;
+        const { content,title } = data;
         const dataToCreate = {
             isAdminMessage: true,
             content: content || "Welcome to ChatMe",
+            title:title,
+            isSystem:true
         };
         console.log("Data to be inserted:", dataToCreate);
 

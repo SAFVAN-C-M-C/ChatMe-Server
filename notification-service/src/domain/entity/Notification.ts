@@ -4,6 +4,7 @@ export interface INotification{
     _id:ObjectId;
     recipientId?:ObjectId;
     content?:string
+    title?:string
     isAdminMessage:boolean
     postId?:ObjectId
     fromUserId?:ObjectId
@@ -33,4 +34,5 @@ export interface CreateNewUserNotification{
 }
 export interface CreatNewNotification{
     content:string;
+    title:string
 }

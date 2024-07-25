@@ -7,7 +7,7 @@ import { controllers } from "@/presentation/controller";
 export const notificationRoutes = (dependencies: IDependencies) => {
 
     const {
-        sendVerificationMail,createNewNotification,getNotifications
+        sendVerificationMail,createNewNotification,getNotifications,getSystemNotifications,deleteSystemNotification
     } = controllers(dependencies);
 
     const router = Router();
@@ -17,6 +17,10 @@ export const notificationRoutes = (dependencies: IDependencies) => {
         .get(jwtMiddleware, sendVerificationMail);
     router.route("/send")
         .post(jwtMiddleware, createNewNotification);
-   
+    router.route("/admin")
+        .get(jwtMiddleware, getSystemNotifications);
+    router.route("/admin/:notificationId")
+        .post(jwtMiddleware, deleteSystemNotification);
+    
     return router;
 }

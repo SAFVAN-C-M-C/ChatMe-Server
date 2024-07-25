@@ -3,12 +3,13 @@ import { Document, model, ObjectId, Schema } from "mongoose";
 interface INotification extends Document{
     _id:ObjectId;
     recipientId?:ObjectId;
-    content?:string
-    isAdminMessage:boolean
-    postId?:ObjectId
-    fromUserId?:ObjectId
-    type:string
-    read:boolean
+    content?:string;
+    isAdminMessage:boolean;
+    postId?:ObjectId;
+    title?:string;
+    fromUserId?:ObjectId;
+    type:string;
+    read:boolean;
 }
 const notificationSchema = new Schema(
   {
@@ -16,6 +17,9 @@ const notificationSchema = new Schema(
       type: Schema.Types.ObjectId,
     },
     content: {
+      type: String,
+    },
+    title:{
       type: String,
     },
     isAdminMessage:{
@@ -30,8 +34,12 @@ const notificationSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ["like", "comment", "follow"],
-      default: "other",
+      enum: ["like", "comment", "follow","admin"],
+      default: "admin",
+    },
+    isSystem:{
+      type: Boolean,
+      default: false,
     },
     read: {
       type: Boolean,

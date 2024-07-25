@@ -1,38 +1,33 @@
 
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { io } from "@/infrastructure/socket";
 
 import { Request, Response, NextFunction } from "express";
 
-export const createNewNotificationController = (
+export const deleteSystemNotificationController = (
   dependencies: IDependencies
 ) => {
   const {
-    useCases: { createNewNotificationUseCase },
+    useCases: { deleteSystemNotificationUseCase },
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       if (!req.user) {
-        throw new Error("Email is required!");
+        throw new Error("user not found!");
       }
-      if (req.user.role !== "admin") {
-        throw new Error("Unautherized");
+      if(!req.params.notificationId){
+        throw new Error("notificationId not found!");
       }
-      let { content,title } = req.body;
-
-      const result = await createNewNotificationUseCase(dependencies).execute({
-        content,title
-      });
+      const result = await deleteSystemNotificationUseCase(dependencies).execute(String(req.params.notificationId));
 
       if (!result) {
         throw new Error("Something went wrong");
       }
-      io.emit("newAdminNotification",result)
+
       res.status(200).json({
         success: true,
         data: result,
-        message: "Notification sended",
+        message: "Notification deleted",
       });
     } catch (error) {
       next(error);
