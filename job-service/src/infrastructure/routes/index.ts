@@ -7,7 +7,7 @@ import { roleVerification } from "@/_lib/common/middlewares/roleVerification";
 
 export const routes = (dependencies: IDependencies) => {
   const {
-    createJob
+    createJob,getJobs,getJobDetails
   } = controllers(dependencies);
 
   const router = Router();
@@ -15,7 +15,10 @@ export const routes = (dependencies: IDependencies) => {
   router
     .route('/')
     .post(jwtMiddleware,roleVerification,createJob)
-
+    .get(jwtMiddleware,getJobs)
+  router
+    .route('/:jobId')
+    .get(jwtMiddleware,getJobDetails)
 
   return router;
 };
