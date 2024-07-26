@@ -78,5 +78,7 @@ export interface UserShocaseDeatials{
   avatar:string,
   accountType:string,
   isVerified:boolean
-  name:string
+  name:string;
+  location:string;
+  email:string
 }
