@@ -23,3 +23,14 @@ export interface ICreateJob {
   skills?: string[];
   email?: string;
 }
+export interface IEditJob {
+  jobTitle?: string;
+  description?: string;
+  type?: string;
+  location?: string;
+  mode?: string;
+  skills?: string[];
+  email?: string;
+  jobId:string;
+  userId:string;
+}
