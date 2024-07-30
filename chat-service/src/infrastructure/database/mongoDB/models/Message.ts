@@ -5,6 +5,8 @@ interface IMessage extends Document {
   senderId: ObjectId;
   receiverId: ObjectId;
   message: string;
+  type:string;
+  media?:string
   recieverSeen?: boolean;
 }
 
@@ -21,6 +23,13 @@ const messageSchema = new Schema(
     message: {
       type: String,
       required: true,
+    },
+    type: {
+      type: String,
+      default:"text"
+    },
+    media: {
+      type: String,
     },
     recieverSeen: {
       type: Boolean,

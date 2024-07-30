@@ -5,9 +5,9 @@ import { Types } from "mongoose";
 
 export const createMessage = async (data: CreateMessageData) => {
     try {
-        const { senderId, receiverId, message, chatId } = data;
-        if (!senderId || !receiverId || !message || !chatId) {
-            console.log("SenderId, ReceiverId, message, or chatId not found", senderId, receiverId, message, chatId);
+        const { senderId, receiverId, message,media,type, chatId } = data;
+        if (!senderId || !receiverId || !chatId) {
+            console.log("SenderId, ReceiverId, or chatId not found", senderId, receiverId, message, chatId);
             throw new Error("Something went wrong. Please try again.");
         }
 
@@ -21,6 +21,8 @@ export const createMessage = async (data: CreateMessageData) => {
             senderId: new Types.ObjectId(senderId),
             receiverId: new Types.ObjectId(receiverId),
             message: message,
+            media:media,
+            type:type?type:"text",
             recieverSeen: false
         });
 

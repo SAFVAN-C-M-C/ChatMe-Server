@@ -10,6 +10,8 @@ export interface IChat {
     senderId?:ObjectId;
     receiverId?:ObjectId;
     recieverSeen?:boolean;
+    type:string | "text" | "image" | "video";
+    media?:string
     message:string
   }
   interface LastSeen {
@@ -31,5 +33,7 @@ export interface CreateMessageData{
   chatId:string
   senderId:string;
   receiverId:string;
-  message:string
+  message?:string;
+  media?:string;
+  type?:string
 }

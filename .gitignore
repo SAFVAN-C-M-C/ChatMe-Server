@@ -1,3 +1,5 @@
 node_modules
 .env
 dist
+manifests/k8s/configMaps/*
+!manifests/k8s/configMaps/.gitkeep

@@ -12,7 +12,7 @@ export const createMessageController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      if (!req.body?.message) {
+      if (!req.body?.message && !req.body.media) {
         throw new Error("message not provided");
       }
       if (!req.body?.receiverId) {
@@ -24,6 +24,8 @@ export const createMessageController = (dependencies: IDependencies) => {
       const data:CreateMessageData={
         chatId:String(req.body?.chatId),
         message:String(req.body?.message),
+        media:String(req.body?.media),
+        type:String(req.body?.type),
         receiverId:String(req.body?.receiverId),
         senderId:String(req.user._id)
       }
