@@ -8,12 +8,13 @@ export const findById = async (
 ): Promise<IUserProfile | null> => {
     try {
         
-        const existingUser = await UserProfile.findOne({userId:new Types.ObjectId(String(id))});
+        const existingUser = await UserProfile.findOne({ userId: new Types.ObjectId(String(id)) })
+
         if (!existingUser) {
             throw new Error("User does not exist!");
         }
 
-        return existingUser;
+        return existingUser as IUserProfile;
 
     } catch (error: any) {
         throw new Error(error?.message);

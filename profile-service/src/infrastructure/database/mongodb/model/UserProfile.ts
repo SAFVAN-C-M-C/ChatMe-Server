@@ -15,6 +15,7 @@ interface IUserProfile extends Document {
     dob?: Date | null;
     gender?: string | null;
     resume?: string | null;
+    doc?:string | null;
     location?: string | null;
     phone?: string | null;
   };
@@ -85,7 +86,7 @@ const experienceSchema = new Schema({
 const ExperienceModel = model<Experience>("Experience", experienceSchema);
 
 const recruiterApplicationSchema = new Schema({
-  userId: { type: Schema.Types.ObjectId },
+  userId: { type: Schema.Types.ObjectId,ref: "userProfile" },
   userEmail: { type: String },
   content: { type: String },
   name: { type: String },
@@ -127,22 +128,24 @@ const userSchema = new Schema(
       dob: { type: Date },
       gender: { type: String, enum: ["male", "female"] },
       resume: { type: String },
+      doc: { type: String },
       location: { type: String },
       phone: { type: String },
     },
     skills: [{ type: String }],
-    following: [{ type: Schema.Types.ObjectId }],
-    followers: [{ type: Schema.Types.ObjectId }],
+    following: [{ type: Schema.Types.ObjectId ,ref: "userProfile"}],
+    followers: [{ type: Schema.Types.ObjectId,ref: "userProfile" }],
     theme: { type: String, enum: ["dark", "light"],default:"light" },
     companyDetails: {
       companyId: {
         type: Schema.Types.ObjectId,
+        ref: "userProfile"
       },
       companyName: { type: String },
       jobs: [{ type: Schema.Types.ObjectId }],
       recruiters: [
         {
-          userId: { type: Schema.Types.ObjectId },
+          userId: { type: Schema.Types.ObjectId,ref: "userProfile" },
           email: { type: String },
           name: { type: String },
           avatar: { type: String,default:"/general/ChatMe-profile.png" },

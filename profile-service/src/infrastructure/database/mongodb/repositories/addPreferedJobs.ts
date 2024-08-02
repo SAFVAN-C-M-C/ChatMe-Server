@@ -1,4 +1,4 @@
-import { Education, Experience } from "@/domain/entities";
+import { Education, Experience, IUserProfile } from "@/domain/entities";
 import { UserProfile } from "../model/UserProfile";
 import { Types } from "mongoose";
 
@@ -21,7 +21,7 @@ export const addPreferedJobs = async (data: {email?:string,preferedJobs?:string[
     }
     console.log("updatedData",userProfileData);
     
-    return userProfileData;
+    return userProfileData as IUserProfile;
   } catch (error: any) {
     throw new Error(error?.message);
   }

@@ -1,4 +1,4 @@
-import { Education, IUserProfile, UserShocaseDeatials } from "@/domain/entities";
+import { Education, IUserProfile, UserShocaseDeatials,IGetUsersArrayOfId } from "@/domain/entities";
 import { BioDetails } from "@/domain/entities/BioDetails";
 import { Experience } from "@/domain/entities/Experience";
 import { AcceptRequest, RecruiterApplication } from "@/domain/entities/RecruiterApplication";
@@ -33,5 +33,6 @@ export interface IRepositories {
 
 
   getUserDetailsByUserId:(id:string)=>Promise<UserShocaseDeatials|null>
-  changeTheam:(data:{id:string,theam:string})=>Promise<IUserProfile | null>
+  changeTheam:(data:{id:string,theam:string})=>Promise<IUserProfile | null>;
+  getUsersByArrayOfId:(data:IGetUsersArrayOfId)=>Promise<any[] | null>;
 }

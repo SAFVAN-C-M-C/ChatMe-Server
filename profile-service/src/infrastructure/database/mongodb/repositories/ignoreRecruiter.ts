@@ -2,6 +2,7 @@
 import { UserProfile } from "../model/UserProfile";
 import { Types } from "mongoose";
 import { AcceptRequest } from "@/domain/entities/RecruiterApplication";
+import { IUserProfile } from "@/domain/entities";
 
 export const ignoreRecruiter = async (data: AcceptRequest) => {
   try {
@@ -33,7 +34,7 @@ export const ignoreRecruiter = async (data: AcceptRequest) => {
     }
     console.log("updatedData",updatedUserProfile);
     
-    return updatedUserProfile;
+    return updatedUserProfile as IUserProfile;
   } catch (error: any) {
     throw new Error(error?.message);
   }

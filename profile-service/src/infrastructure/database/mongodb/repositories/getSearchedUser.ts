@@ -18,7 +18,7 @@ export const getSearchedUser = async (data: {
       throw new Error("Somthing wentWrong");
     }
 
-    return searchedUser;
+    return searchedUser as IUserProfile[];
   } catch (error: any) {
     throw new Error(error?.message);
   }

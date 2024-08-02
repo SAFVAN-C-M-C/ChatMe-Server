@@ -30,6 +30,7 @@ export const addUserDetails = async (data: IUserProfile) => {
         if (data.bio.dob) update.bio.dob = data.bio.dob;
         if (data.bio.gender) update.bio.gender = data.bio.gender;
         if (data.bio.resume) update.bio.resume = data.bio.resume;
+        if (data.bio.doc) update.bio.resume = data.bio.doc;
         if (data.bio.location) update.bio.location = data.bio.location;
         if (data.bio.phone) update.bio.phone = data.bio.phone;
       }
@@ -59,7 +60,7 @@ export const addUserDetails = async (data: IUserProfile) => {
       }
   
       console.log("Updated user profile:", updatedUser);
-      return updatedUser;
+      return updatedUser as IUserProfile;
     } catch (error: any) {
         console.error("Error during user profile insertion:", error);
     }

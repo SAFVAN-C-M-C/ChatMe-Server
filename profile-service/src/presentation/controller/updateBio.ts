@@ -13,14 +13,15 @@ export const updateBioController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-
       const data:BioDetails={
         name:req.body.name,
         email:req.user?.email,
         title:req.body.title,
         bio:{
             location:req.body.bio.location,
-            phone:req.body.bio.phone
+            phone:req.body.bio.phone,
+            resume:req.body.bio.resume,
+            doc:req.body.bio.doc
         }
       }
       const result = await updateBioUseCase(dependencies).execute(

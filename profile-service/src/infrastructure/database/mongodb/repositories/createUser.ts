@@ -1,5 +1,6 @@
 import mongoose, { Types } from "mongoose";
 import { UserProfile } from "../model/UserProfile";
+import { IUserProfile } from "@/domain/entities";
 
 export const createUser = async (data: { email: string, userId?: Types.ObjectId | string }) => {
     try {
@@ -12,7 +13,7 @@ export const createUser = async (data: { email: string, userId?: Types.ObjectId 
 
         const newUser = await UserProfile.create({ email: data.email, userId: data.userId });
         console.log("New user profile:", newUser);
-        return newUser;
+        return newUser as IUserProfile;
     } catch (error: any) {
         console.error("Error during user profile insertion:", error);
     }

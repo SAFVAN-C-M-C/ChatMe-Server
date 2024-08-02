@@ -1,5 +1,6 @@
 import { Types } from "mongoose";
 import { UserProfile } from "../model";
+import { IUserProfile } from "@/domain/entities";
 
 export const unfollowUser = async (data: { myId: string; userId: string }) => {
   try {
@@ -28,7 +29,7 @@ export const unfollowUser = async (data: { myId: string; userId: string }) => {
 
     const editedPost = await UserProfile.findOne({ userId: myObjectId });
 
-    return editedPost;
+    return editedPost as IUserProfile;
   } catch (error: any) {
     throw new Error(error.message);
   }

@@ -5,5 +5,7 @@ export interface BioDetails{
     bio?:{
       location?: string | null;
       phone?: string | null;
+      resume?: string | null;
+      doc?:string | null;
     }
 }

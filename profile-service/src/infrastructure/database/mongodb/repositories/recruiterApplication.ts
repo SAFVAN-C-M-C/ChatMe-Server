@@ -54,7 +54,7 @@ export const recruiterApplication = async (
       throw new Error("Company does not exist!");
     }
 
-    return userProfileData;
+    return userProfileData as IUserProfile;
   } catch (error: any) {
     throw new Error(error?.message);
   }

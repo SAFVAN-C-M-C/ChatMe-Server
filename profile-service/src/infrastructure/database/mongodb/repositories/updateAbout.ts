@@ -1,4 +1,5 @@
 
+import { IUserProfile } from "@/domain/entities";
 import { UserProfile } from "../model/UserProfile";
 
 
@@ -14,7 +15,7 @@ export const updateAbout = async (data: {email:string,about:string}) => {
     }
     if(about) userProfileData.bio.about=about
     userProfileData.save();
-    return userProfileData
+    return userProfileData as IUserProfile
   } catch (error: any) {
     throw new Error(error?.message);
   }

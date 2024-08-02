@@ -23,13 +23,13 @@ export interface IUserProfile{
     dob?: Date | null;
     gender?: string | null;
     resume?: string | null;
+    doc?:string | null;
     location?: string | null;
     phone?: string | null;
   };
   skills?: string[];
-
-  following?: ObjectId[] | null;
-  followers?: ObjectId[] | null;
+  following?: IUserProfile[];
+  followers?: IUserProfile[];
   theme?: string | null;
   companyDetails?: {
     companyId?: ObjectId | null;
@@ -81,4 +81,7 @@ export interface UserShocaseDeatials{
   name:string;
   location:string;
   email:string
+}
+export interface IGetUsersArrayOfId{
+  user:string[]
 }
