@@ -1,10 +1,10 @@
-import { AddCommentCredentials, CreatePostCredentials, DeleteComment, EditPostCredentials, ILikePost, IPosts } from "@/domain/entities";
+import { AddCommentCredentials, CreatePostCredentials, DeleteComment, EditPostCredentials, IGetPostForHome, IGetPostForHomeResult, ILikePost, IPosts } from "@/domain/entities";
 import { ISavedPost, SavePostCredentials } from "@/domain/entities/SavedPosts";
 
 
 export interface IRepositories {
   getPostsByUserId:(userId:string)=>Promise<IPosts[]|null>;
-  getPosts:()=>Promise<IPosts[]|null>;
+  getPosts:(data:IGetPostForHome)=>Promise<IGetPostForHomeResult|null>;
   //post managment
   createPost:(data:CreatePostCredentials)=>Promise<IPosts|null>;
   editPost:(data:EditPostCredentials)=>Promise<IPosts|null>;

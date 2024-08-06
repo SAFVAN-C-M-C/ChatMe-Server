@@ -1,5 +1,5 @@
-import { CreatePostCredentials, IPosts } from "../entities";
+import { CreatePostCredentials, IGetPostForHome, IGetPostForHomeResult, IPosts } from "../entities";
 
 export interface IGetPostsUseCase {
-    execute(): Promise<IPosts[] | null>;
+    execute(data:IGetPostForHome): Promise<IGetPostForHomeResult | null>;
 }

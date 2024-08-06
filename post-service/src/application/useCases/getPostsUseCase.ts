@@ -1,4 +1,5 @@
 
+import { IGetPostForHome } from "@/domain/entities";
 import { IDependencies } from "../interfaces/IDependencies";
 
 
@@ -8,8 +9,8 @@ export const getPostsUseCase = (dependencies: IDependencies) => {
     } = dependencies;
 
     return {
-        execute: async () => {
-            return await getPosts();
+        execute: async (data:IGetPostForHome) => {
+            return await getPosts(data);
         }
     }
 }

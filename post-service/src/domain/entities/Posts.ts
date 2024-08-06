@@ -46,3 +46,11 @@ export interface DeleteComment {
   userId?: string;
   commentId?: string;
 }
+export interface IGetPostForHome{
+  limit:number;
+  page:number;
+}
+export interface IGetPostForHomeResult{
+  posts:IPosts[];
+  total:number
+}

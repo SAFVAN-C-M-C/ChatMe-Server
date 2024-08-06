@@ -14,10 +14,14 @@ export const getPostsController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const result=await getPostsUseCase(dependencies).execute()
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 5;
+
+      const result=await getPostsUseCase(dependencies).execute({page,limit})
       res.status(200).json({
         success: true,
-        data: result,
+        data: result?.posts,
+        totalPages:Math.ceil(result?.total! / limit),
         message: "Posts fetched",
       });
     } catch (error) {
