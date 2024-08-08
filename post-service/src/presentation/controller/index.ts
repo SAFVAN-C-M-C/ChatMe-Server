@@ -13,6 +13,7 @@ import { addCommentController } from "./addComment"
 import { deleteCommentController } from "./deleteComment"
 import { getUserPostByIdController } from "./getUserPostById"
 import { getPostByIdController } from "./getPostById"
+import { getDataForChartController } from "./getDataForChart"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -31,5 +32,6 @@ export const controllers = (dependencies: IDependencies) => {
         deleteComment:deleteCommentController(dependencies),
         getUserPostById:getUserPostByIdController(dependencies),
         getPostById:getPostByIdController(dependencies),
+        getDataForChart:getDataForChartController(dependencies),
     }
 }

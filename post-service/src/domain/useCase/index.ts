@@ -12,4 +12,5 @@ export * from "./IUnSavePostUseCase"
 export * from "./IGetSavedPostUseCase"
 export * from "./IAddCommentUseCase"
 export * from "./IGetPostByIdUseCase"
+export * from "./IGetDataForChartUseCase"
 

@@ -2,12 +2,13 @@ import { Router } from "express";
 import { controllers } from "@/presentation/controller";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { jwtMiddleware } from "@/_lib/common/middleware/jwtMiddleware";
+import { adminVerification } from "@/_lib/common/middleware/adminVerification";
 
 
 export const routes = (dependencies: IDependencies) => {
   const {
     createPost,getMyPosts,getPosts,editPost,deletePost,likePost,unLikePost,savePost,unSavePost,getSavedPosts,addComment,deleteComment,
-    getUserPostById,getPostById
+    getUserPostById,getPostById,getDataForChart
   } = controllers(dependencies);
 
   const router = Router();
@@ -25,6 +26,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/comment/delete").put(jwtMiddleware,deleteComment)
   router.route("/user/:userId").get(jwtMiddleware,getUserPostById)
   router.route("/posts/:postId").get(jwtMiddleware,getPostById)
+  router.route("/get/chart/post/data").get(jwtMiddleware,adminVerification,getDataForChart)
 
 
 

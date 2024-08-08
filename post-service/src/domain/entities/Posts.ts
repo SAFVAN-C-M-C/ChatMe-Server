@@ -54,3 +54,8 @@ export interface IGetPostForHomeResult{
   posts:IPosts[];
   total:number
 }
+export interface ParamsForPostDataChart {
+  range: string;
+  startDate?: Date,
+  endDate?: Date
+}
