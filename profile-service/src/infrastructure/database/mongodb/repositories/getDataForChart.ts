@@ -16,11 +16,16 @@ export const getDataForChart = async (data: ParamsForUserDataChart) => {
           matchStage = { createdAt: { $gte: startDate } };
           break;
         case 'lastMonth':
-          startDate = new Date(today.setMonth(today.getMonth() - 1));
+          startDate = new Date(today.setMonth(today.getMonth()));
+          startDate=new Date(startDate.setDate(1))
+          console.log(startDate);
+          
           matchStage = { createdAt: { $gte: startDate } };
           break;
         case 'lastYear':
-          startDate = new Date(today.setFullYear(today.getFullYear() - 1));
+          startDate = new Date(today.setFullYear(today.getFullYear()));
+          startDate = new Date(today.setMonth(1));
+          startDate = new Date(today.setDate(1));
           matchStage = { createdAt: { $gte: startDate } };
           break;
         default:
