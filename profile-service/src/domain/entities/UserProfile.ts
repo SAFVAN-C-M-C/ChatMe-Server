@@ -1,15 +1,15 @@
 import { ObjectId } from "mongoose";
 // import { RecruiterApplication } from "./RecruiterApplication";
 export enum AccountType {
-    personal = "personal",
-    company = "company",
-    recruiter = "recruiter",
-  }
-  export interface ICompnayAndRecruiter{
-    company:IUserProfile;
-    recruiter:IUserProfile;
-  }
-export interface IUserProfile{
+  personal = "personal",
+  company = "company",
+  recruiter = "recruiter",
+}
+export interface ICompnayAndRecruiter {
+  company: IUserProfile;
+  recruiter: IUserProfile;
+}
+export interface IUserProfile {
   _id?: ObjectId;
   email?: string;
   name?: string;
@@ -23,7 +23,7 @@ export interface IUserProfile{
     dob?: Date | null;
     gender?: string | null;
     resume?: string | null;
-    doc?:string | null;
+    doc?: string | null;
     location?: string | null;
     phone?: string | null;
   };
@@ -70,18 +70,27 @@ interface Recruiters {
   userId?: string | ObjectId;
   email?: string;
   name?: string;
-  avatar?: string |null;
+  avatar?: string | null;
 }
-export interface UserShocaseDeatials{
-  _id?:ObjectId
-  userId:ObjectId,
-  avatar:string,
-  accountType:string,
-  isVerified:boolean
-  name:string;
-  location:string;
-  email:string
+export interface UserShocaseDeatials {
+  _id?: ObjectId;
+  userId: ObjectId;
+  avatar: string;
+  accountType: string;
+  isVerified: boolean;
+  name: string;
+  location: string;
+  email: string;
 }
-export interface IGetUsersArrayOfId{
-  user:string[]
+export interface IGetUsersArrayOfId {
+  user: string[];
+}
+export interface UserDataForChart {
+  _id: { year: number; month: number; day?: number; hour?: number };
+  count: number;
+}
+export interface ParamsForUserDataChart {
+  range: string;
+  startDate?: Date,
+  endDate?: Date
 }

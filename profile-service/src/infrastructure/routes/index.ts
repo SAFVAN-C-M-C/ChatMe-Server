@@ -3,6 +3,7 @@ import { controllers } from "@/presentation/controller";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { jwtMiddleware } from "@/_lib/common/middleware/jwtMiddleware";
 import { upload } from "@/_lib/middlewares/multer";
+import { adminVerification } from "@/_lib/common/middleware/adminVerification";
 
 export const routes = (dependencies: IDependencies) => {
   const {
@@ -22,7 +23,8 @@ export const routes = (dependencies: IDependencies) => {
     followUser,
     unFollowUser,
     getUserDetailsByUserId,
-    changeTheam
+    changeTheam,
+    getDataForChart
   } = controllers(dependencies);
 
   const router = Router();
@@ -44,5 +46,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/users/unfollow/:userId").put(jwtMiddleware, unFollowUser);
   router.route("/get/user/:userId").get(jwtMiddleware, getUserDetailsByUserId);
   router.route("/theam").post(jwtMiddleware, changeTheam);
+  router.route("/get/chart/user/data").get(jwtMiddleware,adminVerification, getDataForChart);
+  
   return router;
 };
