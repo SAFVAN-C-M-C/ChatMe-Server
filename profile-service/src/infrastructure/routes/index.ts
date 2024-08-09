@@ -24,7 +24,8 @@ export const routes = (dependencies: IDependencies) => {
     unFollowUser,
     getUserDetailsByUserId,
     changeTheam,
-    getDataForChart
+    getDataForChart,
+    getUserSuggestions
   } = controllers(dependencies);
 
   const router = Router();
@@ -46,6 +47,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/users/unfollow/:userId").put(jwtMiddleware, unFollowUser);
   router.route("/get/user/:userId").get(jwtMiddleware, getUserDetailsByUserId);
   router.route("/theam").post(jwtMiddleware, changeTheam);
+  router.route("/get/suggestions").get(jwtMiddleware, getUserSuggestions);
   router.route("/get/chart/user/data").get(jwtMiddleware,adminVerification, getDataForChart);
   
   return router;

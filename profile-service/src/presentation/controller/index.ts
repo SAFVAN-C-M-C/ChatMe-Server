@@ -17,6 +17,7 @@ import { unFollowUserController } from "./unFollowUser"
 import { getUserDetailsByUserIdController } from "./getUserDetailsByUserId"
 import { changeTheamController } from "./changeTheam"
 import { getDataForChartController } from "./getDataForChart"
+import { getUserSuggestionsController } from "./getUserSuggestions"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -39,5 +40,6 @@ export const controllers = (dependencies: IDependencies) => {
         getUserDetailsByUserId:getUserDetailsByUserIdController(dependencies),
         changeTheam:changeTheamController(dependencies),
         getDataForChart:getDataForChartController(dependencies),
+        getUserSuggestions:getUserSuggestionsController(dependencies),
     }
 }

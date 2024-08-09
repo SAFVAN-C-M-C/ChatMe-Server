@@ -124,7 +124,7 @@ const userSchema = new Schema(
     title: { type: String },
     bio: {
       about: { type: String },
-      avatar: { type: String },
+      avatar: { type: String,default:"/general/ChatMe-profile.png" },
       dob: { type: Date },
       gender: { type: String, enum: ["male", "female"] },
       resume: { type: String },

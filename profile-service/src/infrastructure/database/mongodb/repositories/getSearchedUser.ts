@@ -10,7 +10,7 @@ export const getSearchedUser = async (data: {
     if(!searchKey){
         throw new Error("Search key not provided");
     }
-    const regex = new RegExp(`^${searchKey}`, 'i');
+    const regex = new RegExp(`${searchKey}`, 'gi');
     const searchedUser = await UserProfile.find({
       name:{ $regex: regex }
     });
