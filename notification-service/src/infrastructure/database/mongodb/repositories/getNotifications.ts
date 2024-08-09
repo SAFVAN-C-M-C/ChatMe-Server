@@ -12,7 +12,7 @@ export const getNotifications = async (id: string): Promise<INotification[] | nu
                 { recipientId: new Types.ObjectId(id) },
                 { isAdminMessage: true }
             ]
-        });
+        }).sort({createdAt:-1});
         console.log("New notification:", notifications);
         if (!notifications) {
             return null;
