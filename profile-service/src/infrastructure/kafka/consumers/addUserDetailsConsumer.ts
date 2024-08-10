@@ -22,7 +22,8 @@ export default async (
             accountType:data.accountType,
             bio:{
                 phone:data.phone,
-                location:data.location
+                location:data.location,
+                doc:data.doc
             }
         }
         await addUserDetailService(newData)

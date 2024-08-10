@@ -10,6 +10,7 @@ export interface UserDetails {
   location: string;
   phone: string;
   accountType: string;
+  doc?:string;
 }
 export const addUserDetailService = async (data: IUserProfile) => {
   try {
