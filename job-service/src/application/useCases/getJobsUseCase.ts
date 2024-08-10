@@ -5,9 +5,9 @@ export const getJobsUseCase = (dependencies: IDependencies) => {
     repositories: { getJobs },
   } = dependencies;
   return{
-    execute: async () => {
+    execute: async (filter:string) => {
     try {
-      return await getJobs();
+      return await getJobs(filter);
     } catch (error:any) {
       console.log("<< Something went wrong in get job useCase >>");
       throw new Error(error.message || "Job fetchingg failed");

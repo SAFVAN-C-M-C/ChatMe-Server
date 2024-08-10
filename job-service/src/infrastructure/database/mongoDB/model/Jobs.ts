@@ -19,7 +19,7 @@ const jobSchema = new Schema(
     recruiterId: { type: Schema.Types.ObjectId },
     jobTitle: { type: String },
     description: { type: String },
-    type: { type: String, enum: ["full-time", " part-time"] },
+    type: { type: String, enum: ["full-time", "part-time"] },
     location: { type: String },
     mode: { type: String, enum: ["On-site", "remote", "hybrid"] },
     skills: [{ type: String }],

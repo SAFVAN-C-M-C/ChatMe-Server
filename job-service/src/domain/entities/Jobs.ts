@@ -34,3 +34,8 @@ export interface IEditJob {
   jobId:string;
   userId:string;
 }
+export interface ParamsForJobDataChart {
+  range: string;
+  startDate?: Date,
+  endDate?: Date
+}

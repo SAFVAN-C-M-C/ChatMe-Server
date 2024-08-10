@@ -12,7 +12,11 @@ export const getJobsController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const jobs = await getJobsUseCase(dependencies).execute();
+      let {filter}=req.query
+      if (typeof filter !== 'string') {
+        filter='all'
+      }
+      const jobs = await getJobsUseCase(dependencies).execute(String(filter));
 
       if (!jobs) {
         console.log("no jobs found");

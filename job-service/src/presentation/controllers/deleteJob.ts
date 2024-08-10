@@ -22,7 +22,6 @@ export const deleteJobController = (dependencies: IDependencies) => {
       const data={
         jobId:String(req.params.jobId),
         userId:String(req.user._id),
-
       }
 
       const deletedJobPost = await deletejobUseCase(dependencies).execute(data);

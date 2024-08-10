@@ -13,13 +13,16 @@ export const serachJobController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
       console.log("jksdfdfdfdfdfdfdfdfdfdfdf");
-      
-      if(!req.query.key){
+      let {key,filter}=req.query
+
+      if(!key){
         throw new Error("Search key not provided");
       }
-      console.log(req.query.key,typeof req.query.key);
+      if (typeof filter !== 'string') {
+        filter='all'
+      }
       
-      const jobs = await serachJobUseCase(dependencies).execute({searchKey:String(req.query.key)});
+      const jobs = await serachJobUseCase(dependencies).execute({searchKey:String(req.query.key),filter});
 
       if (!jobs) {
         console.log("no jobs found");

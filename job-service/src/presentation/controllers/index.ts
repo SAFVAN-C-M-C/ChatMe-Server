@@ -6,6 +6,11 @@ import { editJobController } from "./editJob"
 import { deleteJobController } from "./deleteJob"
 import { serachJobController } from "./serachJob"
 import { getJobsByUserIdController } from "./getJobsByUserId"
+import { getJobChartDataController } from "./getJobChartData"
+import { applyForJobController } from "./applyForJob"
+import { getJobApplicationsController } from "./getJobApplications"
+import { updateApplicationStatusController } from "./updateApplicationStatus"
+import { getMyJobApplicationsController } from "./getMyJobApplications"
 
 export const controllers = (dependencies: IDependencies) => {
     return{
@@ -16,5 +21,10 @@ export const controllers = (dependencies: IDependencies) => {
         deleteJob:deleteJobController(dependencies),
         serachJob:serachJobController(dependencies),
         getJobsByUserId:getJobsByUserIdController(dependencies),
+        getJobChartData:getJobChartDataController(dependencies),
+        applyForJob:applyForJobController(dependencies),
+        getJobApplications:getJobApplicationsController(dependencies),
+        updateApplicationStatus:updateApplicationStatusController(dependencies),
+        getMyJobApplications:getMyJobApplicationsController(dependencies),
     }
 }
