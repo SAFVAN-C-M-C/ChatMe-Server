@@ -51,20 +51,28 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
         // const user = await findUserByEmailUseCase(dependencies).execute(token?.email);
         console.log(userData,"=========this from add details file");
         
-        const userDataToProfile={
+        const userDataToProfile:any={
           userId:userData._id,
           email:userData.email,
           name:userData.name,
           location : userData.location,
           phone:userData.phone,
-          accountType:userData.accountType
+          accountType:userData.accountType,
+          
         }
-        const userToAdmin={
+
+        const userToAdmin:any={
           userId:userData._id,
           email:userData.email,
           name:userData.name,
           accountType:userData.accountType
         }
+        if(userData.accountType==="company"){
+          userDataToProfile.doc=registerCredentials?.data?.doc
+          userToAdmin.doc=registerCredentials?.data?.doc
+        }
+        console.log(userDataToProfile);
+        
         await addUser(userToAdmin,"admin-service-topic");
         await addUserDetails(userDataToProfile, "profile-service-topic");
 
@@ -75,7 +83,7 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           type: userData?.accountType!,
           loggined: true,
           isDetailsComplete:userData?.isDetailsComplete,
-        isEmailVerified:userData?.isEmailVerified
+          isEmailVerified:userData?.isEmailVerified
         });
 
         const refreshToken = generateRefreshToken({

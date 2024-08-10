@@ -9,6 +9,7 @@ export default async (data: {
     location ?: string,
     phone?:string,
     accountType?:string
+    doc?:string
 }, topic?: string) => {
   try {
     const targetTopic = topic || "default-topic";

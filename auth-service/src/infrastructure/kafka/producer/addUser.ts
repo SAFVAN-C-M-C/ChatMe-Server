@@ -6,7 +6,8 @@ export default async (data: {
     userId?:ObjectId | string
     email?:string
     name?:string
-    accountType?:string
+    accountType?:string;
+    doc?:string;
 }, topic?: string) => {
   try {
     const targetTopic = topic || "default-topic";
