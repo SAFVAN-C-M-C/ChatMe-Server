@@ -4,6 +4,7 @@ interface IData {
   name: string;
   email: string;
   userId?: string ;
+  doc?:string
 }
 
 export const addCompanyService = async (data: IData) => {

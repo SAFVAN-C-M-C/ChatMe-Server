@@ -4,7 +4,8 @@ interface IUsers extends Document {
     _id: ObjectId;
     email: string;
     name?: string;
-    userId?:ObjectId
+    userId?:ObjectId;
+    doc?:string;
     numberOfReportActions?: Number | null;
     isBlocked?: boolean | null;
     CreatedAt?: Date | null;
@@ -27,6 +28,9 @@ const userSchema = new Schema(
       numberOfReportActions: { type: Number },
       isBlocked: { type: Boolean,default:false },
       name: {
+        type: String,
+      },
+      doc: {
         type: String,
       },
       isVerified:{

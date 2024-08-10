@@ -5,6 +5,7 @@ interface IData {
     name: string;
     email: string;
     userId?: string |Types.ObjectId;
+    doc?:string
   }
 export const createCompany = async (data:IData ) => {
     try {
@@ -15,8 +16,8 @@ export const createCompany = async (data:IData ) => {
 
         console.log("Data to be inserted:", data);
 
-        const newUser = await Company.create({email:data.email,userId:data.userId,name:data.name});
-        const newRequest=await CompanyReqest.create({email:data.email,name:data.name})
+        const newUser = await Company.create({email:data.email,userId:data.userId,name:data.name,doc:data.doc});
+        const newRequest=await CompanyReqest.create({email:data.email,name:data.name,doc:data.doc})
         console.log("New user:", newUser);
         return newUser;
     } catch (error: any) {

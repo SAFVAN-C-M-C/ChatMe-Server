@@ -4,6 +4,7 @@ interface ICompanyRequest extends Document {
     _id: ObjectId;
     email?: string;
     name?: string;
+    doc?:string;
 }
 const companyRequestSchema = new Schema(
     {
@@ -14,6 +15,9 @@ const companyRequestSchema = new Schema(
         index: true,
       },
       name: {
+        type: String,
+      },
+      doc: {
         type: String,
       },
     },

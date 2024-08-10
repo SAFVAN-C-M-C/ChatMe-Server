@@ -4,17 +4,19 @@
         data:any 
     ) => {
 
+
         try {
             console.log("==========");
             console.log(typeof data);
             console.log(data);
             console.log("==========");
-            const newData={
+            const newData:any={
                 name:data.name,
                 email:data.email,
                 userId:data.userId,
             }
             if(data.accountType==="company"){
+                newData.doc=data?.doc
                 await addCompanyService(newData)
             }
             if(data.accountType==="personal"){
