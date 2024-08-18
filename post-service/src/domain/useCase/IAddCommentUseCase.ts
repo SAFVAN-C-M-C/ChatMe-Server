@@ -1,5 +1,5 @@
-import { AddCommentCredentials, IPosts } from "../entities";
+import { AddCommentCredentials, IComments, IPosts } from "../entities";
 
 export interface IAddCommentUseCase {
-    execute(data: AddCommentCredentials): Promise<{post:IPosts,id:string} | null>;
+    execute(data: AddCommentCredentials): Promise<{newComment:IComments,recipientId:string} | null>;
 }

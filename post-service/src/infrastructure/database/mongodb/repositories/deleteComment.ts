@@ -1,44 +1,51 @@
-import {
-  AddCommentCredentials,
-  CreatePostCredentials,
-  DeleteComment,
-  EditPostCredentials,
-} from "@/domain/entities";
-import { Posts } from "../models";
+import { DeleteComment } from "@/domain/entities";
+import { Comments, Posts } from "../models";
 import { Types } from "mongoose";
 
 export const deleteComment = async (data: DeleteComment) => {
   try {
-    let { commentId, userId, postId } = data;
-    if (!postId) {
-      throw new Error("post not found");
-    }
-    
-
+    const { commentId, userId } = data;
     if (!commentId || !userId) {
-      throw new Error("details not given");
+      throw new Error("Details not given");
     }
-    // Find the post by postId and ensure the user has permission to delete the comment
-    const updatedPost = await Posts.findOneAndUpdate(
-      {
-        _id: new Types.ObjectId(postId),
-        $or: [
-          { userId: new Types.ObjectId(userId) }, // User is the owner of the post
-          {
-            "comments._id": new Types.ObjectId(commentId),
-            "comments.userId": userId,
-          }, // User is the owner of the comment
-        ],
-      },
-      { $pull: { comments: { _id: new Types.ObjectId(commentId) } } },
-      { new: true } // Return the updated document
-    );
-    if (!updatedPost) {
-      throw new Error("Post or comment not found or user does not have permission.");
+    const objectId = new Types.ObjectId(commentId);
+    const userObjectId = new Types.ObjectId(userId);
+console.log(objectId,userObjectId);
+
+    // Find the comment by its ID and check if the userId matches
+    const comment = await Comments.findOne({
+      _id: objectId,
+      userId: userObjectId,
+    });
+
+    if (!comment) {
+      throw new Error(
+        "Comment not found or user is not authorized to delete this comment"
+      );
     }
 
-    return updatedPost;
+    // If the comment is a reply, update the parent comment's reply count
+    if (comment.replyId) {
+      const replyComment = await Comments.findOne({
+        _id: new Types.ObjectId(String(comment.replyId)),
+      });
+      if (replyComment) {
+        replyComment.replys--;
+        await replyComment.save();
+      }
+    }
+
+    // Pull the comment's ObjectId from the post's comments array
+    await Posts.findOneAndUpdate(
+      { _id: new Types.ObjectId(String(comment.postId)) },
+      { $pull: { comments: objectId } }
+    );
+
+    // Delete the comment
+    await Comments.deleteOne({ _id: objectId });
+
+    return { success: true, message: "Comment deleted successfully" };
   } catch (error: any) {
-    throw new Error(error?.message);
+    throw new Error(error.message);
   }
 };

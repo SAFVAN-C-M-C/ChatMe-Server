@@ -5,38 +5,11 @@ interface IPosts extends Document {
   email?: string;
   name?: string;
   userId?: ObjectId;
-  media?:string;
-  content?:string;
-  likes?:ObjectId[];
-  comments?:IComments[]
-}
-
-
-
-interface IComments {
-  _id?: ObjectId;
-  comment?: string;
-  name?: string;
-  email?: string;
-  userId?: string;
+  media?: string;
+  content?: string;
   likes?: ObjectId[];
+  comments?: ObjectId[];
 }
-
-
-
-const commentSchema = new Schema({
-  comment: { type: String },
-  name: { type: String },
-  userId: { type: String },
-  userAvatar:{ type: String },
-  like:[{type: Schema.Types.ObjectId}]
-});
-
-const Commnts = model<IComments>("comments", commentSchema);
-
-
-
-
 
 const postSchema = new Schema(
   {
@@ -46,16 +19,16 @@ const postSchema = new Schema(
     userId: {
       type: Schema.Types.ObjectId,
     },
-    userAvatar:{
+    userAvatar: {
       type: String,
     },
     name: {
       type: String,
     },
-    media:{type:String},
+    media: { type: String },
     content: { type: String },
     likes: [{ type: Schema.Types.ObjectId }],
-    comments: [commentSchema],
+    comments: [{type: Schema.Types.ObjectId,ref:"comments"}],
   },
   { timestamps: true }
 );

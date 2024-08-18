@@ -15,46 +15,42 @@ export const addCommentController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      if(!req.body.comment){
-        throw new Error("comment not provided");
-      }
-      if(!req.body.comment){
-        throw new Error("comment not provided");
-      }
-      if(!req.body.name){
-        throw new Error("name not provided");
-      }
-      if(!req.body.postId){
-        throw new Error("postId not provided");
-      }
-      if(!req.body.userAvatar){
-        throw new Error("userAvatar not provided");
+      const userId=req.user._id
+      console.log(req.body);
+      
+      const {comment,name,postId,userAvatar,replyId}=req.body
+      if(!comment || !name || !postId || !userAvatar){
+        throw new Error("Essential data not provided");
       }
       const data:AddCommentCredentials={
-        comment:String(req.body.comment),
-        name:String(req.body.name),
-        postId:String(req.body.postId),
-        userAvatar:String(req.body.userAvatar),
-        userId:String(req.user._id)
+        comment:String(comment),
+        name:String(name),
+        postId:String(postId),
+        userAvatar:String(userAvatar),
+        userId
       }
-      const createdPost = await addCommentUseCase(dependencies).execute(
+      if(typeof replyId==="string" && replyId!==''){
+        data.replyId=replyId
+      }
+      const addedComment = await addCommentUseCase(dependencies).execute(
         data
       );
 
-      if (!createdPost) {
+      if (!addedComment) {
         throw new Error("post creatin failed");
       }
+      const {newComment,recipientId}=addedComment
       const dataForCommentNotification={
-        recipientId:String(createdPost.post.userId),
-        fromUserId:String(data.userId),
-        content:String(data.comment),
-        postId:String(data.postId),
+        recipientId:String(recipientId),
+        fromUserId:String(newComment.userId),
+        content:String(newComment.comment),
+        postId:String(newComment.postId),
       }
       await createCommentNotification(dataForCommentNotification,"notification-service-topic")
       res.status(200).json({
         success: true,
-        data: createdPost.id,
-        message: "Post created",
+        data: newComment,
+        message: "Comment Added",
       });
     } catch (error) {
       next(error);

@@ -8,15 +8,9 @@ export interface IPosts {
   content?: string;
   userAvatar?: string;
   likes?: ObjectId[];
-  comments?: IComments[];
+  comments?: ObjectId[];
 }
-export interface IComments {
-  _id?: ObjectId;
-  comment?: string;
-  name?: string;
-  userId?: string;
-  likes?: ObjectId[];
-}
+
 export interface CreatePostCredentials {
   email?: string;
   name?: string;
@@ -34,28 +28,16 @@ export interface ILikePost {
   postId: string;
 }
 
-export interface AddCommentCredentials {
-  userAvatar?: string;
-  postId?: string;
-  name?: string;
-  comment?: string;
-  userId?: string;
+export interface IGetPostForHome {
+  limit: number;
+  page: number;
 }
-export interface DeleteComment {
-  postId?: string;
-  userId?: string;
-  commentId?: string;
-}
-export interface IGetPostForHome{
-  limit:number;
-  page:number;
-}
-export interface IGetPostForHomeResult{
-  posts:IPosts[];
-  total:number
+export interface IGetPostForHomeResult {
+  posts: IPosts[];
+  total: number;
 }
 export interface ParamsForPostDataChart {
   range: string;
-  startDate?: Date,
-  endDate?: Date
+  startDate?: Date;
+  endDate?: Date;
 }

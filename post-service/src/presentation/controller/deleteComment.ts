@@ -14,16 +14,10 @@ export const deleteCommentController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      if(!req.body.commentId){
-        throw new Error("commentId not provided");
-      }
-      if(!req.body.postId){
-        throw new Error("postId not provided");
-      }
+      const {commentId}=req.params
 
       const data:DeleteComment={
-        commentId:String(req.body.commentId),
-        postId:String(req.body.postId),
+        commentId:String(commentId),
         userId:String(req.user._id)
       }
       const createdPost = await deleteCommentUseCase(dependencies).execute(
