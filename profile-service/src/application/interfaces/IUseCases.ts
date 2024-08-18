@@ -1,4 +1,4 @@
-import { IAcceptRecruiterUseCase, IAddEducationUseCase, IAddExperienceUsecase, IAddPreferedJobsUseCase, IAddSkillsUseCase, IChangeTheamUseCase, IFindUserByEmailUseCase, IFindUserByIdUseCase, IFollowUserUseCase, IGetDataForChartUseCase, IGetSearchedUserUseCase, IGetUserDetailsByUserIdUseCase, IGetUsersByArrayOfIdUseCase, IGetUserSuggestionsUseCase, IIgnoreRecruiterUseCase, IRecruiterApplicationUseCase, IUnFollowUserUseCase, IUpdateAboutUseCase, IUpdateAvatarUseCase, IUpdateBioUseCase } from "@/domain/useCase";
+import { IAcceptRecruiterUseCase, IAddEducationUseCase, IAddExperienceUsecase, IAddPreferedJobsUseCase, IAddResumeToProfileUseCase, IAddSkillsUseCase, IChangeTheamUseCase, IDeleteResumeFromProfileUseCase, IFindUserByEmailUseCase, IFindUserByIdUseCase, IFollowUserUseCase, IGetDataForChartUseCase, IGetSearchedUserUseCase, IGetUserDetailsByUserIdUseCase, IGetUsersByArrayOfIdUseCase, IGetUserSuggestionsUseCase, IIgnoreRecruiterUseCase, IRecruiterApplicationUseCase, IUnFollowUserUseCase, IUpdateAboutUseCase, IUpdateAvatarUseCase, IUpdateBioUseCase } from "@/domain/useCase";
 import { IDependencies } from "./IDependencies";
 
 export interface IUseCases {
@@ -21,5 +21,8 @@ export interface IUseCases {
   changeTheamUseCase:(dependencies:IDependencies)=>IChangeTheamUseCase;
   getUsersByArrayOfIdUseCase:(dependencies:IDependencies)=>IGetUsersByArrayOfIdUseCase;
   getDataForChartUseCase:(dependencies:IDependencies)=>IGetDataForChartUseCase;
-  getUserSuggestionsUseCase:(dependencies:IDependencies)=>IGetUserSuggestionsUseCase
+  getUserSuggestionsUseCase:(dependencies:IDependencies)=>IGetUserSuggestionsUseCase;
+  addResumeToProfileUseCase:(dependencies:IDependencies)=>IAddResumeToProfileUseCase;
+  deleteResumeFromProfileUseCase:(dependencies:IDependencies)=>IDeleteResumeFromProfileUseCase;
+  
 }

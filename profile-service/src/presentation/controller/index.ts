@@ -18,6 +18,8 @@ import { getUserDetailsByUserIdController } from "./getUserDetailsByUserId"
 import { changeTheamController } from "./changeTheam"
 import { getDataForChartController } from "./getDataForChart"
 import { getUserSuggestionsController } from "./getUserSuggestions"
+import { addResumeToProfileController } from "./addResumeToProfile"
+import { deleteResumeFromProfileController } from "./deleteResumeFromProfile"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -41,5 +43,7 @@ export const controllers = (dependencies: IDependencies) => {
         changeTheam:changeTheamController(dependencies),
         getDataForChart:getDataForChartController(dependencies),
         getUserSuggestions:getUserSuggestionsController(dependencies),
+        addResumeToProfile:addResumeToProfileController(dependencies),
+        deleteResumeFromProfile:deleteResumeFromProfileController(dependencies),
     }
 }

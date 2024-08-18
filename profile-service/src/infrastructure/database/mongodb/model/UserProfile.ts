@@ -14,7 +14,7 @@ interface IUserProfile extends Document {
     avatar?: string | null;
     dob?: Date | null;
     gender?: string | null;
-    resume?: string | null;
+    resume?: IResumes[];
     doc?:string | null;
     location?: string | null;
     phone?: string | null;
@@ -42,6 +42,11 @@ interface Education {
   course?: string;
   startYear?: string;
   endYear?: string;
+}
+interface IResumes{
+  _id:ObjectId;
+  name:string;
+  doc:string;
 }
 
 interface Experience {
@@ -98,6 +103,14 @@ const RecruiterApplicationModel = model<RecruiterApplication>(
   recruiterApplicationSchema
 );
 
+
+const resumeSchema = new Schema({
+  name: { type: String },
+  doc: { type: String },
+
+},{timestamps:true});
+
+const Resume = model<IResumes>("resume", resumeSchema);
 const userSchema = new Schema(
   {
     email: {
@@ -127,7 +140,7 @@ const userSchema = new Schema(
       avatar: { type: String,default:"/general/ChatMe-profile.png" },
       dob: { type: Date },
       gender: { type: String, enum: ["male", "female"] },
-      resume: { type: String },
+      resume: [resumeSchema],
       doc: { type: String },
       location: { type: String },
       phone: { type: String },

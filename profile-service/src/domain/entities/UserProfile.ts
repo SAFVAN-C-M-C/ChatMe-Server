@@ -94,3 +94,13 @@ export interface ParamsForUserDataChart {
   startDate?: Date,
   endDate?: Date
 }
+export interface AddResume{
+  name:string;
+  userId:string;
+  doc:string;
+}
+export interface DeleteResume{
+  id:string;
+  userId:string;
+
+}

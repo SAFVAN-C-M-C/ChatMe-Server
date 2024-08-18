@@ -25,7 +25,9 @@ export const routes = (dependencies: IDependencies) => {
     getUserDetailsByUserId,
     changeTheam,
     getDataForChart,
-    getUserSuggestions
+    getUserSuggestions,
+    addResumeToProfile,
+    deleteResumeFromProfile
   } = controllers(dependencies);
 
   const router = Router();
@@ -37,6 +39,8 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/avatar/upload").put(jwtMiddleware, updateAvatar);
   router.route("/bio/update").post(jwtMiddleware, updateBio);
   router.route("/update/about").post(jwtMiddleware, updateAbout);
+  router.route("/update/resume/add").post(jwtMiddleware, addResumeToProfile);
+  router.route("/update/resume/delete/:id").delete(jwtMiddleware, deleteResumeFromProfile);
   router.route("/update/education/add").post(jwtMiddleware, addEducation);
   router.route("/update/experience/add").post(jwtMiddleware, addExperience);
   router.route("/update/skills/add").post(jwtMiddleware, addSkills);

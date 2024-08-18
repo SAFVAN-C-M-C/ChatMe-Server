@@ -4,6 +4,8 @@ import {
   UserShocaseDeatials,
   IGetUsersArrayOfId,
   ParamsForUserDataChart,
+  AddResume,
+  DeleteResume,
 } from "@/domain/entities";
 import { BioDetails } from "@/domain/entities/BioDetails";
 import { Experience } from "@/domain/entities/Experience";
@@ -36,5 +38,7 @@ export interface IRepositories {
   changeTheam: (data: {id: string;theam: string;}) => Promise<IUserProfile | null>;
   getUsersByArrayOfId: (data: IGetUsersArrayOfId) => Promise<any[] | null>;
   getDataForChart: (data: ParamsForUserDataChart) => Promise<any[] | null>;
-  getUserSuggestions:(userId:string)=>Promise<any[]|null>
+  getUserSuggestions:(userId:string)=>Promise<any[]|null>;
+  addResumeToProfile:(data:AddResume)=>Promise<IUserProfile | null>
+  deleteResumeFromProfile:(data:DeleteResume)=>Promise<IUserProfile | null | undefined>
 }

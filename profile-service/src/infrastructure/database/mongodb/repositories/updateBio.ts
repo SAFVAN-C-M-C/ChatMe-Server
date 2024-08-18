@@ -18,7 +18,6 @@ export const updateBio = async (data: BioDetails) => {
     if(bio?.location) userProfileData.bio.location=bio.location
     if(bio?.phone) userProfileData.bio.phone=bio.phone
     if(bio?.doc) userProfileData.bio.doc=bio.doc
-    if(bio?.resume) userProfileData.bio.resume=bio.resume
     userProfileData.save();
     return userProfileData as IUserProfile
   } catch (error: any) {
