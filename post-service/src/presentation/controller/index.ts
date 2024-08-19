@@ -16,6 +16,7 @@ import { getPostByIdController } from "./getPostById"
 import { getDataForChartController } from "./getDataForChart"
 import { getCommentsController } from "./getComments"
 import { getCommentReplysController } from "./getCommentReplys"
+import { searchPostController } from "./searchPost"
 
 
 export const controllers = (dependencies: IDependencies) => {
@@ -37,5 +38,6 @@ export const controllers = (dependencies: IDependencies) => {
         getDataForChart:getDataForChartController(dependencies),
         getComments:getCommentsController(dependencies),
         getCommentReplys:getCommentReplysController(dependencies),
+        searchPost:searchPostController(dependencies),
     }
 }

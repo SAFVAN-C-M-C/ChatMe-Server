@@ -8,6 +8,7 @@ interface IPosts extends Document {
   media?: string;
   content?: string;
   likes?: ObjectId[];
+  tags?:string[]
   comments?: ObjectId[];
 }
 
@@ -25,6 +26,7 @@ const postSchema = new Schema(
     name: {
       type: String,
     },
+    tags: [{ type: String }],
     media: { type: String },
     content: { type: String },
     likes: [{ type: Schema.Types.ObjectId }],

@@ -14,28 +14,24 @@ export const createPostController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      if(!req.body.content){
-
-        
+      const {content,media,name,tags,userAvatar}=req.body
+      if(!content){
         throw new Error("Content not provided");
       }
-      if(!req.body.media){
-
-        
+      if(!media){
         throw new Error("media not provided");
       }
-      if(!req.body.name){
-  
-        
+      if(!name){
         throw new Error("name not provided");
       }
       const data:CreatePostCredentials={
-        email:req.body?.email?String(req.body?.email): String(req.user.email),
-        userId:req.body?.userId?String(req.body?.userId): String(req.user._id),
-        content:req.body.content,
-        media:req.body.media,
-        name:req.body.name,
-        userAvatar:req.body.userAvatar
+        email:String(req.user.email),
+        userId:String(req.user._id),
+        content,
+        media,
+        name,
+        userAvatar,
+        tags
       }
       const createdPost = await createPostuseCase(dependencies).execute(
         data

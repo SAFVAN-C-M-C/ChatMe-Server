@@ -9,7 +9,7 @@ import { adminVerification } from "@/_lib/common/middleware/adminVerification";
 export const routes = (dependencies: IDependencies) => {
   const {
     createPost,getMyPosts,getPosts,editPost,deletePost,likePost,unLikePost,savePost,unSavePost,getSavedPosts,addComment,deleteComment,
-    getUserPostById,getPostById,getDataForChart,getComments,getCommentReplys
+    getUserPostById,getPostById,getDataForChart,getComments,getCommentReplys,searchPost
   } = controllers(dependencies);
 
   const router = Router();
@@ -25,6 +25,7 @@ export const routes = (dependencies: IDependencies) => {
   router.route("/saved").get(jwtMiddleware,getSavedPosts)
 
   
+  router.route("/posts/search").get(jwtMiddleware,searchPost)
   router.route("/get/comment/:postId").get(jwtMiddleware,getComments)
   router.route("/get/comment/reply/:replyId").get(jwtMiddleware,getCommentReplys)
   router.route("/comment").post(jwtMiddleware,addComment)

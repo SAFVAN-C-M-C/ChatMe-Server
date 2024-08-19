@@ -8,7 +8,7 @@ export const getPostsByUserId = async (userId: string) => {
       throw new Error("userId not provided");
     }
     
-    const posts = await Posts.find({userId:new Types.ObjectId(userId)})
+    const posts = await Posts.find({userId:new Types.ObjectId(userId)}).sort({updatedAt:-1})
   
     
     if (!posts) {

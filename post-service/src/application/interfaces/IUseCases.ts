@@ -1,4 +1,4 @@
-import { IAddCommentUseCase, ICreatePostuseCase, IDeletePostUseCase, IEditPostUseCase, IGetCommentReplysUseCase, IGetCommentsUseCase, IGetDataForChartUseCase, IGetPostByIdUseCase, IGetPostsByUserIdUseCase, IGetPostsUseCase, IGetSavedPostUseCase, ILikePostUseCase, ISavePostUseCase, IUnLikePostUseCase, IUnSavePostUseCase } from "@/domain/useCase";
+import { IAddCommentUseCase, ICreatePostuseCase, IDeletePostUseCase, IEditPostUseCase, IGetCommentReplysUseCase, IGetCommentsUseCase, IGetDataForChartUseCase, IGetPostByIdUseCase, IGetPostsByUserIdUseCase, IGetPostsUseCase, IGetSavedPostUseCase, ILikePostUseCase, ISavePostUseCase, ISearchPostUseCase, IUnLikePostUseCase, IUnSavePostUseCase } from "@/domain/useCase";
 import { IDependencies } from "./IDependencies";
 import { IDeleteCommentUseCase } from "@/domain/useCase/IDeleteCommentUseCase";
 
@@ -19,5 +19,6 @@ export interface IUseCases {
     getCommentReplysUseCase:(dependencies:IDependencies)=>IGetCommentReplysUseCase;
     deleteCommentUseCase:(dependencies:IDependencies)=>IDeleteCommentUseCase;
     getPostByIdUseCase:(dependencies:IDependencies)=>IGetPostByIdUseCase;
-    getDataForChartUseCase:(dependencies:IDependencies)=>IGetDataForChartUseCase
+    getDataForChartUseCase:(dependencies:IDependencies)=>IGetDataForChartUseCase;
+    searchPostUseCase:(dependencies:IDependencies)=>ISearchPostUseCase;
 }

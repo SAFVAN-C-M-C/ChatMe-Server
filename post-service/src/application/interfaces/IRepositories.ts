@@ -25,4 +25,5 @@ export interface IRepositories {
 
   getPostById:(postId:string)=>Promise<IPosts|null>;
   getDataForChart: (data: ParamsForPostDataChart) => Promise<any[] | null>;
+  searchPost:(data: {searchKey: string;})=> Promise<any[]|null>;
 }

@@ -8,6 +8,7 @@ export interface IPosts {
   content?: string;
   userAvatar?: string;
   likes?: ObjectId[];
+  tags?:string[]
   comments?: ObjectId[];
 }
 
@@ -17,11 +18,13 @@ export interface CreatePostCredentials {
   userId?: string;
   media?: string;
   content?: string;
+  tags?:string[]
   userAvatar?: string;
 }
 export interface EditPostCredentials {
   _id?: string;
   content?: string;
+  tags?:string[]
 }
 export interface ILikePost {
   userId: string;
