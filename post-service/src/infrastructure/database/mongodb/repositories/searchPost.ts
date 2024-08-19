@@ -44,6 +44,9 @@ export const searchPost = async (data: {searchKey: string}) => {
             media: 1,
             content: 1,
             likes: 1,
+            comments: 1,
+            createdAt: 1,
+            updatedAt: 1,
           },
         },
       ]);
