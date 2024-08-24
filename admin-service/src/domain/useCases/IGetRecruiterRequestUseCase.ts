@@ -1,6 +1,5 @@
-import { IUsers } from "@/domain/entities";
-import { IComapanyRequest, IRecruiterRequest } from "../entities/Requests";
+import { IGetRecruiterRequest } from "../entities/Requests";
 
 export interface IGetRecruiterRequestUseCase {
-    execute(): Promise<IRecruiterRequest[] | null>;
+  execute(page: number, limit: number): Promise<IGetRecruiterRequest | null>;
 }

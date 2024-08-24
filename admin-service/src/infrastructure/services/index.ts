@@ -1,2 +1,2 @@
-export * from "./addUserService"
-export * from "./addCompanyService"
+export * from "./addUserService";
+export * from "./addCompanyService";

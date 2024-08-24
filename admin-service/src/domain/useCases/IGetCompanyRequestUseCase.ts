@@ -1,6 +1,5 @@
-import { IUsers } from "@/domain/entities";
-import { IComapanyRequest } from "../entities/Requests";
+import { IGetComapanyRequest } from "../entities/Requests";
 
 export interface IGetCompanyRequestUseCase {
-    execute(): Promise<IComapanyRequest[] | null>;
+  execute(page: number, limit: number): Promise<IGetComapanyRequest | null>;
 }

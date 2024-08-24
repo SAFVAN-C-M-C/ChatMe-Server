@@ -13,3 +13,8 @@ export interface IReports {
   reason?: string;
   postId?: ObjectId;
 }
+export interface IGetReports {
+  totalPages: number;
+  currentPage: number;
+  data: IReports[];
+}

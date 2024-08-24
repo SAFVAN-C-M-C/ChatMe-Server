@@ -2,32 +2,31 @@ import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
 
 export const getUserController = (dependencies: IDependencies) => {
-  console.log("hi");
-  console.log("here ",dependencies);
   const {
     useCases: { getUsersUseCase },
   } = dependencies;
-  console.log("here ",getUsersUseCase);
 
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      console.log("here ",getUsersUseCase);
-      
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
 
-      console.log("requested user",req.user);
-      const result = await getUsersUseCase(dependencies).execute();
+      const page = parseInt(req.query.page as string) || 1; // Current page number, default to 1
+      const limit = parseInt(req.query.limit as string) || 10; // Number of users per page, default to 10
+
+      const result = await getUsersUseCase(dependencies).execute(page, limit);
 
       if (!result) {
-        console.log("no users");
+        throw new Error("Can't get users at the moment");
       }
-
+      const { totalPages, currentPage, data } = result;
       res.status(200).json({
         success: true,
-        data: result,
-        message: "User Profile Fetched",
+        totalPages,
+        currentPage,
+        data,
+        message: "Users Fetched",
       });
     } catch (error) {
       next(error);

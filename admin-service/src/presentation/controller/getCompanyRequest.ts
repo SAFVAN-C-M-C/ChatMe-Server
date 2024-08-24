@@ -8,20 +8,25 @@ export const getCompanyRequestController = (dependencies: IDependencies) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      
-      
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const result = await getCompanyRequestUseCase(dependencies).execute();
+      const page = parseInt(req.query.page as string) || 1; // Current page number, default to 1
+      const limit = parseInt(req.query.limit as string) || 10; // Number of users per page, default to 10
 
+      const result = await getCompanyRequestUseCase(dependencies).execute(
+        page,
+        limit
+      );
       if (!result) {
-        console.log("no users");
+        throw new Error("Can't get companies requests at the moment");
       }
-
+      const { totalPages, currentPage, data } = result;
       res.status(200).json({
         success: true,
-        data: result,
+        totalPages,
+        currentPage,
+        data,
         message: "Companies Requests Fetched",
       });
     } catch (error) {

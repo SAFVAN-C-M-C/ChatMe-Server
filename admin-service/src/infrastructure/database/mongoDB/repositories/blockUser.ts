@@ -1,7 +1,4 @@
 import { Company, Users } from "@/infrastructure/database/mongoDB/model";
-import { IUsers } from "@/domain/entities";
-import { CompanyReqest } from "../model/ComapanyRequest";
-import { RecruiterReqest } from "../model/RecruiterRequests";
 import {
   IComapanyRequest,
   IRecruiterRequest,
@@ -10,13 +7,13 @@ import { Types } from "mongoose";
 
 export const blockUser = async (data: {
   userId?: string;
-  isBlocked?:boolean;
+  isBlocked?: boolean;
   type?: string;
 }): Promise<IRecruiterRequest[] | IComapanyRequest[] | null> => {
   try {
     let requestData: IRecruiterRequest[] | IComapanyRequest[] | null = null;
     if (data.type === "company") {
-        const users = await Company.findOneAndUpdate(
+      const users = await Company.findOneAndUpdate(
         {
           userId: new Types.ObjectId(String(data.userId)),
         },

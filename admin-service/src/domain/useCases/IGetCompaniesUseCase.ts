@@ -1,5 +1,5 @@
-import { ICompany, IUsers } from "@/domain/entities";
+import { IGetCompany } from "@/domain/entities";
 
 export interface IGetCompaniesUseCase {
-    execute(): Promise<ICompany[] | null>;
+  execute(page: number, limit: number): Promise<IGetCompany | null>;
 }

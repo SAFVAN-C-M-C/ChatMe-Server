@@ -13,13 +13,13 @@ const reportSchema = new Schema(
       type: Schema.Types.ObjectId,
     },
     suspectId: {
-        type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
     },
     reason: {
       type: String,
     },
     postId: {
-        type: Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
     },
   },
   { timestamps: true }

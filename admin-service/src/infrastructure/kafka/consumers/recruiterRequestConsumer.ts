@@ -9,22 +9,13 @@ export default async (data: {
   companyName?: string;
 }) => {
   try {
-    console.log("==========");
-    console.log(typeof data);
-    console.log(data);
-    console.log("==========");
     const newData = {
       name: data.name,
       email: data.email,
       companyId: data.companyId,
       companyName: data.companyName,
     };
-    
-      await addrecruiterRequestService(newData);
-    
-    
-
-    console.log("===============userProfileCreated==============");
+    await addrecruiterRequestService(newData);
   } catch (error: any) {
     console.log("user-created-consumed mail send error: ", error?.message);
   }

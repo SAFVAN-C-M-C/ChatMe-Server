@@ -1,13 +1,13 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
 
 export const getRecruiterRequestUseCase = (dependencies: IDependencies) => {
-    const {
-        repositories: { getRecruiterRequest }
-    } = dependencies;
+  const {
+    repositories: { getRecruiterRequest },
+  } = dependencies;
 
-    return {
-        execute: async () => {
-            return await getRecruiterRequest();
-        }
-    }
-}
+  return {
+    execute: async (page: number, limit: number) => {
+      return await getRecruiterRequest(page, limit);
+    },
+  };
+};

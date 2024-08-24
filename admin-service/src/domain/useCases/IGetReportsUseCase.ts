@@ -1,6 +1,5 @@
-import { IReports } from "../entities";
-
+import { IGetReports } from "../entities";
 
 export interface IGetReportsUseCase {
-    execute(): Promise<IReports[] | null>;
+  execute(page: number, limit: number): Promise<IGetReports | null>;
 }

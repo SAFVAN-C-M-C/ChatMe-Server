@@ -1,5 +1,5 @@
 import { IReports } from "@/domain/entities";
-import { Reports, Users } from "../model";
+import { Reports } from "../model";
 import { Types } from "mongoose";
 
 export const deleteReport = async (id: string): Promise<IReports[] | null> => {

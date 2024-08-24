@@ -12,16 +12,13 @@ export const reportActionController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const data={
-        userId:req.body.userId,
-        reportId:req.body.reportId,
-      }
-      
+      const data = {
+        userId: req.body.userId,
+        reportId: req.body.reportId,
+      };
+
       const result = await reportActionUseCase(dependencies).execute(data);
 
-      if (!result) {
-        console.log("no users");
-      }      
       res.status(200).json({
         success: true,
         data: result,

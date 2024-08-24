@@ -44,7 +44,7 @@ export const verifyRequest = async (data: {
       );
       const request = await RecruiterReqest.deleteOne({ email: data.email });
       requestData = await RecruiterReqest.find({
-        email: { $ne: data.email }, 
+        email: { $ne: data.email },
       }).exec();
     }
     return requestData;

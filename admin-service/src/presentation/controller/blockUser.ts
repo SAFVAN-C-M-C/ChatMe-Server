@@ -1,5 +1,8 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { updateBlockStatus, updateVerificationStatus } from "@/infrastructure/kafka/producers";
+import {
+  updateBlockStatus,
+  updateVerificationStatus,
+} from "@/infrastructure/kafka/producers";
 import { Request, Response, NextFunction } from "express";
 
 export const blockUserController = (dependencies: IDependencies) => {
@@ -12,23 +15,19 @@ export const blockUserController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const data={
-        userId:req.body.userId,
-        isBlocked:req.body.isBlocked,
-        type:req.body.type
-      }
-      console.log(data);
-      
+      const data = {
+        userId: req.body.userId,
+        isBlocked: req.body.isBlocked,
+        type: req.body.type,
+      };
+
       const result = await blockUserUseCase(dependencies).execute(data);
 
-      if (!result) {
-        console.log("no users");
-      }
-      const updatedData={
-        userId:data.userId,
-        isBlocked:data.isBlocked
-      }
-      await updateBlockStatus(updatedData,"auth-service-topic")
+      const updatedData = {
+        userId: data.userId,
+        isBlocked: data.isBlocked,
+      };
+      await updateBlockStatus(updatedData, "auth-service-topic");
       res.status(200).json({
         success: true,
         data: result,

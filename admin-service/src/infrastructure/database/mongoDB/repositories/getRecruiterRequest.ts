@@ -1,14 +1,22 @@
-import { Company, Users } from "@/infrastructure/database/mongoDB/model";
-import { ICompany, IUsers } from "@/domain/entities";
-import { CompanyReqest } from "../model/ComapanyRequest";
+import { IGetRecruiterRequest, IRecruiterRequest } from "@/domain/entities";
 import { RecruiterReqest } from "../model/RecruiterRequests";
 
-export const getRecruiterRequest = async (): Promise<ICompany[] | null> => {
+export const getRecruiterRequest = async (
+  page: number,
+  limit: number
+): Promise<IGetRecruiterRequest | null> => {
   try {
-    const users = await RecruiterReqest.find();
-    console.log(users);
-    
-    return users;
+    const skip = (page - 1) * limit;
+    const totalUsers = await RecruiterReqest.countDocuments();
+    const recruiterRequests = await RecruiterReqest.find()
+      .skip(skip)
+      .limit(limit);
+
+    return {
+      totalPages: Math.ceil(totalUsers / limit),
+      currentPage: page,
+      data: recruiterRequests as IRecruiterRequest[],
+    };
   } catch (error: any) {
     throw new Error(error?.message);
   }

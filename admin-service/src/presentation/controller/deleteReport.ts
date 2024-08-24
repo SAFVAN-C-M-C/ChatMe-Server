@@ -12,12 +12,11 @@ export const deleteReportController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const id=String(req.params.id)
-      const result = await deleteReportUseCase(dependencies).execute(String(id));
+      const id = String(req.params.id);
+      const result = await deleteReportUseCase(dependencies).execute(
+        String(id)
+      );
 
-      if (!result) {
-        console.log("no reports");
-      }      
       res.status(200).json({
         success: true,
         data: result,

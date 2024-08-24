@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 dotenv.config();
-
+//data base configuration
 export default async () => {
   try {
     const mongoUrl = process.env.MONGO_URI?.trim();
@@ -13,9 +13,9 @@ export default async () => {
     }
 
     await mongoose.connect(mongoUrl, {
-      serverSelectionTimeoutMS: 30000, // 30 seconds
-      socketTimeoutMS: 60000, // 60 seconds
-      maxPoolSize: 10, // Adjust as necessary
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 60000,
+      maxPoolSize: 10,
     });
 
     console.log(`

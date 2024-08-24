@@ -1,7 +1,8 @@
 import { consumer } from "@/infrastructure/kafka";
-import { IAdminSubscriber,createSubscriber } from "@/infrastructure/kafka/subscriber";
-
-
+import {
+  IAdminSubscriber,
+  createSubscriber,
+} from "@/infrastructure/kafka/subscriber";
 
 export const runConsumer = async () => {
   try {
@@ -13,7 +14,6 @@ export const runConsumer = async () => {
     });
 
     const subscriber = createSubscriber();
-    console.log("here... in consumer.ts..!");
 
     await consumer.run({
       eachMessage: async ({ message }) => {

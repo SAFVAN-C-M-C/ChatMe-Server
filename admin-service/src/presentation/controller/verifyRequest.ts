@@ -12,26 +12,18 @@ export const verifyRequestController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const data={
-        email:req.body.email,
-        isVerified:req.body.isVerified,
-        type:req.body.type
-      }
-      console.log("data in controller",data);
-      
-
+      const data = {
+        email: req.body.email,
+        isVerified: req.body.isVerified,
+        type: req.body.type,
+      };
       const result = await verifyRequestUseCase(dependencies).execute(data);
 
-      if (!result) {
-        console.log("no users");
-      }
-      const updatedData={
-        email:data.email,
-        isVerified:data.isVerified
-      }
-      console.log("before going to profile");
-      
-      await updateVerificationStatus(updatedData,"profile-service-topic")
+      const updatedData = {
+        email: data.email,
+        isVerified: data.isVerified,
+      };
+      await updateVerificationStatus(updatedData, "profile-service-topic");
       res.status(200).json({
         success: true,
         data: result,

@@ -1,5 +1,5 @@
-import { IUsers } from "@/domain/entities";
+import { IGetUser } from "@/domain/entities";
 
 export interface IGetUserUseCase {
-    execute(): Promise<IUsers[] | null>;
+  execute(page: number, limit: number): Promise<IGetUser | null>;
 }

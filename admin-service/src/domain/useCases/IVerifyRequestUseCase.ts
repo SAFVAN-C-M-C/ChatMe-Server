@@ -1,6 +1,9 @@
-import { IUsers } from "@/domain/entities";
 import { IComapanyRequest, IRecruiterRequest } from "../entities/Requests";
 
 export interface IVerifyRequestUseCase {
-    execute(data:{email?:string,isVerified?:boolean,type?:string}): Promise<IRecruiterRequest[] | IComapanyRequest[] | null>;
+  execute(data: {
+    email?: string;
+    isVerified?: boolean;
+    type?: string;
+  }): Promise<IRecruiterRequest[] | IComapanyRequest[] | null>;
 }

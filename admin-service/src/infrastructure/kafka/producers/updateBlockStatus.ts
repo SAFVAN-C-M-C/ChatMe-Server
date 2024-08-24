@@ -22,7 +22,6 @@ export default async (
         ],
       },
     ];
-
     await producer.sendBatch({ topicMessages: messages });
     console.log("message sented to the topic", targetTopic);
   } catch (error: any) {
