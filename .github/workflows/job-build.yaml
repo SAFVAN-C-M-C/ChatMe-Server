@@ -1,4 +1,4 @@
-name: Build and publish Admin service to Docker Hub
+name: Build and publish Job service to Docker Hub
 
 on:
   push:
