@@ -13,7 +13,6 @@ export const getUserController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-
       const result = await findUserByIdUseCase(dependencies).execute(
         req.user._id
       );
@@ -21,18 +20,14 @@ export const getUserController = (dependencies: IDependencies) => {
       if (!result) {
         throw new Error("User not found!");
       }
-      if(result.isBlocked){
-        return next(
-          ErrorResponse.unauthorized(
-            "User is Blocked"
-          )
-        );
+      if (result.isBlocked) {
+        return next(ErrorResponse.unauthorized("User is Blocked"));
       }
       res.status(200).json({
         success: true,
         data: result,
         message: "User exist!",
-        loggined:result?.isDetailsComplete,
+        loggined: result?.isDetailsComplete,
       });
     } catch (error) {
       next(error);

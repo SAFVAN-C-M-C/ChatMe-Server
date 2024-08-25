@@ -5,7 +5,7 @@ dotenv.config();
 export default async () => {
   try {
     const mongoUrl = String(process.env.MONGO_URI);
-    
+
     if (!mongoUrl) {
       throw new Error(
         "MongoDB connection string not provided in environment variables"

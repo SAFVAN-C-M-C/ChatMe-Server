@@ -8,10 +8,7 @@ import { generateAccessToken, generateForgotPasswordToken } from "@/_lib/jwt";
 
 export const otpConroller = (dependencies: IDependencies) => {
   const {
-    useCases: {
-      verifyOtpUseCase,
-      updateUserFieldUseCase,
-    },
+    useCases: { verifyOtpUseCase, updateUserFieldUseCase },
   } = dependencies;
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -43,13 +40,17 @@ export const otpConroller = (dependencies: IDependencies) => {
           otp: true,
         });
 
-
         res.cookie("access_token", accessToken, {
           httpOnly: true,
         });
         return res.status(200).json({
           success: true,
-          data: {email:token?.email!,otp:true,details:true,otpType:"register"},
+          data: {
+            email: token?.email!,
+            otp: true,
+            details: true,
+            otpType: "register",
+          },
           message: "Otp Verified",
         });
       } else if (type && type === "forgot") {
@@ -63,7 +64,12 @@ export const otpConroller = (dependencies: IDependencies) => {
         });
         return res.status(200).json({
           success: true,
-          data: { email: token?.email!, reset: true, otp: true ,otpType:"forgot"},
+          data: {
+            email: token?.email!,
+            reset: true,
+            otp: true,
+            otpType: "forgot",
+          },
           message: "Otp verified",
         });
       }

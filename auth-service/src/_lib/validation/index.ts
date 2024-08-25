@@ -1,2 +1,2 @@
-export * from "./registerValidation"
-export * from "./registerDetailsValidation"
+export * from "./registerValidation";
+export * from "./registerDetailsValidation";

@@ -12,7 +12,6 @@ export const loginController = (dependencies: IDependencies) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { value, error } = registerValidation.validate(req.body);
-      console.log(error);
 
       if (error) {
         throw new Error(error.message);
@@ -28,7 +27,6 @@ export const loginController = (dependencies: IDependencies) => {
           )
         );
       }
-      console.log("heeee");
 
       const match = await comparePassword(value.password, result.password!);
 
@@ -62,10 +60,14 @@ export const loginController = (dependencies: IDependencies) => {
 
       res.cookie("access_token", accessToken, {
         httpOnly: true,
+        maxAge: 6000 * 60 * 24 * 7,
+        secure: process.env.NODE_ENV === "production",
       });
 
       res.cookie("refresh_token", refreshToken, {
         httpOnly: true,
+        maxAge: 6000 * 60 * 24 * 15,
+        secure: process.env.NODE_ENV === "production",
       });
 
       res.status(200).json({

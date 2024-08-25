@@ -4,16 +4,14 @@ export const verifyOtpUseCase = (dependencies: IDependencies) => {
   const {
     repositories: { verifyOtp },
   } = dependencies;
-  return{
+  return {
     execute: async (email: string, otp: string) => {
-    try {
-      console.log("hii");
-      
-      return await verifyOtp(email,otp);
-    } catch (error) {
-      console.log("<< Something went wrong in verifyOtp useCase >>");
-      return false;
-    }
-  }
-  }
+      try {
+        return await verifyOtp(email, otp);
+      } catch (error: any) {
+        console.log("<< Something went wrong in verifyOtp useCase >>");
+        throw new Error(error.message || "verifyOtp failed");
+      }
+    },
+  };
 };

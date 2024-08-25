@@ -18,10 +18,10 @@ import { runConsumer, stopConsumer } from "./_boot/consumer";
       stopConsumer();
     });
   } catch (error: any) {
-    console.log("Error on start up: ", error);
+    console.error("Error on start up: ", error);
   } finally {
     process.on("SIGINT", async () => {
-      console.log("\n Server is shutting down...");
+      console.warn("\n Server is shutting down...");
       process.exit();
     });
   }

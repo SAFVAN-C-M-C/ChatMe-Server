@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { registerValidation } from "@/_lib/validation";
 import { hashPassword } from "@/_lib/bcrypt";
-import { generateAccessToken, generateForgotPasswordToken, generateRefreshToken } from "@/_lib/jwt";
+import {
+  generateAccessToken,
+  generateForgotPasswordToken,
+  generateRefreshToken,
+} from "@/_lib/jwt";
 import { ErrorResponse } from "@/_lib/common/error";
 import { LoginCredential, UserEntity } from "@/domain/entities";
 import { findUserByEmailUseCase } from "@/application/useCases";
@@ -14,14 +18,8 @@ export const registerController = (dependencies: IDependencies) => {
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
-    console.log("hello");
-    
-    let userData:UserEntity|null=null
+    let userData: UserEntity | null = null;
     const registerCredentials: LoginCredential = req.body;
-    console.log(
-      "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
-      registerCredentials
-    );
 
     //To check whether the user email is taken or not
     if (registerCredentials) {
@@ -29,7 +27,7 @@ export const registerController = (dependencies: IDependencies) => {
         const userExist: any = await findUserByEmailUseCase(
           dependencies
         ).execute(registerCredentials.email);
-        console.log("🚀 ~ file: signup.ts:28 ~ return ~ userExist:", userExist);
+
         if (userExist) {
           return next(
             ErrorResponse.conflict(
@@ -38,7 +36,7 @@ export const registerController = (dependencies: IDependencies) => {
           );
         }
       } catch (error: any) {
-        console.log(error, "Something went Wrong");
+        console.error(error, "Something went Wrong");
         next(error);
       }
     }
@@ -61,15 +59,15 @@ export const registerController = (dependencies: IDependencies) => {
             message: "Something Went wrong try again in create user",
           });
         }
-        
 
-
-        await requestOTP(registerCredentials.email, "notification-service-topic");
-        const userDataToProfile={
-          userId:userData._id,
-          email:userData.email
-        }
-        console.log(userDataToProfile,"=====this in regiter controller");
+        await requestOTP(
+          registerCredentials.email,
+          "notification-service-topic"
+        );
+        const userDataToProfile = {
+          userId: userData._id,
+          email: userData.email,
+        };
 
         await addUser(userDataToProfile, "profile-service-topic");
         const accessToken = generateForgotPasswordToken({
@@ -78,18 +76,22 @@ export const registerController = (dependencies: IDependencies) => {
           otp: true,
         });
 
-
         res.cookie("access_token", accessToken, {
           httpOnly: true,
         });
         return res.status(200).json({
           success: true,
           message: "user creeated otp sent successfully",
-          data:{email:userData?.email!,otp:true,details:false,otpType:"register"}
+          data: {
+            email: userData?.email!,
+            otp: true,
+            details: false,
+            otpType: "register",
+          },
         });
       } catch (error: any) {
-        console.log(error, "<<Something went wrong in user signup>>");
+        console.error(error, "<<Something went wrong in user signup>>");
       }
-    }    
+    }
   };
 };

@@ -34,24 +34,23 @@ export const googleAuthController = (dependencies: IDependencies) => {
 
       const { email } = payload;
 
-      const user = await findUserByEmailUseCase(dependencies).execute(email,true);
+      const user = await findUserByEmailUseCase(dependencies).execute(
+        email,
+        true
+      );
 
       if (user) {
-        if(user.isBlocked){
-          return next(
-            ErrorResponse.unauthorized(
-              "User is Blocked"
-            )
-          );
+        if (user.isBlocked) {
+          return next(ErrorResponse.unauthorized("User is Blocked"));
         }
         const accessToken = generateAccessToken({
           _id: String(user?._id),
           email: user?.email!,
           role: user?.role!,
           type: user?.accountType!,
-          loggined:true,
-          isDetailsComplete:user?.isDetailsComplete,
-          isEmailVerified:user?.isEmailVerified
+          loggined: true,
+          isDetailsComplete: user?.isDetailsComplete,
+          isEmailVerified: user?.isEmailVerified,
         });
 
         const refreshToken = generateRefreshToken({
@@ -59,42 +58,46 @@ export const googleAuthController = (dependencies: IDependencies) => {
           email: user?.email!,
           role: user?.role!,
           type: user?.accountType!,
-          loggined:true,
-          isDetailsComplete:user?.isDetailsComplete,
-          isEmailVerified:user?.isEmailVerified
+          loggined: true,
+          isDetailsComplete: user?.isDetailsComplete,
+          isEmailVerified: user?.isEmailVerified,
         });
 
         res.cookie("access_token", accessToken, {
           httpOnly: true,
+          maxAge: 6000 * 60 * 24 * 7,
+          secure: process.env.NODE_ENV === "production",
         });
 
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
+          maxAge: 6000 * 60 * 24 * 7,
+          secure: process.env.NODE_ENV === "production",
         });
-        delete user.password
+        delete user.password;
         return res.status(200).json({
           success: true,
           data: user,
           message: "User Google login!",
-          loggined:true,
-          detailsFilled:user?.isDetailsComplete,
+          loggined: true,
+          detailsFilled: user?.isDetailsComplete,
         });
       }
-console.log("hi therer==========");
 
-      const result = await registerUserUseCase(dependencies).execute(String(email),"",true);
+      const result = await registerUserUseCase(dependencies).execute(
+        String(email),
+        "",
+        true
+      );
 
-      
       if (!result) {
         throw new Error("User creation failed!");
       }
 
-     
-      const userDataToProfile={
-        userId:result._id,
-        email:result.email
-      }
-      console.log(userDataToProfile,"=====this in regiter controller");
+      const userDataToProfile = {
+        userId: result._id,
+        email: result.email,
+      };
 
       await addUser(userDataToProfile, "profile-service-topic");
 
@@ -103,9 +106,9 @@ console.log("hi therer==========");
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:false,
-        isDetailsComplete:result?.isDetailsComplete,
-        isEmailVerified:result?.isEmailVerified
+        loggined: false,
+        isDetailsComplete: result?.isDetailsComplete,
+        isEmailVerified: result?.isEmailVerified,
       });
 
       const refreshToken = generateRefreshToken({
@@ -113,23 +116,26 @@ console.log("hi therer==========");
         email: result?.email!,
         role: result?.role!,
         type: result?.accountType!,
-        loggined:false,
-        isDetailsComplete:result?.isDetailsComplete,
-        isEmailVerified:result?.isEmailVerified
+        loggined: false,
+        isDetailsComplete: result?.isDetailsComplete,
+        isEmailVerified: result?.isEmailVerified,
       });
-
 
       res.cookie("access_token", accessToken, {
         httpOnly: true,
+        maxAge: 6000 * 60 * 24 * 7,
+        secure: process.env.NODE_ENV === "production",
       });
 
       res.cookie("refresh_token", refreshToken, {
         httpOnly: true,
+        maxAge: 6000 * 60 * 24 * 7,
+        secure: process.env.NODE_ENV === "production",
       });
-      const {password,...userData}=result
+      const { password, ...userData } = result;
       res.status(200).json({
         success: true,
-        data: {email:userData?.email,details:true},
+        data: { email: userData?.email, details: true },
         message: "User Google signup!",
       });
     } catch (error: any) {

@@ -1,18 +1,18 @@
 import crypto from "crypto";
 
 export const generateOTP = () => {
-    const length = 6;
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    const charsLength = chars.length;
-    
-    let otp = '';
+  const length = 6;
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const charsLength = chars.length;
 
-    const randomBytes = crypto.randomBytes(length);
+  let otp = "";
 
-    for (let i = 0; i < length; i++) {
-        const randomIndex = randomBytes[i] % charsLength;
-        otp += chars[randomIndex];
-    }
+  const randomBytes = crypto.randomBytes(length);
 
-    return otp;
-}
+  for (let i = 0; i < length; i++) {
+    const randomIndex = randomBytes[i] % charsLength;
+    otp += chars[randomIndex];
+  }
+
+  return otp;
+};

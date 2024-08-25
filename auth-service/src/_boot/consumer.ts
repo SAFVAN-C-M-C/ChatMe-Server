@@ -14,7 +14,6 @@ export const runConsumer = async () => {
     });
 
     const subscriber = createSubscriber();
-    console.log("here... in consumer.ts..!");
 
     await consumer.run({
       eachMessage: async ({ message }) => {

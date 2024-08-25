@@ -1,2 +1,2 @@
-export * from "./comparePassword"
-export * from "./hashpassword"
+export * from "./comparePassword";
+export * from "./hashpassword";

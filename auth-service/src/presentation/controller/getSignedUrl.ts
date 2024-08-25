@@ -8,7 +8,7 @@ export const getSignedUrlController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("User not athetnticated");
       }
-      console.log(req.query);
+
       if (req.query && req.query.type && req.query.content) {
         const filePath = `upload/${req.user.email}/${
           req.query.type
@@ -22,8 +22,6 @@ export const getSignedUrlController = (dependencies: IDependencies) => {
             ? "application/pdf"
             : "video/mp4";
 
-        console.log(filePath);
-
         const result = await getPutSignedUrl(filePath, contentType);
 
         res.status(200).json({
@@ -36,7 +34,6 @@ export const getSignedUrlController = (dependencies: IDependencies) => {
           req.user._id
         }${Date.now()}.jpg`;
         const contentType = "image/jpeg";
-        console.log(filePath);
 
         const result = await getPutSignedUrl(filePath, contentType);
 

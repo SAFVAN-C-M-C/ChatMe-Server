@@ -17,28 +17,21 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
 
   return async (req: Request, res: Response, next: NextFunction) => {
     const registerCredentials: any = req.body;
-    console.log(
-      "🚀 ~ file: signup.ts:15 ~ return ~ userCredentials:",
-      registerCredentials
-    );
 
     if (registerCredentials) {
       try {
-        const { error, value } = registerDetailsValidation.validate(registerCredentials);
-        // if (error) {
-        //   throw new Error(error.message);
-        // }
-        let token=req.user
-        let data:RegisterDetails={
-          email:token?.email,
-          name:registerCredentials?.data?.name,
-          accountType:registerCredentials?.data?.accountType,
-          location:registerCredentials?.data?.location,
-          phone:registerCredentials?.data?.phone,
-        }
-        console.log(data);
-        
-        const userData = await addRegisterDetailsUseCase(dependencies).execute(data);
+        let token = req.user;
+        let data: RegisterDetails = {
+          email: token?.email,
+          name: registerCredentials?.data?.name,
+          accountType: registerCredentials?.data?.accountType,
+          location: registerCredentials?.data?.location,
+          phone: registerCredentials?.data?.phone,
+        };
+
+        const userData = await addRegisterDetailsUseCase(dependencies).execute(
+          data
+        );
 
         if (!userData) {
           return res.json({
@@ -46,34 +39,28 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
             message: "Something Went wrong try again in create user",
           });
         }
-        //produce-user-creation-message
-        // await userCreatedProducer(userData,'USER_SERVICE_TOPIC');
-        // const user = await findUserByEmailUseCase(dependencies).execute(token?.email);
-        console.log(userData,"=========this from add details file");
-        
-        const userDataToProfile:any={
-          userId:userData._id,
-          email:userData.email,
-          name:userData.name,
-          location : userData.location,
-          phone:userData.phone,
-          accountType:userData.accountType,
-          
+
+        const userDataToProfile: any = {
+          userId: userData._id,
+          email: userData.email,
+          name: userData.name,
+          location: userData.location,
+          phone: userData.phone,
+          accountType: userData.accountType,
+        };
+
+        const userToAdmin: any = {
+          userId: userData._id,
+          email: userData.email,
+          name: userData.name,
+          accountType: userData.accountType,
+        };
+        if (userData.accountType === "company") {
+          userDataToProfile.doc = registerCredentials?.data?.doc;
+          userToAdmin.doc = registerCredentials?.data?.doc;
         }
 
-        const userToAdmin:any={
-          userId:userData._id,
-          email:userData.email,
-          name:userData.name,
-          accountType:userData.accountType
-        }
-        if(userData.accountType==="company"){
-          userDataToProfile.doc=registerCredentials?.data?.doc
-          userToAdmin.doc=registerCredentials?.data?.doc
-        }
-        console.log(userDataToProfile);
-        
-        await addUser(userToAdmin,"admin-service-topic");
+        await addUser(userToAdmin, "admin-service-topic");
         await addUserDetails(userDataToProfile, "profile-service-topic");
 
         const accessToken = generateAccessToken({
@@ -82,8 +69,8 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: true,
-          isDetailsComplete:userData?.isDetailsComplete,
-          isEmailVerified:userData?.isEmailVerified
+          isDetailsComplete: userData?.isDetailsComplete,
+          isEmailVerified: userData?.isEmailVerified,
         });
 
         const refreshToken = generateRefreshToken({
@@ -92,29 +79,32 @@ export const addRegisterDetailsController = (dependencies: IDependencies) => {
           role: userData?.role!,
           type: userData?.accountType!,
           loggined: true,
-          isDetailsComplete:userData?.isDetailsComplete,
-        isEmailVerified:userData?.isEmailVerified
+          isDetailsComplete: userData?.isDetailsComplete,
+          isEmailVerified: userData?.isEmailVerified,
         });
 
         res.cookie("access_token", accessToken, {
           httpOnly: true,
+          maxAge: 6000 * 60 * 24 * 7,
+          secure: process.env.NODE_ENV === "production",
         });
 
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
+          maxAge: 6000 * 60 * 24 * 7,
+          secure: process.env.NODE_ENV === "production",
         });
-        
-        delete userData?.password
-        console.log("data before going",userData);
+
+        delete userData?.password;
         res.status(200).json({
           success: true,
           data: userData,
           message: "User created!",
-          loggined:true,
-          detailsFilled:userData?.isDetailsComplete,
+          loggined: true,
+          detailsFilled: userData?.isDetailsComplete,
         });
       } catch (error: any) {
-        console.log(error, "<<Something went wrong in user signup>>");
+        console.error(error, "<<Something went wrong in user signup>>");
       }
     }
   };
