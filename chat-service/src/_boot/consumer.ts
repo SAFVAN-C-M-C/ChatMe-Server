@@ -9,7 +9,7 @@ export const runConsumer = async () => {
     await consumer.connect();
 
     await consumer.subscribe({
-      topic: "post-service-topic",
+      topic: "chat-service-topic",
       fromBeginning: true,
     });
 
