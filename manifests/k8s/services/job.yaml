@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  chat-me-job-service
+spec:
+  selector:
+    app: job-service
+  ports:
+  - name:  job-service
+    protocol: TCP
+    port:  1240
+    targetPort: 1240

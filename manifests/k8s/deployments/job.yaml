@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-me-job-deployment
+  labels:
+    name: job-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: job-service
+  template:
+    metadata:
+      labels:
+        app: job-service
+    spec:
+      containers:
+      - image: safvancmc/chat-me-job-service:latest
+        name: job-service
+        envFrom:
+          - configMapRef:
+              name: job-service-config

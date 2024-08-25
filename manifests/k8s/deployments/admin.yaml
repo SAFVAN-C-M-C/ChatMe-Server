@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-me-admin-deployment
+  labels:
+    name: admin-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-service
+  template:
+    metadata:
+      labels:
+        app: admin-service
+    spec:
+      containers:
+      - image: safvancmc/chat-me-admin-service:latest
+        name: admin-service
+        envFrom:
+          - configMapRef:
+              name: admin-service-config

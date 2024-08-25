@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  chat-me-notification-service
+spec:
+  selector:
+    app: notification-service
+  ports:
+  - name:  notification-service
+    protocol: TCP
+    port:  1236
+    targetPort: 1236

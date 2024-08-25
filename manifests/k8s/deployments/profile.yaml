@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-me-profile-deployment
+  labels:
+    name: profile-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: profile-service
+  template:
+    metadata:
+      labels:
+        app: profile-service
+    spec:
+      containers:
+      - image: safvancmc/chat-me-profile-service:latest
+        name: profile-service
+        envFrom:
+          - configMapRef:
+              name: profile-service-config

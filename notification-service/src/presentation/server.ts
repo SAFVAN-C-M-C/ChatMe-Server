@@ -7,7 +7,7 @@ import { app, server } from "@/infrastructure/socket";
 dotenv.config();
 
 
-const PORT: number = Number(process.env.PORT);
+const PORT:number=Number(process.env.PORT)||1236
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chat-me-post-deployment
+  labels:
+    name: post-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: post-service
+  template:
+    metadata:
+      labels:
+        app: post-service
+    spec:
+      containers:
+      - image: safvancmc/chat-me-post-service:latest
+        name: post-service
+        envFrom:
+          - configMapRef:
+              name: post-service-config
