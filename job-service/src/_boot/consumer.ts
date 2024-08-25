@@ -14,7 +14,6 @@ export const runConsumer = async () => {
     });
 
     const subscriber = createSubscriber();
-    console.log("here... in consumer.ts..!");
 
     await consumer.run({
       eachMessage: async ({ message }) => {
@@ -23,7 +22,7 @@ export const runConsumer = async () => {
         const subscriberMethod = String(key) as keyof IJobSubscriber;
         const subscriberData = JSON.parse(String(value));
 
-        if (subscriber && typeof subscriber[subscriberMethod] === 'function' ) {
+        if (subscriber && typeof subscriber[subscriberMethod] === "function") {
           try {
             await subscriber[subscriberMethod](subscriberData);
           } catch (error: any) {

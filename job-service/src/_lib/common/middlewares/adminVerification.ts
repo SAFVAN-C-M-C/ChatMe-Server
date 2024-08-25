@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 
-
 export const adminVerification = async (
   req: Request,
   res: Response,

@@ -7,17 +7,19 @@ export default async () => {
     const mongoUrl = String(process.env.MONGO_URI)?.trim();
 
     if (!mongoUrl) {
-      console.error("MongoDB connection string not provided in environment variables");
-      
+      console.error(
+        "MongoDB connection string not provided in environment variables"
+      );
+
       throw new Error(
         "MongoDB connection string not provided in environment variables"
       );
     }
 
     await mongoose.connect(mongoUrl, {
-      serverSelectionTimeoutMS: 30000, // 30 seconds
-      socketTimeoutMS: 60000, // 60 seconds
-      maxPoolSize: 10, // Adjust as necessary
+      serverSelectionTimeoutMS: 30000, 
+      socketTimeoutMS: 60000, 
+      maxPoolSize: 10, 
     });
 
     console.log(`

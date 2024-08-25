@@ -1,4 +1,3 @@
-import cloudinary from "@/_boot/cloudinaryConfig";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { Education } from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";
@@ -14,13 +13,11 @@ export const addEducationController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      const data:Education={
-        email:req.user.email,
-        education:req.body
-      }
-      const result = await addEducationUseCase(dependencies).execute(
-        data
-      );
+      const data: Education = {
+        email: req.user.email,
+        education: req.body,
+      };
+      const result = await addEducationUseCase(dependencies).execute(data);
 
       if (!result) {
         throw new Error("User not found!");

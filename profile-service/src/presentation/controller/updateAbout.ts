@@ -1,6 +1,4 @@
-import cloudinary from "@/_boot/cloudinaryConfig";
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { BioDetails } from "@/domain/entities/BioDetails";
 import { Request, Response, NextFunction } from "express";
 
 export const updateAboutController = (dependencies: IDependencies) => {
@@ -13,15 +11,12 @@ export const updateAboutController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      console.log("data",req.body.about);
-      
-      const data={
-        about:req.body.about,
-        email:req.user?.email,
-      }
-      const result = await updateAboutUseCase(dependencies).execute(
-        data
-      );
+
+      const data = {
+        about: req.body.about,
+        email: req.user?.email,
+      };
+      const result = await updateAboutUseCase(dependencies).execute(data);
 
       if (!result) {
         throw new Error("User not found!");

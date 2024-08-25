@@ -1,8 +1,6 @@
-
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { CreatePostCredentials } from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";
-
 
 export const getPostByIdController = (dependencies: IDependencies) => {
   const {
@@ -14,8 +12,10 @@ export const getPostByIdController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const postId=req.params.postId
-      const result=await getPostByIdUseCase(dependencies).execute(String(postId))
+      const postId = req.params.postId;
+      const result = await getPostByIdUseCase(dependencies).execute(
+        String(postId)
+      );
       res.status(200).json({
         success: true,
         data: result,

@@ -1,12 +1,14 @@
 import { producer } from "..";
 
-
-export default async (data: {
-    recipientId:string;
-    fromUserId:string;
-    content:string;
-    postId:string
-}, topic?: string) => {
+export default async (
+  data: {
+    recipientId: string;
+    fromUserId: string;
+    content: string;
+    postId: string;
+  },
+  topic?: string
+) => {
   try {
     const targetTopic = topic || "notification-service-topic";
 
@@ -24,8 +26,7 @@ export default async (data: {
     ];
 
     await producer.sendBatch({ topicMessages: messages });
-    console.log("message sented to the topic",targetTopic);
-    
+    console.log("message sented to the topic", targetTopic);
   } catch (error: any) {
     console.error("kafka produce error:===============", error?.message);
   } finally {

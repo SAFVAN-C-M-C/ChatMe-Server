@@ -1,8 +1,11 @@
-
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { AddCommentCredentials, CreatePostCredentials, DeleteComment, EditPostCredentials } from "@/domain/entities";
+import {
+  AddCommentCredentials,
+  CreatePostCredentials,
+  DeleteComment,
+  EditPostCredentials,
+} from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";
-
 
 export const deleteCommentController = (dependencies: IDependencies) => {
   const {
@@ -14,12 +17,12 @@ export const deleteCommentController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const {commentId}=req.params
+      const { commentId } = req.params;
 
-      const data:DeleteComment={
-        commentId:String(commentId),
-        userId:String(req.user._id)
-      }
+      const data: DeleteComment = {
+        commentId: String(commentId),
+        userId: String(req.user._id),
+      };
       const createdPost = await deleteCommentUseCase(dependencies).execute(
         data
       );
@@ -27,7 +30,7 @@ export const deleteCommentController = (dependencies: IDependencies) => {
       if (!createdPost) {
         throw new Error("comment deletion failed");
       }
-      
+
       res.status(200).json({
         success: true,
         data: createdPost,

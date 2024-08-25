@@ -9,7 +9,7 @@ export const serachJobUseCase = (dependencies: IDependencies) => {
     try {
       return await searchJob(data);
     } catch (error:any) {
-      console.log("<< Something went wrong in get search job useCase >>");
+      console.error("<< Something went wrong in get search job useCase >>");
       throw new Error(error.message || "Job fetchingg failed");
     }
   }

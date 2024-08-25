@@ -1,4 +1,3 @@
-
 import { Types } from "mongoose";
 import { UserProfile } from "../model";
 import { IUserProfile } from "@/domain/entities";
@@ -25,8 +24,6 @@ export const followUser = async (data: { myId: string; userId: string }) => {
       { userId: myObjectId },
       { $addToSet: { following: userObjectId } }
     );
-
-    console.log("Follower added successfully.");
 
     const editedPost = await UserProfile.findOne({ userId: myObjectId });
 

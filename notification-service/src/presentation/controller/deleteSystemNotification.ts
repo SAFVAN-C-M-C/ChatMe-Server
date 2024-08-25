@@ -1,4 +1,3 @@
-
 import { IDependencies } from "@/application/interfaces/IDependencies";
 
 import { Request, Response, NextFunction } from "express";
@@ -15,16 +14,18 @@ export const deleteSystemNotificationController = (
       if (!req.user) {
         throw new Error("user not found!");
       }
-      if(!req.params.notificationId){
+      if (!req.params.notificationId) {
         throw new Error("notificationId not found!");
       }
-      const result = await deleteSystemNotificationUseCase(dependencies).execute(String(req.params.notificationId));
+      const result = await deleteSystemNotificationUseCase(
+        dependencies
+      ).execute(String(req.params.notificationId));
 
       if (!result) {
         throw new Error("Something went wrong");
       }
 
-      res.status(200).json({
+      res.status(204).json({
         success: true,
         data: result,
         message: "Notification deleted",

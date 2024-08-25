@@ -1,6 +1,4 @@
-import cloudinary from "@/_boot/cloudinaryConfig";
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { Education, Experience } from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";
 
 export const addPreferedJobsController = (dependencies: IDependencies) => {
@@ -13,17 +11,14 @@ export const addPreferedJobsController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      let {preferedJobs}=req.body;
-      const arrayPreferedJobs:string[]=Array.from(preferedJobs.split(","))
-      console.log("skills",arrayPreferedJobs);
-      
-      const data={
-        email:req.user.email,
-        preferedJobs:arrayPreferedJobs
-      }
-      const result = await addPreferedJobsUseCase(dependencies).execute(
-        data
-      );
+      let { preferedJobs } = req.body;
+      const arrayPreferedJobs: string[] = Array.from(preferedJobs.split(","));
+
+      const data = {
+        email: req.user.email,
+        preferedJobs: arrayPreferedJobs,
+      };
+      const result = await addPreferedJobsUseCase(dependencies).execute(data);
 
       if (!result) {
         throw new Error("User not found!");

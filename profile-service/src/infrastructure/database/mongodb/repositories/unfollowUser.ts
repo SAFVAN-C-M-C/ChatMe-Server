@@ -24,9 +24,6 @@ export const unfollowUser = async (data: { myId: string; userId: string }) => {
       { userId: myObjectId },
       { $pull: { following: userObjectId } }
     );
-
-    console.log("Follower removed successfully.");
-
     const editedPost = await UserProfile.findOne({ userId: myObjectId });
 
     return editedPost as IUserProfile;

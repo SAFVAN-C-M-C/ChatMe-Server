@@ -9,18 +9,15 @@ export const addEducation = async (data: Education) => {
       throw new Error("email not provided");
     }
 
-
-
     const userProfileData = await UserProfile.findOneAndUpdate(
-      {email:email},
+      { email: email },
       { $push: { education: education } },
       { new: true }
     );
     if (!userProfileData) {
       throw new Error("User not found");
     }
-    console.log("updatedData",userProfileData);
-    
+
     return userProfileData as IUserProfile;
   } catch (error: any) {
     throw new Error(error?.message);

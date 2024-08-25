@@ -18,7 +18,7 @@ export const routes = (dependencies: IDependencies) => {
     applyForJob,
     getJobApplications,
     updateApplicationStatus,
-    getMyJobApplications
+    getMyJobApplications,
   } = controllers(dependencies);
 
   const router = Router();
@@ -38,8 +38,12 @@ export const routes = (dependencies: IDependencies) => {
     .route("/get/chart/job/data")
     .get(jwtMiddleware, adminVerification, getJobChartData);
   router.route("/apply/job").post(jwtMiddleware, applyForJob);
-  router.route("/applications/:jobId").get(jwtMiddleware,roleVerification,getJobApplications);
-  router.route("/myapplications").get(jwtMiddleware,getMyJobApplications);
-  router.route("/applications/update/:applicationId").put(jwtMiddleware,roleVerification,updateApplicationStatus);
+  router
+    .route("/applications/:jobId")
+    .get(jwtMiddleware, roleVerification, getJobApplications);
+  router.route("/myapplications").get(jwtMiddleware, getMyJobApplications);
+  router
+    .route("/applications/update/:applicationId")
+    .put(jwtMiddleware, roleVerification, updateApplicationStatus);
   return router;
 };

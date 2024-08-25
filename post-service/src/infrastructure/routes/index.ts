@@ -8,39 +8,57 @@ import { adminVerification } from "@/_lib/common/middleware/adminVerification";
 
 export const routes = (dependencies: IDependencies) => {
   const {
-    createPost,getMyPosts,getPosts,editPost,deletePost,likePost,unLikePost,savePost,unSavePost,getSavedPosts,addComment,deleteComment,
-    getUserPostById,getPostById,getDataForChart,getComments,getCommentReplys,searchPost
+    createPost,
+    getMyPosts,
+    getPosts,
+    editPost,
+    deletePost,
+    likePost,
+    unLikePost,
+    savePost,
+    unSavePost,
+    getSavedPosts,
+    addComment,
+    deleteComment,
+    getUserPostById,
+    getPostById,
+    getDataForChart,
+    getComments,
+    getCommentReplys,
+    searchPost,
   } = controllers(dependencies);
 
   const router = Router();
-  router.route("/").get(jwtMiddleware,getPosts );
-  router.route("/myposts").get(jwtMiddleware, getMyPosts);
-  router.route("/create").post(jwtMiddleware, createPost);
-  router.route("/edit").put(jwtMiddleware, editPost);
-  router.route("/delete/:id").put(jwtMiddleware, deletePost);
-  router.route("/like/:postId").put(jwtMiddleware,likePost)
-  router.route("/unlike/:postId").put(jwtMiddleware,unLikePost)
-  router.route("/save/:postId").put(jwtMiddleware,savePost)
-  router.route("/unsave/:postId").put(jwtMiddleware,unSavePost)
-  router.route("/saved").get(jwtMiddleware,getSavedPosts)
-
-  
-  router.route("/posts/search").get(jwtMiddleware,searchPost)
-  router.route("/get/comment/:postId").get(jwtMiddleware,getComments)
-  router.route("/get/comment/reply/:replyId").get(jwtMiddleware,getCommentReplys)
-  router.route("/comment").post(jwtMiddleware,addComment)
-  router.route("/comment/delete/:commentId").delete(jwtMiddleware,deleteComment)
-
+  const route = (path: string) => {
+    return router.route(path);
+  };
+  route("/").get(jwtMiddleware, getPosts);
+  route("/myposts").get(jwtMiddleware, getMyPosts);
+  route("/create").post(jwtMiddleware, createPost);
+  route("/edit").put(jwtMiddleware, editPost);
+  route("/delete/:id").delete(jwtMiddleware, deletePost);
+  route("/like/:postId").put(jwtMiddleware, likePost);
+  route("/unlike/:postId").put(jwtMiddleware, unLikePost);
+  route("/save/:postId").put(jwtMiddleware, savePost);
+  route("/unsave/:postId").put(jwtMiddleware, unSavePost);
+  route("/saved").get(jwtMiddleware, getSavedPosts);
+  route("/posts/search").get(jwtMiddleware, searchPost);
+  route("/get/comment/:postId").get(jwtMiddleware, getComments);
+  route("/get/comment/reply/:replyId").get(jwtMiddleware, getCommentReplys);
+  route("/comment").post(jwtMiddleware, addComment);
+  route("/comment/delete/:commentId").delete(jwtMiddleware, deleteComment);
 
   //this api will return all post of the user
-  router.route("/user/:userId").get(jwtMiddleware,getUserPostById)
+  route("/user/:userId").get(jwtMiddleware, getUserPostById);
   //this api will return the specific post details
-  router.route("/posts/:postId").get(jwtMiddleware,getPostById)
-
-
+  route("/posts/:postId").get(jwtMiddleware, getPostById);
 
   //this api is to get data for the admin chart
-  router.route("/get/chart/post/data").get(jwtMiddleware,adminVerification,getDataForChart)
+  route("/get/chart/post/data").get(
+    jwtMiddleware,
+    adminVerification,
+    getDataForChart
+  );
 
   return router;
 };

@@ -12,10 +12,9 @@ export const getSearchedUserController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      console.log("params user",req.query);
-      const result = await getSearchedUserUseCase(dependencies).execute(
-        {searchKey:String(req.query.key)}
-      );
+      const result = await getSearchedUserUseCase(dependencies).execute({
+        searchKey: String(req.query.key),
+      });
 
       if (!result) {
         throw new Error("User not found!");
@@ -25,7 +24,7 @@ export const getSearchedUserController = (dependencies: IDependencies) => {
         success: true,
         data: result,
         message: "Search Users Profile Fetched",
-        key:String(req.query.key)
+        key: String(req.query.key),
       });
     } catch (error) {
       next(error);

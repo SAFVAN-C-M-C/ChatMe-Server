@@ -1,10 +1,9 @@
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { createFollowNotification } from "@/infrastructure/kafka/producers";
 import { Request, Response, NextFunction } from "express";
 
 export const changeTheamController = (dependencies: IDependencies) => {
   const {
-    useCases: { changeTheamUseCase },
+    useCases: { changeThemeUseCase },
   } = dependencies;
 
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -13,13 +12,12 @@ export const changeTheamController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      const theam=req.body.theam
-      console.log(theam,"theam");
-      const result = await changeTheamUseCase(dependencies).execute(
-        {
-            id:String(req.user._id),
-            theam:String(theam),
-        });
+      const theme = req.query.theme;
+
+      const result = await changeThemeUseCase(dependencies).execute({
+        id: String(req.user._id),
+        theme: String(theme),
+      });
 
       if (!result) {
         throw new Error("User not found!");

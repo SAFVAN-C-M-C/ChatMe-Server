@@ -1,6 +1,5 @@
-import {  GetChatByUserId, IChat } from "../entities/Chat";
+import { GetChatByUserId, IChat } from "../entities/Chat";
 
-
-export interface IGetChatByUserIdUseCase{
-    execute(data:GetChatByUserId):Promise<IChat | null>;
+export interface IGetChatByUserIdUseCase {
+  execute(data: GetChatByUserId): Promise<IChat | null>;
 }

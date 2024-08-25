@@ -12,15 +12,12 @@ export const unFollowUserController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      const userId=req.params.userId
-      console.log(userId,"userid");
-      console.log("Unfollow user==============");
-      
-      const result = await unfollowUserUseCase(dependencies).execute(
-        {
-            myId:String(req.user._id),
-            userId:String(userId),
-        });
+      const { userId } = req.params;
+
+      const result = await unfollowUserUseCase(dependencies).execute({
+        myId: String(req.user._id),
+        userId: String(userId),
+      });
 
       if (!result) {
         throw new Error("User not found!");

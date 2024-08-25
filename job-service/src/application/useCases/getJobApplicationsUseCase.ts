@@ -10,7 +10,7 @@ export const getJobApplicationsUseCase = (dependencies: IDependencies) => {
     try {
       return await getJobApplications(data);
     } catch (error:any) {
-      console.log("<< Something went wrong in get job application useCase >>");
+      console.error("<< Something went wrong in get job application useCase >>");
       throw new Error(error.message || "geting job application failed");
     }
   }

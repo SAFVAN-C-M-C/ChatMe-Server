@@ -6,7 +6,7 @@ export const findByEmail = async (
   email?: string
 ): Promise<IUserProfile | null> => {
   try {
-    const existingUser = await UserProfile.findOne({ email: email })
+    const existingUser = await UserProfile.findOne({ email: email });
 
     if (!existingUser) {
       throw new Error("User does not exist!");

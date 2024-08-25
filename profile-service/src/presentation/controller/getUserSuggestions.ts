@@ -16,8 +16,6 @@ export const getUserSuggestionsController = (dependencies: IDependencies) => {
         String(req.user._id)
       );
 
-      console.log(result);
-
       res.status(200).json({
         success: true,
         data: result,

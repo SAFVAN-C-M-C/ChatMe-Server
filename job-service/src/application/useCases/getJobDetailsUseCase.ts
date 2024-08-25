@@ -9,7 +9,7 @@ export const getJobDetailsUseCase = (dependencies: IDependencies) => {
     try {
       return await getJobDetails(id);
     } catch (error:any) {
-      console.log("<< Something went wrong in get job useCase >>");
+      console.error("<< Something went wrong in get job useCase >>");
       throw new Error(error.message || "Job fetchingg failed");
     }
   }

@@ -13,23 +13,24 @@ export const followUserController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      const userId=req.params.userId
-      console.log(userId,"userid");
-      
-      const result = await followUserUseCase(dependencies).execute(
-        {
-            myId:String(req.user._id),
-            userId:String(userId),
-        });
+      const userId = req.params.userId;
+
+      const result = await followUserUseCase(dependencies).execute({
+        myId: String(req.user._id),
+        userId: String(userId),
+      });
 
       if (!result) {
         throw new Error("User not found!");
       }
-      const dataForNotification={
-        recipientId:String(userId),
-        fromUserId:String(req.user._id)
-      }
-      await createFollowNotification(dataForNotification,"notification-service-topic")
+      const dataForNotification = {
+        recipientId: String(userId),
+        fromUserId: String(req.user._id),
+      };
+      await createFollowNotification(
+        dataForNotification,
+        "notification-service-topic"
+      );
       res.status(200).json({
         success: true,
         data: result,

@@ -13,9 +13,9 @@ export default async () => {
     }
 
     await mongoose.connect(mongoUrl, {
-      serverSelectionTimeoutMS: 30000, // 30 seconds
-      socketTimeoutMS: 60000, // 60 seconds
-      maxPoolSize: 10, // Adjust as necessary
+      serverSelectionTimeoutMS: 30000,
+      socketTimeoutMS: 60000,
+      maxPoolSize: 10,
     });
 
     console.log(`

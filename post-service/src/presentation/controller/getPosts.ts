@@ -1,8 +1,6 @@
-
 import { IDependencies } from "@/application/interfaces/IDependencies";
 
 import { Request, Response, NextFunction } from "express";
-
 
 export const getPostsController = (dependencies: IDependencies) => {
   const {
@@ -17,11 +15,14 @@ export const getPostsController = (dependencies: IDependencies) => {
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 5;
 
-      const result=await getPostsUseCase(dependencies).execute({page,limit})
+      const result = await getPostsUseCase(dependencies).execute({
+        page,
+        limit,
+      });
       res.status(200).json({
         success: true,
         data: result?.posts,
-        totalPages:Math.ceil(result?.total! / limit),
+        totalPages: Math.ceil(result?.total! / limit),
         message: "Posts fetched",
       });
     } catch (error) {

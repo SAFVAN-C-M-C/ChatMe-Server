@@ -19,11 +19,11 @@ export const getUserDetailsByUserId = async (
       accountType: String(existingUser.accountType),
       avatar: String(existingUser.bio.avatar),
       isVerified: existingUser.isVerified,
-      name:String(existingUser.name),
-      email:String(existingUser.email),
-      location:String(existingUser.bio.location),
+      name: String(existingUser.name),
+      email: String(existingUser.email),
+      location: String(existingUser.bio.location),
     };
-    return data
+    return data;
   } catch (error: any) {
     throw new Error(error?.message);
   }

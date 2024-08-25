@@ -1,7 +1,5 @@
-
-
-import { CreatNewNotification, INotification } from "../entity";
+import { INotification } from "../entity";
 
 export interface IGetNotificationsUseCase {
-    execute(id: string): Promise<INotification[] | null>;
+  execute(id: string): Promise<INotification[] | null>;
 }

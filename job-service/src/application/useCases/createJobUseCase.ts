@@ -11,7 +11,7 @@ export const createJobUseCase = (dependencies: IDependencies) => {
     try {
       return await createJob(data);
     } catch (error:any) {
-      console.log("<< Something went wrong in create job useCase >>");
+      console.error("<< Something went wrong in create job useCase >>");
       throw new Error(error.message || "Job creation failed");
     }
   }

@@ -11,10 +11,10 @@ export const searchPostController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const {key}=req.query
-      const result = await searchPostUseCase(dependencies).execute(
-        {searchKey:String(key)}
-      );
+      const { key } = req.query;
+      const result = await searchPostUseCase(dependencies).execute({
+        searchKey: String(key),
+      });
 
       if (!result) {
         throw new Error("User not found!");
@@ -24,7 +24,7 @@ export const searchPostController = (dependencies: IDependencies) => {
         success: true,
         data: result,
         message: "Search posts Fetched",
-        key:String(key)
+        key: String(key),
       });
     } catch (error) {
       next(error);

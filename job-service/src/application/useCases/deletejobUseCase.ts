@@ -11,7 +11,7 @@ export const deletejobUseCase = (dependencies: IDependencies) => {
     try {
       return await deletejob(data);
     } catch (error:any) {
-      console.log("<< Something went wrong in delete job useCase >>");
+      console.error("<< Something went wrong in delete job useCase >>");
       throw new Error(error.message || "Job creation failed");
     }
   }

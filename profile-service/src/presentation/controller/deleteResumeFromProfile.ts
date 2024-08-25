@@ -1,9 +1,10 @@
-import cloudinary from "@/_boot/cloudinaryConfig";
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { AddResume, DeleteResume, Education, Experience } from "@/domain/entities";
+import { DeleteResume } from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";
 
-export const deleteResumeFromProfileController = (dependencies: IDependencies) => {
+export const deleteResumeFromProfileController = (
+  dependencies: IDependencies
+) => {
   const {
     useCases: { deleteResumeFromProfileUseCase },
   } = dependencies;
@@ -13,10 +14,10 @@ export const deleteResumeFromProfileController = (dependencies: IDependencies) =
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      const { id} = req.params;
+      const { id } = req.params;
       const data: DeleteResume = {
         userId: String(req.user._id),
-        id
+        id,
       };
       const result = await deleteResumeFromProfileUseCase(dependencies).execute(
         data

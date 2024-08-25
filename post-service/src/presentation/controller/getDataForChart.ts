@@ -13,16 +13,18 @@ export const getDataForChartController = (dependencies: IDependencies) => {
       }
 
       const { range, start, end } = req.query;
-      if (typeof range !== 'string') {
+      if (typeof range !== "string") {
         throw new Error("Invalid time range");
       }
       let startDate, endDate;
-      if (range === 'custom' && start && end) {
+      if (range === "custom" && start && end) {
         startDate = new Date(start as string);
         endDate = new Date(end as string);
       }
       const result = await getDataForChartUseCase(dependencies).execute({
-        range,endDate,startDate
+        range,
+        endDate,
+        startDate,
       });
 
       if (!result) {

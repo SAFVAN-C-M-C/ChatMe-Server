@@ -12,9 +12,8 @@ export const getUserProfileByIdController = (dependencies: IDependencies) => {
         throw new Error("Authentication required: No user provided.");
       }
 
-      const userId=req.params.userId
-      console.log(userId,"userid");
-      
+      const userId = req.params.userId;
+
       const result = await findUserByIdUseCase(dependencies).execute(
         String(userId)
       );

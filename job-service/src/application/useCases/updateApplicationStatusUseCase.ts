@@ -10,7 +10,7 @@ export const updateApplicationStatusUseCase = (dependencies: IDependencies) => {
     try {
       return await updateApplicationStatus(data);
     } catch (error:any) {
-      console.log("<< Something went wrong in update applicaiton status  useCase >>");
+      console.error("<< Something went wrong in update applicaiton status  useCase >>");
       throw new Error(error.message || "Application status updation failed");
     }
   }

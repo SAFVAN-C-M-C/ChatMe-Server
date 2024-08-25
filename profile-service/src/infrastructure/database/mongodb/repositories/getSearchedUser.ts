@@ -6,13 +6,13 @@ export const getSearchedUser = async (data: {
   searchKey: string;
 }): Promise<IUserProfile[] | null> => {
   try {
-    const {searchKey}=data
-    if(!searchKey){
-        throw new Error("Search key not provided");
+    const { searchKey } = data;
+    if (!searchKey) {
+      throw new Error("Search key not provided");
     }
-    const regex = new RegExp(`${searchKey}`, 'gi');
+    const regex = new RegExp(`${searchKey}`, "gi");
     const searchedUser = await UserProfile.find({
-      name:{ $regex: regex }
+      name: { $regex: regex },
     });
     if (!searchedUser) {
       throw new Error("Somthing wentWrong");

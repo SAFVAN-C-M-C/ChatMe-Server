@@ -1,4 +1,3 @@
-import cloudinary from "@/_boot/cloudinaryConfig";
 import { IDependencies } from "@/application/interfaces/IDependencies";
 import { AddResume, Education, Experience } from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";

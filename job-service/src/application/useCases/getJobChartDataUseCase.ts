@@ -11,7 +11,7 @@ export const getJobChartDataUseCase = (dependencies: IDependencies) => {
     try {
       return await getJobChartData(data);
     } catch (error:any) {
-      console.log("<< Something went wrong in get job chat data useCase >>");
+      console.error("<< Something went wrong in get job chat data useCase >>");
       throw new Error(error.message || "Job creation failed");
     }
   }

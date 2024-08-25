@@ -1,4 +1,11 @@
-import { requestOTPConsumer, requestForgotPasswordConsumer,createCommentNotification,createFollowNotification,createLikeNotification,createNewUserNotification } from "./consumers";
+import {
+  requestOTPConsumer,
+  requestForgotPasswordConsumer,
+  createCommentNotification,
+  createFollowNotification,
+  createLikeNotification,
+  createNewUserNotification,
+} from "./consumers";
 
 interface IUserEvents {
   requestOTP(data: any): Promise<void>;
@@ -24,9 +31,9 @@ export const createSubscriber = (): INotificationSubscriber => {
   return {
     requestOTP: requestOTPConsumer,
     requestForgotPassword: requestForgotPasswordConsumer,
-    createCommentNotification:createCommentNotification,
-    createFollowNotification:createFollowNotification,
-    createLikeNotification:createLikeNotification,
-    createNewUserNotification:createNewUserNotification,
+    createCommentNotification: createCommentNotification,
+    createFollowNotification: createFollowNotification,
+    createLikeNotification: createLikeNotification,
+    createNewUserNotification: createNewUserNotification,
   };
 };

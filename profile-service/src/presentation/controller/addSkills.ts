@@ -1,6 +1,4 @@
-import cloudinary from "@/_boot/cloudinaryConfig";
 import { IDependencies } from "@/application/interfaces/IDependencies";
-import { Education, Experience } from "@/domain/entities";
 import { Request, Response, NextFunction } from "express";
 
 export const addSkillsController = (dependencies: IDependencies) => {
@@ -13,17 +11,14 @@ export const addSkillsController = (dependencies: IDependencies) => {
       if (!req.user) {
         throw new Error("Authentication required: No user provided.");
       }
-      let {skills}=req.body;
-      const arraySkills:string[]=Array.from(skills.split(","))
-      console.log("skills",arraySkills);
-      
-      const data={
-        email:req.user.email,
-        skills:arraySkills
-      }
-      const result = await addSkillsUseCase(dependencies).execute(
-        data
-      );
+      let { skills } = req.body;
+      const arraySkills: string[] = Array.from(skills.split(","));
+
+      const data = {
+        email: req.user.email,
+        skills: arraySkills,
+      };
+      const result = await addSkillsUseCase(dependencies).execute(data);
 
       if (!result) {
         throw new Error("User not found!");

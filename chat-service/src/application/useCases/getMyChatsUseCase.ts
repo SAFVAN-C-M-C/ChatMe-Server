@@ -1,4 +1,3 @@
-import { CreateChat, GetChatByUserId, IChat } from "@/domain/entities/Chat";
 import { IDependencies } from "../interfaces/IDependencies";
 
 export const getMyChatsUseCase = (dependencies: IDependencies) => {

@@ -15,8 +15,6 @@ export const getCommentsController = (dependencies: IDependencies) => {
       const { postId } = req.params;
       const page = parseInt(req.query.page as string) || 1;
       const limit = parseInt(req.query.limit as string) || 9;
-      console.log("page:", page);
-      console.log("limit:", limit);
 
       const result = await getCommentsUseCase(dependencies).execute({
         postId,
