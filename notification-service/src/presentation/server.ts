@@ -13,13 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.get('/hello', (req: Request, res: Response) => {
-    res.status(200).json({
-        message: "Notification service ON!"
-    })
-});
-
-app.use('/', notificationRoutes(dependencies));
+app.use('/api/notification', notificationRoutes(dependencies));
 
 server.listen(PORT, () => {
     console.log(`connected to notification service at ${PORT}`);

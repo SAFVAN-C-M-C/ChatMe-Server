@@ -19,7 +19,7 @@ const PORT: number = Number(process.env.PORT) || 1235;
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use("/", routes(dependencies));
+app.use("/api/admin", routes(dependencies));
 app.use("*", (req: Request, res: Response) => {
   res
     .status(404)

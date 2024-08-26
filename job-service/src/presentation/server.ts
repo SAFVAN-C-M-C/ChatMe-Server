@@ -15,7 +15,7 @@ const PORT:number=Number(process.env.PORT)||1240
 app.use(json())
 app.use(urlencoded({extended:true}))
 app.use(cookieParser())
-app.use("/",routes(dependencies))
+app.use("/api/job",routes(dependencies))
 app.use("*",(req: Request, res: Response) => {
     res.status(404).json({ success: false, status: 404, message: "Api Not found" });
   });  

@@ -20,7 +20,7 @@ app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use("/", routes(dependencies));
+app.use("/api/auth", routes(dependencies));
 
 app.use("*", (req: Request, res: Response) => {
   res

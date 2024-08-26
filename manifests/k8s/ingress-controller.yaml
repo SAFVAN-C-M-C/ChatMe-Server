@@ -1,78 +1,84 @@
-  apiVersion: networking.k8s.io/v1
-  kind: Ingress
-  metadata:
-    name: ingress-controller
-    annotations:
-      nginx.ingress.kubernetes.io/use-regex: "true"
-      cert-manager.io/cluster-issuer: letsencrypt-prod
-      nginx.ingress.kubernetes.io/enable-cors: "true"
-      nginx.ingress.kubernetes.io/cors-allow-origin: "https://chat-me-delta.vercel.app"
-  spec:
-    ingressClassName: webapprouting.kubernetes.azure.com
-    rules:
-      - host: phonebazaar.shop
-        http:
-          paths:
-            - path: /api/auth
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-auth-service
-                  port:
-                    number: 1234
-            - path: /api/admin
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-admin-service
-                  port:
-                    number: 1235
-            - path: /api/notification
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-notification-service
-                  port:
-                    number: 1236
-            - path: /api/profile
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-profile-service
-                  port:
-                    number: 1237        
-            - path: /api/post
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-post-service
-                  port:
-                    number: 1238
-            - path: /api/chat
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-chat-service
-                  port:
-                    number: 1239
-            - path: /api/job
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-job-service
-                  port:
-                    number: 1240
-            - path: /chat/socket.io
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-chat-service
-                  port:
-                    number: 1239
-            - path: /notification/socket.io
-              pathType: Prefix
-              backend:
-                service:
-                  name: chat-me-notification-service
-                  port:
-                    number: 1236
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-controller
+  namespace: chat-me
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://chat-me-delta.vercel.app"
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: chatme-server.safvancmc.in
+      http:
+        paths:
+          - path: /api/auth
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-auth-service
+                port:
+                  number: 1234
+          - path: /api/admin
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-admin-service
+                port:
+                  number: 1235
+          - path: /api/notification
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-notification-service
+                port:
+                  number: 1236
+          - path: /api/profile
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-profile-service
+                port:
+                  number: 1237        
+          - path: /api/post
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-post-service
+                port:
+                  number: 1238
+          - path: /api/chat
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-chat-service
+                port:
+                  number: 1239
+          - path: /api/job
+            pathType: Prefix
+            backend:
+              service:
+                name: chat-me-job-service
+                port:
+                  number: 1240
+          - path: /chat/socket.io
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: chat-me-chat-service
+                port:
+                  number: 1239
+          - path: /notification/socket.io
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: chat-me-notification-service
+                port:
+                  number: 1236
+  tls:
+    - hosts:
+        - chatme-server.safvancmc.in
+      secretName: chatme-tls
