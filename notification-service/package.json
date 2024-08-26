@@ -7,8 +7,8 @@
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
     "build": "tsc",
     "watch": "tsc --watch",
-    "start": "node dist/index.js",
-    "start:dev": "concurrently --kill-others-on-fail \"npm run watch\" \" npm run dev\""
+    "start": "node -r ./aliases dist/index.js",
+    "start:dev": "concurrently --kill-others-on-fail \"npm run watch\" \"npm run dev\""
   },
   "keywords": [],
   "author": "",
@@ -20,6 +20,7 @@
     "express": "^4.19.2",
     "jsonwebtoken": "^9.0.2",
     "kafkajs": "^2.2.4",
+    "module-alias": "^2.2.3",
     "mongoose": "^8.5.0",
     "nodemailer": "^6.9.13",
     "nodemon": "^3.1.0",

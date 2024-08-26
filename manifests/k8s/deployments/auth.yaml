@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: chat-me-auth-deployment
   labels:
-    name: auth-service
+    app: auth-service
 spec:
   replicas: 1
   selector:
@@ -15,8 +15,17 @@ spec:
         app: auth-service
     spec:
       containers:
-      - image: safvancmc/chat-me-auth-service:latest
-        name: auth-service
+      - name: auth-service
+        image: safvancmc/chat-me-auth-service:latest
+        ports:
+        - containerPort: 1234
         envFrom:
-          - configMapRef:
-              name: auth-service-config
+        - configMapRef:
+            name: auth-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

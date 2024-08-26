@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: chat-me-notification-deployment
   labels:
-    name: notification-service
+    app: notification-service
 spec:
   replicas: 1
   selector:
@@ -15,8 +15,17 @@ spec:
         app: notification-service
     spec:
       containers:
-      - image: safvancmc/chat-me-notification-service:latest
-        name: notification-service
+      - name: notification-service
+        image: safvancmc/chat-me-notification-service:latest
+        ports:
+        - containerPort: 1236
         envFrom:
-          - configMapRef:
-              name: notification-service-config
+        - configMapRef:
+            name: notification-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

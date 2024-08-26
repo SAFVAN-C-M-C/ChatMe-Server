@@ -1,4 +1,4 @@
-import { ObjectId, Schema, model } from "mongoose";
+import { Document, ObjectId, Schema, model } from "mongoose";
 
 interface IChat extends Document {
   _id: ObjectId;

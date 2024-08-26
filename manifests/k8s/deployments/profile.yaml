@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: chat-me-profile-deployment
   labels:
-    name: profile-service
+    app: profile-service
 spec:
   replicas: 1
   selector:
@@ -15,8 +15,17 @@ spec:
         app: profile-service
     spec:
       containers:
-      - image: safvancmc/chat-me-profile-service:latest
-        name: profile-service
+      - name: profile-service
+        image: safvancmc/chat-me-profile-service:latest
+        ports:
+        - containerPort: 1237
         envFrom:
-          - configMapRef:
-              name: profile-service-config
+        - configMapRef:
+            name: profile-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"

@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: chat-me-job-deployment
   labels:
-    name: job-service
+    app: job-service
 spec:
   replicas: 1
   selector:
@@ -15,8 +15,17 @@ spec:
         app: job-service
     spec:
       containers:
-      - image: safvancmc/chat-me-job-service:latest
-        name: job-service
+      - name: job-service
+        image: safvancmc/chat-me-job-service:latest
+        ports:
+        - containerPort: 1240
         envFrom:
-          - configMapRef:
-              name: job-service-config
+        - configMapRef:
+            name: job-service-config
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
