@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 import { dependencies } from "@/_boot/dependencies";
 import { routes } from "@/infrastructure/routes";
 import { errorHandler } from "@/_lib/common/error";
-import { jwtMiddleware } from "@/_lib/common/middleware/jwtMiddleware";
+import morgan from "morgan";
 dotenv.config();
 
 const app: Application = express();
@@ -19,7 +19,7 @@ const PORT: number = Number(process.env.PORT) || 1234;
 app.use(json());
 app.use(urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(morgan("dev"));
 app.use("/api/auth", routes(dependencies));
 
 app.use("*", (req: Request, res: Response) => {
