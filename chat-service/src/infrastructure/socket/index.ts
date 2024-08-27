@@ -5,11 +5,12 @@ import dotenv from "dotenv";
 dotenv.config();
 const connectSocketIo = (server: Server) => {
   const io = new IOServer(server, {
+    path: "/chat/socket.io", // Path for the Socket.IO connection
     cors: {
-      origin: [String(process.env.CLIENT_URL) || "*"],
-      methods: ["GET", "POST"],
-      credentials: true,
-    },
+      origin: ["https://chat-me-delta.vercel.app"], // Allowed origin for CORS
+      methods: ["GET", "POST"], // Allowed methods
+      credentials: true, // Allow credentials
+    }
   });
   const userSocketMap: { [key: string]: string } = {};
   const getReceiverSocketId = (recieverId: string): string | undefined => {

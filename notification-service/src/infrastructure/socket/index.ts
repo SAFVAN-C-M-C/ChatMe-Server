@@ -7,11 +7,12 @@ import dotenv from "dotenv";
 dotenv.config();
 const server = createServer(app);
 const io = new NotificationServer(server, {
+  path: "/notification/socket.io",
   cors: {
-    origin: [String(process.env.CLIENT_URL) || "*"],
+    origin: ["https://chat-me-delta.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
-  },
+  }
 });
 const userSocketMap: { [key: string]: string } = {};
 export const getReceiverSocketId = (recieverId: string): string | undefined => {
