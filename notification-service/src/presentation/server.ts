@@ -4,11 +4,17 @@ import cookieParser from "cookie-parser";
 import { notificationRoutes } from "@/infrastructure/routes";
 import { dependencies } from "@/_boot/dependencies";
 import { app, server } from "@/infrastructure/socket";
+import cors from 'cors';
 dotenv.config();
 
 
 const PORT:number=Number(process.env.PORT)||1236
-
+app.use(
+  cors({
+    origin: ["https://chat-me-delta.vercel.app/"],
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());

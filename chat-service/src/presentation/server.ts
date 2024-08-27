@@ -5,6 +5,7 @@ import { dependencies } from "@/_boot/dependencies";
 import { routes } from "@/infrastructure/routes";
 import { errorHandler } from "@/_lib/common/error";
 import http from "http";
+import cors from 'cors';
 import connectSocketIo from "@/infrastructure/socket";
 dotenv.config()
 
@@ -15,6 +16,12 @@ const PORT:number=Number(process.env.PORT)||1239
 
 
 const server = http.createServer(app);
+app.use(
+  cors({
+    origin: ["https://chat-me-delta.vercel.app/"],
+    credentials: true,
+  })
+);
 connectSocketIo(server)
 //middleware
 app.use(json())

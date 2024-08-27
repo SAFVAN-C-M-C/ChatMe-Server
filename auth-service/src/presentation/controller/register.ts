@@ -78,6 +78,9 @@ export const registerController = (dependencies: IDependencies) => {
 
         res.cookie("access_token", accessToken, {
           httpOnly: true,
+          maxAge: 6000 * 60,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: 'none' // Allow cookies to be sent cross-origin
         });
         return res.status(200).json({
           success: true,

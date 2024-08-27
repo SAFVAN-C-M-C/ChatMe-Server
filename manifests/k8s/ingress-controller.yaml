@@ -16,7 +16,7 @@ spec:
         paths:
           # Chat service socket.io
           - path: /chat/socket.io
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: chat-me-chat-service
@@ -25,7 +25,7 @@ spec:
 
           # Notification service socket.io
           - path: /notification/socket.io
-            pathType: ImplementationSpecific
+            pathType: Prefix
             backend:
               service:
                 name: chat-me-notification-service

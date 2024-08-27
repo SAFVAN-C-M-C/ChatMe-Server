@@ -67,12 +67,14 @@ export const googleAuthController = (dependencies: IDependencies) => {
           httpOnly: true,
           maxAge: 6000 * 60 * 24 * 7,
           secure: process.env.NODE_ENV === "production",
+          sameSite: 'none' // Allow cookies to be sent cross-origin
         });
-
+        
         res.cookie("refresh_token", refreshToken, {
           httpOnly: true,
-          maxAge: 6000 * 60 * 24 * 7,
+          maxAge: 6000 * 60 * 24 * 15,
           secure: process.env.NODE_ENV === "production",
+          sameSite: 'none' // Allow cookies to be sent cross-origin
         });
         delete user.password;
         return res.status(200).json({

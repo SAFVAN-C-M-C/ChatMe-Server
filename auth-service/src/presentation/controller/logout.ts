@@ -7,7 +7,7 @@ export const logoutController = (dependencies: IDependencies) => {
       const cookieOptions: CookieOptions = {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
-        sameSite: "strict",
+        sameSite: "none",
       };
 
       res.clearCookie("access_token", cookieOptions);
