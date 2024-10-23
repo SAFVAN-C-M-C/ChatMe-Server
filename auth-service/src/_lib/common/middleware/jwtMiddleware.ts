@@ -28,7 +28,7 @@ export const jwtMiddleware = async (
 ): Promise<any> => {
   const token =
     req.cookies.access_token || req.headers.authorization?.split(" ")[1] || "";
-  console.log(req.cookies);
+  console.log("cookies",req.cookies);
 
   if (!token) {
     return res.sendStatus(401);

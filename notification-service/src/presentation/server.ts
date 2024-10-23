@@ -11,7 +11,7 @@ dotenv.config();
 const PORT:number=Number(process.env.PORT)||1236
 app.use(
   cors({
-    origin: ["https://chat-me-delta.vercel.app/"],
+    origin: ["https://chat-me-delta.vercel.app/","http://localhost:5173/","https://chatme.safvancmc.in/"],
     credentials: true,
   })
 );
@@ -19,8 +19,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-app.use('/api/notification', notificationRoutes(dependencies));
-
+// app.use('/api/notification', notificationRoutes(dependencies));
+//local
+app.use("/", notificationRoutes(dependencies));
 server.listen(PORT, () => {
     console.log(`connected to notification service at ${PORT}`);
   });

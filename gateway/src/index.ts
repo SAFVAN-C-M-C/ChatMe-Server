@@ -26,7 +26,7 @@ app.use(cors(corsOptions));
 app.use(urlencoded({ extended: true }));
 app.use(json());
 app.use(cookieParser());
-app.use(morgan("tiny"));
+app.use(morgan("dev"));
 app.get("/", (req: Request, res: Response) => {
   res.status(200).json({ message: `Hello welocome to ChatMe gateway` });
 });
@@ -35,6 +35,8 @@ app.get("/", (req: Request, res: Response) => {
 //proxy setup
 routes.forEach((route) => {
   if (typeof route.target === "string") {
+    console.log(route.context, route.target);
+    
     app.use(route.context, proxy(route.target));
   } else {
     console.warn(`Proxy target for ${route.context} is undefined.`);

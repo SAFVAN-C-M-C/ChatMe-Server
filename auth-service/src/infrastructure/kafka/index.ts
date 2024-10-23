@@ -3,7 +3,7 @@ import { Kafka, Producer, Partitioners, Consumer } from "kafkajs";
 import dotenv from "dotenv";
 
 dotenv.config(); // Load environment variables from .env file
-
+//hosted kafka
 const kafka = new Kafka({
   clientId: "auth-service",
   brokers: [process.env.KAFKA_BROKER_URL as string],

@@ -4,13 +4,22 @@ import { setMessageSeen } from "../database/mongoDB/repositories/setMessageSeen"
 import dotenv from "dotenv";
 dotenv.config();
 const connectSocketIo = (server: Server) => {
+//prodction
+  // const io = new IOServer(server, {
+  //   path: "/chat/socket.io", // Path for the Socket.IO connection
+  //   cors: {
+  //     origin: ["https://chat-me-delta.vercel.app","http://localhost:5173"], // Allowed origin for CORS
+  //     methods: ["GET", "POST"], // Allowed methods
+  //     credentials: true, // Allow credentials
+  //   }
+  // });
+  //local
   const io = new IOServer(server, {
-    path: "/chat/socket.io", // Path for the Socket.IO connection
     cors: {
-      origin: ["https://chat-me-delta.vercel.app"], // Allowed origin for CORS
-      methods: ["GET", "POST"], // Allowed methods
-      credentials: true, // Allow credentials
-    }
+      origin: ["http://localhost:5173"],
+      methods: ["GET", "POST"],
+      credentials: true,
+    },
   });
   const userSocketMap: { [key: string]: string } = {};
   const getReceiverSocketId = (recieverId: string): string | undefined => {
