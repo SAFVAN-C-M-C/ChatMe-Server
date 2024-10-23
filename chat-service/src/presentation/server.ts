@@ -18,7 +18,7 @@ const PORT:number=Number(process.env.PORT)||1239
 const server = http.createServer(app);
 app.use(
   cors({
-    origin: ["https://chat-me-delta.vercel.app/"],
+    origin: ["https://chat-me-delta.vercel.app/","http://localhost:5173/","https://chatme.safvancmc.in/"],
     credentials: true,
   })
 );
@@ -32,7 +32,9 @@ app.use(cookieParser())
 
 
 
-app.use("/api/chat",routes(dependencies))
+// app.use("/api/chat",routes(dependencies))
+//local
+app.use("/", routes(dependencies));
 app.use("*",(req: Request, res: Response) => {
     res.status(404).json({ success: false, status: 404, message: "Api Not found" });
   });  
