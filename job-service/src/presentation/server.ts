@@ -15,7 +15,7 @@ const PORT:number=Number(process.env.PORT)||1240
 //middleware
 app.use(
   cors({
-    origin: ["https://chat-me-delta.vercel.app/","http://localhost:5173/","https://chatme.safvancmc.in/"],
+    origin: ["https://chat-me-delta.vercel.app/","https://chat-me-server-chat.onrender.com","http://localhost:5173/","https://chatme.safvancmc.in/"],
     credentials: true,
   })
 );

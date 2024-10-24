@@ -9,13 +9,31 @@ export const getUserSuggestions = async (userId: string) => {
     }
     const limit = 5;
     const randomProfiles = await UserProfile.aggregate([
-      { $match: { userId: { $ne: new Types.ObjectId(userId) } } },
+      { 
+        $match: { 
+          userId: { $ne: new Types.ObjectId(userId) } 
+        } 
+      },
+      // Ensure 'name', 'bio.avatar', and 'userId' are present
+      { 
+        $match: { 
+          name: { $exists: true, $ne: "" },
+          "bio.avatar": { $exists: true, $ne: "" },
+          userId: { $exists: true }
+        } 
+      },
       // Add a random value to each document
-      { $addFields: { randomValue: { $rand: {} } } },
-
-      { $sort: { randomValue: 1 } },
-
-      { $limit: limit },
+      { 
+        $addFields: { randomValue: { $rand: {} } } 
+      },
+    
+      { 
+        $sort: { randomValue: 1 } 
+      },
+    
+      { 
+        $limit: limit 
+      },
 
       {
         $project: {

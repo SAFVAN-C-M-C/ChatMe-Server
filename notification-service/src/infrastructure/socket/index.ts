@@ -17,7 +17,7 @@ const server = createServer(app);
 // });
 const io = new NotificationServer(server, {
   cors: {
-    origin: ["http://localhost:5173"],
+    origin: ["https://chat-me-delta.vercel.app"],
     methods: ["GET", "POST"],
     credentials: true,
   },

@@ -16,7 +16,7 @@ const connectSocketIo = (server: Server) => {
   //local
   const io = new IOServer(server, {
     cors: {
-      origin: ["http://localhost:5173"],
+      origin: ["https://chat-me-delta.vercel.app"],
       methods: ["GET", "POST"],
       credentials: true,
     },
